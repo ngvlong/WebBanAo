@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./fonts/fontawesome-free-6.2.0-web/fontawesome-free-6.2.0-web/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./image">
+    <title>HALO STORE</title>
+</head>
+<body >
+    <div id="customalert"></div>
+
+    <div class="header" > 
+     <div class="headbox scrolled">
+        <div><picture></picture></div>
+        <div class="headleft">
+            <div class="headleft-click"> <button >Áo sơ mi</button></div>
+            <div class="headleft-click"> <button>Áo thun</button></div>
+            <div class="headleft-click"> <button>Áo Khoác</button></div>
+            <div class="headleft-click"> <button>Áo Polo</button></div>
+            <div class="headleft-click"> <button>Chính sách đổi trả</button></div>
+            <div class="headleft-click"> <button>Sale</button></div>
+        </div>
+        <div class="headerright">
+            <div class="headerright-click"><button onclick="showForm()"> Đăng nhập</button></div>
+            <div class="headerright-click"><button> Tìm kiếm <i
+                class="fa-solid fa-magnifying-glass"></i></button></div>
+            <div class="headerright-click"><button> Giỏ hàng</button></div>
+        </div>
+        </div>
+        <picture class="head-img">
+            <img src="./assets/image/2.webp" height="800px" width="1550px" alt="">
+        </picture>
+        
+    </div>
+    <div class="content">
+
+
+            <div class="list-prod">
+               
+            <div class="products"><li><a href="">sản phẩm</a></li></div>
+            <div class="products"><li><a href="">sản phẩm</a></li></div>
+            <div class="products"><li><a href="">sản phẩm</a></li></div>
+            <div class="products"><li><a href="">sản phẩm</a></li></div>
+            <div class="products"><li><a href="">sản phẩm</a></li></div>
+            <div class="products"><li><a href="">sản phẩm</a></li></div>
+            <div class="products"><li><a href="">sản phẩm</a></li></div>
+           </div>
+           <div class="content-foot"></div>
+
+
+    </div>
+    <div id="modal">
+        <div id="login">
+            <form id="loginform">
+                <div class="header-login">
+                    <h1>Đăng nhập</h1>
+                    <button type="button" class="btnclose" onclick="closeForm()">+</button>
+                </div>
+                <div class="datalogin">
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" name="" id="">
+                </div>
+                <div class="datalogin">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" name="" id="">
+                </div>
+                <div class="footlogin">
+                    <button type="button" class="btnlogin" onclick="showRSLogin()">Đăng nhập</button>
+                    <p>Bạn chưa có tài khoản? <a href="#" onclick="showSignupForm()">Đăng kí</a></p>
+                </div>
+            </form>
+        </div>
+        <div id="signup">
+            <form  id="signupform">
+                <div class="header-signup">
+                    <h1>Đăng kí</h1>
+                    <button type="button" class="btnclose" onclick="closeForm()">+</button>
+                </div>
+                <div class="datasignup">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text">
+                </div>
+                <div class="datasignup">
+                    <label for="usernameSignUp">Email</label>
+                    <input type="text">
+                </div>
+                <div class="datasignup">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" name="" id="">
+                </div>
+                <div class="datasignup">
+                    <label for="password">Nhập lại mật khẩu</label>
+                    <input type="password" name="" id="">
+                </div>
+                <div class="footsignup">
+                    <button type="button" class="btnsignup" onclick="showRSSignUp()">Đăng kí</button>
+                    <p>Quay lại đăng nhập?<a href="#" onclick="showLoginForm()">Đăng nhập</a></p>
+                </div>
+            </form>
+        </div>
+       
+    </div>
+    <div class="footer">
+        <div class="footleft">Thông tin shop</div>
+    </div>
+    <script src="./js/main.js"></script>
+    <script src="./js/dataprod.js"></script>
+</body>
+</html>

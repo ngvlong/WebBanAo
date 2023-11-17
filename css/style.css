@@ -1,0 +1,281 @@
+body{
+    
+    background-color: rgb(227, 221, 213);
+    margin: -5px;
+
+}
+#customalert {
+    visibility: hidden;
+	background-color: #808c87;
+    min-width: 500px;
+    color: #fff;
+    font-size: 20pt;
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    position: fixed;
+    z-index: 150;
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+}
+#customalert.show {
+    visibility: visible;
+ 	animation: fadein 0.5s, fadeout 0.1Fsins 1s;
+}
+#header-background{
+    background-color: #fff;
+}
+.headbox{
+    background-color:transparent;
+    height: 50px;
+    width: 101%;
+    z-index: 99;
+    position: fixed;
+    padding: 10px 0;
+    transition: background-color 0.5s, color 0.5s;
+
+
+}
+.scrolled{
+    background-color: rgb(222, 215, 215);
+     color: black;
+     padding: 0;
+     height: 50px;
+}
+.headbox button{
+    text-decoration: none;
+    color: black;
+    font-size: 17px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+
+
+}
+
+
+.headleft{
+    display: flex;
+    float: left;
+    margin-left: 15px;
+
+
+}
+.headleft-click{
+    float: left;
+    padding: 15px 35px 15px 35px;
+    border: 1px solid transparent;
+
+}
+.headleft-click:hover{
+
+    border-bottom: 2px solid rgb(255, 0, 0);
+
+
+}
+
+.headerright{
+    display: flex;
+    float: right;
+    margin: 0;
+    padding: 0;
+
+    
+}
+.headerright-click{
+    float: right;
+    padding: 15px 35px 15px 35px;
+    border: 0px solid transparent;
+}
+.headerright-click:hover{
+
+    border-bottom: 2px solid rgb(255, 0, 0);
+}
+.head-img {
+    align-items: center;
+    margin-top:0px;
+    width: 100%;
+
+
+}
+
+
+.content{
+
+    width: 70%;
+    /* margin: 0 auto; */
+    /* position: static; */
+    top: auto;
+    position: relative;
+    z-index: 10;
+    margin: 0 auto;
+
+    background-color: rgb(255, 255, 255) ;
+
+
+
+
+
+}
+.list-prod{
+    float: left;
+    display: flex;
+    border: 2px solid grey;
+}
+.products{
+    border: 1px solid green;
+    margin: 20px;
+    height: 150px;
+    width: 130px;
+    display: block;
+
+}
+#modal{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.6);
+    position: fixed;
+    top:0;
+    left: 0;
+    display: none;
+    z-index: 20;
+    
+}
+#login {
+    width: 500px;
+	background-color: #fff;
+	margin: 100px auto;
+	animation: topdown 0.7s;
+	position: relative;
+	z-index: 100;
+    border-radius: 30px;
+    /* display: none; */
+}
+.header-login{
+
+    text-align: center;
+    border-bottom: 2px solid black;
+    padding-top: 10px;
+    color: rgb(98, 96, 96);
+   
+}
+.btnclose {
+   right: 7px;
+   position: absolute;
+   top: 2px;
+   border: none;
+   font-size: 30px;
+   background-color: transparent;
+   transform: rotate(45deg);
+
+}
+.btnclose:hover{
+    color: gray;
+}
+.datalogin{
+
+    display: flex;
+    padding: 40px 0;
+
+}
+.datalogin label{
+    width: 39%;
+    margin: 10px 20px 10px 30px;
+    font-size: 20px;
+    height: 30px;
+}
+.datalogin input{
+    height: 33px;
+    width: 58%;
+    margin: 0 30px;
+
+}
+.footlogin{
+    text-align: center;
+    border-top: 1px ridge black;
+    padding: 20px 15px 10px 15px ;
+    
+}
+.btnlogin{
+    
+    width: 150px;
+    height: 40px;
+    border: 2px solid black;
+    background-color: rgb(163, 135, 135);
+    font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.btnlogin:hover{
+
+    background-color: rgb(222, 231, 228);
+
+}
+#signup{
+    width: 600px;
+	background-color: #fff;
+	margin: 70px auto;
+	animation: topdown 0.7s;
+	position: relative;
+	z-index: 100;
+    border-radius: 30px;
+    display: none;
+}
+.header-signup{
+
+    text-align: center;
+    border-bottom: 2px solid black;
+    padding-top: 10px;
+    color: rgb(98, 96, 96);
+   
+}
+.datasignup{
+    display: flex;
+    padding: 23px 0;
+}
+.datasignup label{
+    width: 39%;
+    margin: 5px 0px 5px 40px;
+    font-size: 20px;
+    height: 5px;
+}
+.datasignup input{
+    height: 33px;
+    width: 58%;
+    margin: 0 40px 0 20px;
+
+}
+.footsignup{
+    text-align: center;
+    border-top: 1px ridge black;
+    padding: 10px;
+}
+.btnsignup{
+    margin-top: 10px;
+    width: 150px;
+    height: 40px;
+    border: 2px solid black;
+    background-color: rgb(163, 135, 135);
+    font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.btnsignup:hover{
+
+    background-color: rgb(222, 231, 228);
+
+}
+
+/* @media screen and(max-width:60%){
+
+    
+} */
+
+.footer{
+    clear: both;
+    background-color: black;
+    height: 200px;
+}
+.footleft{
+    color: aliceblue;
+}
