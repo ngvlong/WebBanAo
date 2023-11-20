@@ -1435,8 +1435,8 @@ label a {
 }
 
 
-#btn-acp-date-tk,
-#btn-acp-date-od,
+#btn-acp-date-tk:hover,
+#btn-acp-date-od:hover,
 #btn-acp-date-cus:hover{
     background-color: var(--gray);
     color: white;
@@ -1778,7 +1778,6 @@ label a {
 }
 .order-statistical-item-icon i{
     font-size: 45px;
- 
     color: var(--gray);
     justify-content: center;
 
@@ -1786,6 +1785,7 @@ label a {
 
 .order-statistical-item-content-desc{
     margin-bottom: 6px;
+    margin-top: -10px;
     font-size: 14px;
     color:#888
 }
