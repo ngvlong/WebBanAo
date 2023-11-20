@@ -995,7 +995,7 @@ function createDetailOrder() {
             category:"Áo Khoác",
             title : 'Legacy Line United' ,
             img :'./assets/image/Legacy Line United.webp',
-            time :new Date(),
+
         },
         {
             id : 25,
@@ -1006,7 +1006,7 @@ function createDetailOrder() {
             category:"Áo Polo",
             title : 'Good Vibe' ,
             img :'./assets/image/good vibe - polo.png',
-            time :new Date(),
+
         },
         {
             id : 14,
@@ -1017,7 +1017,7 @@ function createDetailOrder() {
             category:"Áo Polo",
             title : 'TOURO GRIM TEE' ,
             img :'./assets/image/TOURO GRIM TEE.jpg',
-            time :new Date(),
+
         },
         {
             id : 3,
@@ -1028,7 +1028,7 @@ function createDetailOrder() {
             category:"Áo Hoodie",
             title : 'HOODIE SPACE' ,
             img :'./assets/image/HOODIE SPACE.jpg',
-            time :new Date(),
+
         }
         
 
