@@ -48,3 +48,17 @@ function showForm() {
 
     
   }
+
+function showSearch(){
+    let sb = document.getElementsByClassName('sizebar');
+    document.getElementById("container-search").style.display="block";
+    let a= sb.length;
+    for(let i=0; i<a;i++){
+        sb.item(i).style.display="block ";
+    }
+  }
+  
+  function closeSearch(){
+   
+    document.getElementById("container-search").style.display="none";
+  }
