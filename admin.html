@@ -198,11 +198,15 @@
                     <div class="admin-control-center">
                         <form action="" class="form-search">
                             <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
-                            <input id="form-search-user" type="text" class="form-search-input" placeholder="Tìm kiếm khách hàng..." oninput="showUser()">
+                            <input type="text" class="form-search-input "  id="form-search-user" placeholder="Tìm kiếm khách hàng..." oninput="showUser()">
                         </form>
                     </div>
                     <div class="admin-control-right">
-                        <form action="" class="fillter-date">
+                        <button type="button" name="Customer" class="btn-fillter-date" id="btn-fillter-Us"><i class="fa-light fa-calendar-lines-pen"></i>Lọc theo ngày</button>
+                       
+
+
+                        <!-- <form action="" class="fillter-date">
                             <div>
                                 <label for="time-start">Từ</label>
                                 <input type="date" class="form-control-date" id="time-start-user" onchange="showUser()">
@@ -211,11 +215,12 @@
                                 <label for="time-end">Đến</label>
                                 <input type="date" class="form-control-date" id="time-end-user" onchange="showUser()">
                             </div>
-                        </form>      
-                        <button class="btn-reset-order" onclick="cancelSearchUser()"><i class="fa-light fa-arrow-rotate-right"></i></button>     
+                        </form>       -->
+                        <button class="btn-reset-order" onclick="cancelSearchUser()"><i class="fa-light fa-arrow-rotate-right"></i>Làm mới</button>     
                         <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>          
                     </div>
                 </div>
+
                 <div class="table">
                     <table width="100%">
                         <thead>
@@ -223,9 +228,16 @@
                                 <td>STT</td>
                                 <td>Họ và tên</td>
                                 <td>Liên hệ</td>
-                                <td>Ngày tham gia</td>
+                                <td> <div>Ngày tham gia</div>
+                                    <div class="mess-time">
+                                        <button>
+                                           <label for=""><i class="fa-light fa-calendar-clock"></i>:</label>
+                                           <span class="show-Date" id="result-time-start-cus"></span><span><i class="fa-light fa-arrow-right"></i></span><span class="show-Date" id="result-time-end-cus"></span>
+                                        </button>
+                                    </div>
+                                </td>
                                 <td>Tình trạng</td>
-                                <td></td>
+                                <td>Tùy chọn</td>
                             </tr>
                         </thead>
                         <tbody id="show-user">
@@ -236,7 +248,7 @@
             </div>
             <!-- Order  -->
             <div class="section">
-                <div class="admin-control">
+                <div class="admin-control control-Od">
                     <div class="admin-control-left">
                         <select name="tinh-trang" id="tinh-trang" onchange="findOrder()">
                             <option value="2">Tất cả</option>
@@ -251,17 +263,8 @@
                         </form>
                     </div>
                     <div class="admin-control-right">
-                        <form action="" class="fillter-date">
-                            <div>
-                                <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start" onchange="findOrder()">
-                            </div>
-                            <div>
-                                <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end" onchange="findOrder()">
-                            </div>
-                        </form>      
-                        <button class="btn-reset-order" onclick="cancelSearchOrder()"><i class="fa-light fa-arrow-rotate-right"></i></button>               
+                        <button type="button" name="Order" class="btn-fillter-date" id="btn-fillter-Od"><i class="fa-light fa-calendar-lines-pen"></i>Lọc theo ngày</button>     
+                        <button class="btn-reset-order" onclick="cancelSearchOrder()"><i class="fa-light fa-arrow-rotate-right"></i>Làm mới</button>               
                     </div>
                 </div>
                 <div class="table">
@@ -270,7 +273,14 @@
                             <tr>
                                 <td>Mã đơn</td>
                                 <td>Khách hàng</td>
-                                <td>Ngày đặt</td>
+                                <td><div>Ngày đặt</div>
+                                    <div class="mess-time">
+                                        <button>
+                                           <label for=""><i class="fa-light fa-calendar-clock"></i>:</label>
+                                           <span class="show-Date" id="result-time-start-od"></span><span><i class="fa-light fa-arrow-right"></i></span><span class="show-Date" id="result-time-end-od"></span>
+                                        </button>
+                                    </div>
+                                </td>
                                 <td>Tổng tiền</td>
                                 <td>Trạng thái</td>
                                 <td>Xem chi tiết</td>
@@ -302,21 +312,10 @@
                         </form>
                     </div>
                     <div class="admin-control-right">
-                        <form action="" class="fillter-date">
-                            <div>
-                                <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start-tk" onchange="thongKe()">
-                            </div>
-                            <div>
-                                <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end-tk" onchange="thongKe()">
-                            </div>
-                            
-                        </form> 
-                        
+                        <button type="button" class="btn-fillter-date" id="btn-fillter-tk"><i class="fa-light fa-calendar-lines-pen"></i>Lọc theo ngày</button>     
                         <button class="btn-reset-order" onclick="thongKe(1)"><i class="fa-regular fa-arrow-up-short-wide"></i></i></button>
                         <button class="btn-reset-order" onclick="thongKe(2)"><i class="fa-regular fa-arrow-down-wide-short"></i></button>
-                        <button class="btn-reset-order" onclick="thongKe(0)"><i class="fa-light fa-arrow-rotate-right"></i></button>                    
+                        <button class="btn-reset-order" onclick="thongKe(0)"><i class="fa-light fa-arrow-rotate-right"></i>Làm mới</button>                    
                     </div>
                 </div>
                 <div class="order-statistical" id="order-statistical">
@@ -329,9 +328,20 @@
                             <i class="fa-light fa-shirt"></i>
                         </div>
                     </div>
+
                     <div class="order-statistical-item">
                         <div class="order-statistical-item-content">
-                            <p class="order-statistical-item-content-desc">Số lượng bán ra</p>
+                            <p class="order-statistical-item-content-desc">Số lượng sản phẩm bán ra</p>
+                            <h4 class="order-statistical-item-content-h" id="quantity-order-product"></h4>
+                        </div>
+                        <div class="order-statistical-item-icon order-product">
+                            <span id="order-product1"><i class="fa-solid fa-shirt"></i></span>
+                            <span id="order-product2"><i class="fa-light fa-shirt-long-sleeve"></i></span>
+                        </div>
+                    </div>
+                    <div class="order-statistical-item">
+                        <div class="order-statistical-item-content">
+                            <p class="order-statistical-item-content-desc">Số lượng hóa đơn</p>
                             <h4 class="order-statistical-item-content-h" id="quantity-order"></h4>
                         </div>
                         <div class="order-statistical-item-icon">
@@ -369,6 +379,35 @@
                 </div> -->
             </div>
         </main>
+    </div>
+    <div class="modal-fillter-date">
+        <form action="" class="fillter-date" id="fillter-date">
+            <button type="button" id="fillter-date-close" class="fillter-close"><i class="fa-regular fa-xmark"></i></button>
+                <div class="opt-date">
+                    <div>Từ:</div>
+                    <select id="daystart" name="day"></select>
+            
+                    <select id="monthstart" name="month"></select>
+            
+
+                    <select id="yearstart" name="year"></select>
+            
+                    <div>Đến:</div>
+                    
+                    <select id="dayend" name="day"></select>
+            
+                    <select id="monthend" name="month"></select>
+            
+
+                    <select id="yearend" name="year"></select>
+                 </div>
+
+                <div class="acp-date"><button type="button" class="btn-acp-date acp-date-cus" id="btn-acp-date-cus" onclick="ApplyDateCus()" ><i class="fa-regular fa-filter"></i> Áp dụng</button></div>
+                <div class="acp-date"><button type="button" class="btn-acp-date acp-date-od" id="btn-acp-date-od" onclick="ApplyDateOd()" ><i class="fa-regular fa-filter"></i> Áp dụng</button></div>
+                <div class="acp-date"><button type="button" class="btn-acp-date acp-date-tk" id="btn-acp-date-tk" onclick="ApplyDateTk()" ><i class="fa-regular fa-filter"></i> Áp dụng</button></div>
+
+        </form>
+
     </div>
     <div class="modal add-product">
         <div class="modal-container">

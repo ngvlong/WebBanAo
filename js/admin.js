@@ -461,32 +461,30 @@ function showQuantity(button){
 
         if(selectbtn ==="S"){
             szS = document.querySelector("#ip-quantity-product").value;
-            console.log("sửa",szS);
+
         }else if(selectbtn ==="M"){
             szM= document.querySelector("#ip-quantity-product").value;
-            console.log("sửa",szM);
+
         }else if(selectbtn ==="L"){
             szL = document.querySelector("#ip-quantity-product").value;
-            console.log("sửa",szL);
+
         }else if(selectbtn ==="XL"){
             szXL = document.querySelector("#ip-quantity-product").value;
-            console.log("sửa",szXL);
+
         }
 
     if(currentText ==="S"){
         document.getElementById("ip-quantity-product").value=szS;
-        console.log(products[indexCur].sizeS);
+
     }else if(currentText ==="M" ){
         document.getElementById("ip-quantity-product").value = szM;
-        console.log(products[indexCur].sizeM);
 
     }else if(currentText ==="L"){
         document.getElementById("ip-quantity-product").value=szL;
-        console.log(products[indexCur].sizeL);
 
     }else if(currentText ==="XL"){
         document.getElementById("ip-quantity-product").value = szXL;
-        console.log(products[indexCur].sizeXL);
+
     }else{
         document.getElementById("ip-quantity-product").value="";
 
@@ -519,20 +517,19 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     let categoryText = document.getElementById("chon-loai-ao").value;
 
     let selectbtn = document.querySelector(".list-btn-size.active .btn-size").textContent;
-    console.log("sửa",selectbtn);
 
     if(selectbtn ==="S"){
         szS = document.querySelector("#ip-quantity-product").value;
-        console.log("sửa",szS);
+
     }else if(selectbtn ==="M"){
         szM= document.querySelector("#ip-quantity-product").value;
-        console.log("sửa",szM);
+
     }else if(selectbtn ==="L"){
         szL = document.querySelector("#ip-quantity-product").value;
-        console.log("sửa",szL);
+
     }else if(selectbtn ==="XL"){
         szXL = document.querySelector("#ip-quantity-product").value;
-        console.log("sửa",szXL);
+
     }
 
     let sizeSCur = szS;
@@ -770,6 +767,245 @@ function formatDate(date) {
 }
 
 // Show order
+
+let timeStart='';
+let timeEnd = '';
+let dateStart='';
+let dateEnd='';
+var rstimestart ;
+
+let btnfillterDate = document.querySelectorAll(".btn-fillter-date");
+let modalFillterDate = document.querySelector(".modal-fillter-date");
+ for (let i = 0; i < btnfillterDate.length; i++){
+    btnfillterDate[i].onclick =() =>{
+        
+        modalFillterDate.classList.add("open");
+        if(i == 0) {
+            document.getElementById('fillter-date').style.right = '23%';
+            document.getElementById('btn-acp-date-cus').style.display='block';
+        }else if(i == 1) {
+            document.getElementById('fillter-date').style.right = '9.4%';
+            document.getElementById('btn-acp-date-od').style.display='block';
+        }else if(i == 2) {
+            document.getElementById('fillter-date').style.right = '27.8%';
+            document.getElementById('btn-acp-date-tk').style.display='block';
+        }
+  };
+}
+
+
+let closeBTN = document.querySelectorAll(".fillter-close");
+let closeFiltDate = document.querySelectorAll(".modal-fillter-date");
+
+for (let i = 0; i < closeBTN.length; i++) {
+    closeBTN[i].onclick = () => {
+        closeFiltDate[i].classList.remove("open");
+    };
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    var daySelect = document.getElementById("daystart");
+    var monthSelect = document.getElementById("monthstart");
+    var yearSelect = document.getElementById("yearstart");
+
+
+    // Tạo danh sách tháng từ 1 đến 12
+    for (var i = 1; i <= 12; i++) {
+        var option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        monthSelect.add(option);
+    }
+    monthSelect.value = 1;
+
+    // Tạo danh sách năm từ 2015 đến nay
+    var currentYear = new Date().getFullYear();
+    for (var i = currentYear; i >= 2015; i--) {
+        var option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        yearSelect.add(option);
+    }
+    yearSelect.value = '2015';
+
+    var daysInMonth = new Date(2015, 1, 0).getDate();
+    for (var i = 1; i <= daysInMonth; i++) {
+        var option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        daySelect.add(option);
+    }
+    daySelect.value = 1;
+
+    document.getElementById("result-time-start-cus").textContent  = daySelect.value+'/'+monthSelect.value+'/'+yearSelect.value;
+    document.getElementById("result-time-start-od").textContent  = daySelect.value+'/'+monthSelect.value+'/'+yearSelect.value;
+    rstimestart = daySelect.value+'/'+monthSelect.value+'/'+yearSelect.value;
+
+    // Thêm sự kiện onchange cho các select
+
+    monthSelect.addEventListener("change", updateDayOptions);
+    yearSelect.addEventListener("change", updateDayOptions);
+
+    // Hàm cập nhật danh sách ngày
+    function updateDayOptions() {
+        var selectedMonth = monthSelect.value;
+        var selectedYear = yearSelect.value;
+
+        // Xóa danh sách ngày hiện tại
+
+
+        // Tạo danh sách ngày phù hợp với tháng và năm
+        var daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+        for (var i = 1; i <= daysInMonth; i++) {
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            daySelect.add(option);
+        }
+        
+        // Cập nhật kết quả
+        updateResult();
+    }
+
+    // Thêm sự kiện onchange cho ngày
+    daySelect.addEventListener("change", updateResult);
+
+    // Hàm cập nhật kết quả
+    function updateResult() {
+        var daySelect = document.getElementById("daystart");
+        var monthSelect = document.getElementById("monthstart");
+        var yearSelect = document.getElementById("yearstart");
+        var selectedDay = daySelect.value;
+        var selectedMonth = monthSelect.value;
+        var selectedYear = yearSelect.value;
+
+        if (selectedDay && selectedMonth && selectedYear) {
+            var formattedDate = selectedYear + '-' + selectedMonth + '-' + selectedDay;
+            rstimestart = selectedDay +'/'+ selectedMonth +'/'+ selectedYear;
+            timeStart = formattedDate; 
+        } else {
+            rstimestart= "";
+        }
+    }
+});
+var rstimeend;
+document.addEventListener("DOMContentLoaded", function() {
+    var daySelect = document.getElementById("dayend");
+    var monthSelect = document.getElementById("monthend");
+    var yearSelect = document.getElementById("yearend");
+    var curDate = new Date();
+
+    // Tạo danh sách tháng từ 1 đến 12
+    for (var i = 1; i <= 12; i++) {
+        var option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        monthSelect.add(option);
+    }
+    monthSelect.value = curDate.getMonth()+1;
+
+    // Tạo danh sách năm từ 2015 đến nay
+    var currentYear = new Date().getFullYear();
+    for (var i = currentYear; i >= 2015; i--) {
+        var option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        yearSelect.add(option);
+    }
+    yearSelect.value = curDate.getFullYear();
+
+
+    var daysInMonth = new Date(yearSelect.value,monthSelect.value, 0).getDate();
+    for (var i = 1; i <= daysInMonth; i++) {
+        var option = document.createElement("option");
+        option.value = i;
+        option.text = i;
+        daySelect.add(option);
+    }
+    daySelect.value= curDate.getDate();
+
+    document.getElementById("result-time-end-cus").textContent  = daySelect.value+'/'+monthSelect.value+'/'+yearSelect.value;
+    document.getElementById("result-time-end-od").textContent  = daySelect.value+'/'+monthSelect.value+'/'+yearSelect.value;
+    rstimeend = daySelect.value+'/'+monthSelect.value+'/'+yearSelect.value;
+    // Thêm sự kiện onchange cho các select
+    monthSelect.addEventListener("change", updateDayOptions);
+    yearSelect.addEventListener("change", updateDayOptions);
+
+    // Hàm cập nhật danh sách ngày
+    function updateDayOptions() {
+        var selectedMonth = monthSelect.value;
+        var selectedYear = yearSelect.value;
+
+        // Xóa danh sách ngày hiện tại
+
+        // Tạo danh sách ngày phù hợp với tháng và năm
+        var daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+        for (var i = 1; i <= daysInMonth; i++) {
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            daySelect.add(option);
+        }
+
+        // Cập nhật kết quả
+        updateResult();
+    }
+
+    // Thêm sự kiện onchange cho ngày
+    daySelect.addEventListener("change", updateResult);
+
+    // Hàm cập nhật kết quả
+    function updateResult() {
+        var selectedDay = daySelect.value;
+        var selectedMonth = monthSelect.value;
+        var selectedYear = yearSelect.value;
+
+        if (selectedDay && selectedMonth && selectedYear) {
+            var formattedDate = selectedYear + '-' + selectedMonth + '-' + selectedDay;
+            rstimeend =  selectedDay +'/'+ selectedMonth +'/'+ selectedYear;
+            timeEnd = formattedDate;
+            
+        } else {
+            rstimeend= "";
+        }
+    }
+});
+function ApplyDateCus(){
+    let closeBTN = document.querySelectorAll(".fillter-close");
+    let closeFiltDate = document.querySelectorAll(".modal-fillter-date");
+    document.getElementById("result-time-start-cus").textContent  = rstimestart;
+    document.getElementById("result-time-end-cus").textContent  = rstimeend;
+
+    for (let i = 0; i < closeBTN.length; i++) {
+        closeFiltDate[i].classList.remove("open");
+      }
+      showUser();
+}
+function ApplyDateOd(){
+    let closeBTN = document.querySelectorAll(".fillter-close");
+    let closeFiltDate = document.querySelectorAll(".modal-fillter-date");
+    document.getElementById("result-time-start-od").textContent  = rstimestart;
+    document.getElementById("result-time-end-od").textContent  = rstimeend;
+
+    for (let i = 0; i < closeBTN.length; i++) {
+        closeFiltDate[i].classList.remove("open");
+      }
+      findOrder();
+}
+function ApplyDateTk(){
+    let closeBTN = document.querySelectorAll(".fillter-close");
+    let closeFiltDate = document.querySelectorAll(".modal-fillter-date");
+    // document.getElementById("result-time-start-tk").textContent  = rstimestart;
+    // document.getElementById("result-time-end-tk").textContent  = rstimeend;
+
+    for (let i = 0; i < closeBTN.length; i++) {
+        closeFiltDate[i].classList.remove("open");
+      }
+      thongKe();
+}
+
+
 function showOrder(arr) {
     let orderHtml = "";
     if(arr.length == 0) {
@@ -797,14 +1033,13 @@ function showOrder(arr) {
 }
 
 let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
-console.log(orders);
+
 window.onload = showOrder(orders);
 
 // Get Order Details
 function getOrderDetails(madon) {
     let orderDetails = localStorage.getItem("orderDetails") ?
         JSON.parse(localStorage.getItem("orderDetails")) : [];
-        console.log(orderDetails);
     let ctDon = [];
     orderDetails.forEach((item) => {
         if (item.madon == madon) {
@@ -900,11 +1135,13 @@ function detailOrder(id) {
 }
 
 // Find Order
+
+
+
 function findOrder() {
     let tinhTrang = parseInt(document.getElementById("tinh-trang").value);
     let ct = document.getElementById("form-search-order").value;
-    let timeStart = document.getElementById("time-start").value;
-    let timeEnd = document.getElementById("time-end").value;
+
     
     if (timeEnd < timeStart && timeEnd != "" && timeStart != "") {
         alert("Lựa chọn thời gian sai !");
@@ -932,15 +1169,34 @@ function findOrder() {
             );
         });
     }
+
+
     showOrder(result);
 }
 
 function cancelSearchOrder(){
+    var curDate = new Date();
+    var month = curDate.getMonth()+1;
     let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
     document.getElementById("tinh-trang").value = 2;
     document.getElementById("form-search-order").value = "";
-    document.getElementById("time-start").value = "";
-    document.getElementById("time-end").value = "";
+    document.getElementById("result-time-start-od").textContent = "1/1/2015";
+    document.getElementById("result-time-end-od").textContent = curDate.getDate()+"/"+month+"/"+curDate.getFullYear();
+    var monthSelect = document.getElementById("monthstart");
+    var yearSelect = document.getElementById("yearstart");
+    var daySelect = document.getElementById("daystart");
+
+    daySelect.value= 1;
+    monthSelect.value = 1;
+    yearSelect.value = '2015';
+    
+    var monthSelect = document.getElementById("monthend");
+    var yearSelect = document.getElementById("yearend");
+    var daySelect = document.getElementById("dayend");
+    daySelect.value= curDate.getDate();
+    monthSelect.value = curDate.getMonth() + 1;
+    yearSelect.value = curDate.getFullYear();
+
     showOrder(orders);
 }
 
@@ -957,7 +1213,7 @@ function createObj() {
         obj.id = item.id;
         obj.madon = item.madon;
         obj.price = item.price;
-        obj.quantity = item.soluong;
+        obj.quantity = item.quantity;
         obj.category = prod.category;
         obj.title = prod.title;
         obj.img = prod.img;
@@ -971,8 +1227,7 @@ function createObj() {
 function thongKe(mode) {
     let categoryTk = document.getElementById("the-loai-tk").value;
     let ct = document.getElementById("form-search-tk").value;
-    let timeStart = document.getElementById("time-start-tk").value;
-    let timeEnd = document.getElementById("time-end-tk").value;
+    
     if (timeEnd < timeStart && timeEnd != "" && timeStart != "") {
         alert("Lựa chọn thời gian sai !");
         return;
@@ -1000,13 +1255,16 @@ function thongKe(mode) {
             );
         });
     }    
+    console.log(result);
     showThongKe(result,mode);
 }
 
 // Show số lượng sp, số lượng đơn bán, doanh thu
 function showOverview(arr){
+        let orderDetails = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : []; 
     document.getElementById("quantity-product").innerText = arr.length;
-    document.getElementById("quantity-order").innerText = arr.reduce((sum, cur) => (sum + parseInt(cur.quantity)),0);
+    document.getElementById("quantity-order-product").innerText = arr.reduce((sum, cur) => (sum + parseInt(cur.quantity)),0);
+    document.getElementById("quantity-order").innerText = orderDetails.length;
     document.getElementById("quantity-sale").innerText = vnd(arr.reduce((sum, cur) => (sum + parseInt(cur.doanhthu)),0));
 }
 
@@ -1017,12 +1275,27 @@ function showThongKe(arr,mode) {
 
     switch (mode){
         case 0:
+            var curDate = new Date();
             mergeObj = mergeObjThongKe(createObj());
             showOverview(mergeObj);
             document.getElementById("the-loai-tk").value = "Tất cả";
             document.getElementById("form-search-tk").value = "";
-            document.getElementById("time-start-tk").value = "";
-            document.getElementById("time-end-tk").value = "";
+            var monthSelect = document.getElementById("monthstart");
+            var yearSelect = document.getElementById("yearstart");
+            var daySelect = document.getElementById("daystart");
+        
+            daySelect.value= 1;
+            monthSelect.value = 1;
+            yearSelect.value = '2015';
+            
+            var monthSelect = document.getElementById("monthend");
+            var yearSelect = document.getElementById("yearend");
+            var daySelect = document.getElementById("dayend");
+            daySelect.value= curDate.getDate();
+            monthSelect.value = curDate.getMonth() + 1;
+            yearSelect.value = curDate.getFullYear();
+        
+
             break;
         case 1:
             mergeObj.sort((a,b) => parseInt(a.quantity) - parseInt(b.quantity))
@@ -1035,7 +1308,7 @@ function showThongKe(arr,mode) {
         orderHtml += `
         <tr>
         <td>${i + 1}</td>
-        <td><div class="prod-img-title"><img class="prd-img-tbl" src="${mergeObj[i].img}" alt=""><p>${mergeObj[i].title}</p></div></td>
+        <td><div class="prod-img-title"><img class="prd-img-tbl" src="${mergeObj[i].img}" alt=""><p>${mergeObj[i].title.toUpperCase()}</p></div></td>
         <td>${mergeObj[i].quantity}</td>
         <td>${vnd(mergeObj[i].doanhthu)}</td>
         <td><button class="btn-detail product-order-detail" data-id="${mergeObj[i].id}"><i class="fa-regular fa-eye"></i> Chi tiết</button></td>
@@ -1131,6 +1404,10 @@ function signUpFormReset() {
     document.querySelector('.form-message-password').innerHTML = '';
 }
 
+
+
+
+
 function showUserArr(arr) {
     let accountHtml = '';
     if(arr.length == 0) {
@@ -1146,7 +1423,7 @@ function showUserArr(arr) {
             <td>${tinhtrang}</td>
             <td class="control control-table">
             <button class="btn-edit" id="edit-account" onclick='editAccount(${account.id})' ><i class="fa-light fa-pen-to-square"></i></button>
-            <button class="btn-delete" id="delete-account" onclick="deleteAcount(${index})"><i class="fa-regular fa-trash"></i></button>
+            <button class="btn-delete" id="delete-account" onclick="deleteAcount(${account.id})"><i class="fa-regular fa-trash"></i></button>
             </td>
         </tr>`
         })
@@ -1157,8 +1434,7 @@ function showUserArr(arr) {
 function showUser() {
     let tinhTrang = parseInt(document.getElementById("tinh-trang-user").value);
     let ct = document.getElementById("form-search-user").value;
-    let timeStart = document.getElementById("time-start-user").value;
-    let timeEnd = document.getElementById("time-end-user").value;
+
 
     if (timeEnd < timeStart && timeEnd != "" && timeStart != "") {
         alert("Lựa chọn thời gian sai !");
@@ -1167,6 +1443,7 @@ function showUser() {
 
     let accounts = localStorage.getItem("accounts") ? JSON.parse(localStorage.getItem("accounts")).filter(item => item.userType == 0) : [];
     let result = tinhTrang == 2 ? accounts : accounts.filter(item => item.status == tinhTrang);
+    
 
     result = ct == "" ? result : result.filter((item) => {
         return (item.fullname.toLowerCase().includes(ct.toLowerCase()) || item.phone.toString().toLowerCase().includes(ct.toLowerCase()));
@@ -1182,6 +1459,7 @@ function showUser() {
         });
     } else if (timeStart != "" && timeEnd != "") {
         result = result.filter((item) => {
+
             return (new Date(item.join) >= new Date(timeStart).setHours(0, 0, 0) && new Date(item.join) <= new Date(timeEnd).setHours(23, 59, 59)
             );
         });
@@ -1190,21 +1468,39 @@ function showUser() {
 }
 
 function cancelSearchUser() {
+    var curDate = new Date();
+    var month = curDate.getMonth()+1;
     let accounts = localStorage.getItem("accounts") ? JSON.parse(localStorage.getItem("accounts")).filter(item => item.userType == 0) : [];
     showUserArr(accounts);
     document.getElementById("tinh-trang-user").value = 2;
     document.getElementById("form-search-user").value = "";
-    document.getElementById("time-start-user").value = "";
-    document.getElementById("time-end-user").value = "";
+    document.getElementById("result-time-start-cus").textContent = "1/1/2015";
+    document.getElementById("result-time-end-cus").textContent = curDate.getDate()+"/"+month+"/"+curDate.getFullYear();    var daySelect = document.getElementById("daystart");
+    
+    var monthSelect = document.getElementById("monthstart");
+    var yearSelect = document.getElementById("yearstart");
+    var daySelect = document.getElementById("daystart");
+    daySelect.value= 1;
+    monthSelect.value = 1;
+    yearSelect.value = '2015';
+    
+    var monthSelect = document.getElementById("monthend");
+    var yearSelect = document.getElementById("yearend");
+    var daySelect = document.getElementById("dayend");
+    
+    daySelect.value= curDate.getDate();
+    monthSelect.value = curDate.getMonth() + 1;
+    yearSelect.value = curDate.getFullYear();
+
 }
 
 window.onload = showUser();
 
-function deleteAcount(phone) {
+function deleteAcount(id) {
     let accounts = JSON.parse(localStorage.getItem('accounts'));
-    let index = accounts.findIndex(item => item.phone == phone);
+    let index = accounts.findIndex(item => item.id == id);
     if (confirm("Bạn có chắc muốn xóa?")) {
-        accounts.splice(index, 1)
+        accounts[id - 1].status = 0;
     }
     localStorage.setItem("accounts", JSON.stringify(accounts));
     showUser();
@@ -1429,7 +1725,6 @@ addAccount.addEventListener("click", (e) => {
             cart: [],
             userType: 0
         }
-            console.log(user);
             accounts.push(user);
             localStorage.setItem('accounts', JSON.stringify(accounts));
             toast({ title: 'Thành công', message: 'Tạo thành công tài khoản !', type: 'success', duration: 3000 });

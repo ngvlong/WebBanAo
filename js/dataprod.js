@@ -901,7 +901,7 @@ function createAdminAccount() {
             address: 'Doàn văn bơ p16, Q4',
             email: 'ngvlong202@gmail.com',
             status: 1,
-            join: new Date(),
+            join: '2023-9-1',
             cart: [],
             userType: 1
         },
@@ -913,7 +913,19 @@ function createAdminAccount() {
             address: 'Doàn văn bơ p16, Q4',
             email: 'ngvlong2003@gmail.com',
             status: 1,
-            join: new Date(),
+            join: '2023-11-17',
+            cart: [],
+            userType: 0
+        },
+        {
+            id:3,
+            fullname: "Nguyễn Khánh Linh",
+            phone: "0357238978",
+            password: "123456",
+            address: 'Doàn văn bơ p16, Q4',
+            email: 'ngkhlinh@gmail.com',
+            status: 0,
+            join: '2023-11-16',
             cart: [],
             userType: 0
         }
