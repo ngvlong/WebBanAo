@@ -314,7 +314,7 @@ function deleteProduct(id) {
     })
     if (confirm("Bạn có chắc muốn xóa?") == true) {
         products[index].status = 0;
-        toast({ title: 'Success', message: 'Xóa sản phẩm thành công !', type: 'success', duration: 3000 });
+        advertise({ title: 'Success', message: 'Xóa sản phẩm thành công !', type: 'success', duration: 3000 });
     }
     localStorage.setItem("products", JSON.stringify(products));
     showProduct();
@@ -327,7 +327,7 @@ function changeStatusProduct(id) {
     })
     if (confirm("Bạn có chắc chắn muốn hủy xóa?") == true) {
         products[index].status = 1;
-        toast({ title: 'Success', message: 'Khôi phục sản phẩm thành công !', type: 'success', duration: 3000 });
+        advertise({ title: 'Success', message: 'Khôi phục sản phẩm thành công !', type: 'success', duration: 3000 });
     }
     localStorage.setItem("products", JSON.stringify(products));
     showProduct();
@@ -507,6 +507,7 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     let sizeMProduct = products[indexCur].sizeM;
     let sizeLProduct = products[indexCur].sizeL;
     let sizeXLProduct = products[indexCur].sizeXL;
+    console.log(products[indexCur]);
 
 
     let imgProductCur = getPathImage(document.querySelector(".upload-image-preview").src)
@@ -537,7 +538,7 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     let sizeLCur = szL;
     let sizeXLCur = szXL; 
 
-    if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || curProductCur != curProduct || descProductCur != descProduct || categoryText != categoryProduct || sizeSCur != sizeSProduct || sizeMCur != sizeMProduct || sizeLCur != sizeLProduct || sizeXLCur != sizeXLProduct) {
+    if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || curProductCur != curProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur) != parseInt(sizeSProduct) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
         let productadd = {
             id: idProduct,
             title: titleProductCur,
@@ -552,15 +553,19 @@ btnUpdateProductIn.addEventListener("click", (e) => {
             desc: descProductCur,
             status: 1,
         };
+        console.log(productadd);
         products.splice(indexCur, 1);
         products.splice(indexCur, 0, productadd);
         localStorage.setItem("products", JSON.stringify(products));
-        toast({ title: "Success", message: "Sửa sản phẩm thành công!", type: "success", duration: 3000, });
+        advertise({ title: "Successsss", message: "Sửa sản phẩm thành công!", type: "success", duration: 3000, });
         setDefaultValue();
         document.querySelector(".add-product").classList.remove("open");
         showProduct();
     } else {
-        toast({ title: "warning", message: "Sửa sản phẩm không thành công!", type: "warning", duration: 3000, });
+        advertise({ title: "warning", message: "Sửa sản phẩm không thành công!", type: "warning", duration: 3000, });
+        setDefaultValue();
+        document.querySelector(".add-product").classList.remove("open");
+        showProduct();
     }
 });
 
@@ -576,10 +581,10 @@ btnAddProductIn.addEventListener("click", (e) => {
     let moTa = document.getElementById("mo-ta").value;
     let categoryText = document.getElementById("chon-loai-ao").value;
     if(tenAo == "" || price == "" || moTa == "") {
-        toast({ title: "Chú ý", message: "Vui lòng nhập đầy đủ thông tin sản phẩm!", type: "warning", duration: 3000, });
+        advertise({ title: "Chú ý", message: "Vui lòng nhập đầy đủ thông tin sản phẩm!", type: "warning", duration: 3000, });
     } else {
         if(isNaN(price)) {
-            toast({ title: "Chú ý", message: "Giá phải ở dạng số!", type: "warning", duration: 3000, });
+            advertise({ title: "Chú ý", message: "Giá phải ở dạng số!", type: "warning", duration: 3000, });
         } else {
             let products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : [];
             let product = {
@@ -600,7 +605,7 @@ btnAddProductIn.addEventListener("click", (e) => {
             localStorage.setItem("products", JSON.stringify(products));
             showProduct();
             document.querySelector(".add-product").classList.remove("open");
-            toast({ title: "Success", message: "Thêm sản phẩm thành công!", type: "success", duration: 3000});
+            advertise({ title: "Success", message: "Thêm sản phẩm thành công!", type: "success", duration: 3000});
             setDefaultValue();
         }
     }
@@ -609,23 +614,23 @@ btnAddProductIn.addEventListener("click", (e) => {
 
 
 
-function toast({
+function advertise({
     title = 'Success',
     message = 'Tạo tài khoản thành công',
     type = 'success', 
     duration = 3000
 }){
-    const main = document.getElementById('toast');
+    const main = document.getElementById('advertise');
     if(main){
-        const toast = document.createElement('div');
-        //Auto remove toast
+        const advertise = document.createElement('div');
+        //Auto remove advertise
         const autoRemove = setTimeout(function(){
-            main.removeChild(toast);
+            main.removeChild(advertise);
         },duration+1000);
-        //Remove toast when click btn close
-        toast.onclick = function(e){
+        //Remove advertise when click btn close
+        advertise.onclick = function(e){
             if(e.target.closest('.fa-regular')){
-                main.removeChild(toast);
+                main.removeChild(advertise);
                 clearTimeout(autoRemove);
             }
         }
@@ -644,25 +649,25 @@ function toast({
         const color = colors[type];
         const icon = icons[type];
         const delay = (duration / 1000).toFixed(2);
-        toast.classList.add('toast', `toast--${type}`);
-        toast.style.animation = `slideInLeft ease 0.3s, fadeOut linear 1s ${delay}s forwards`;
-        toast.innerHTML = `<div class="toast__private" >
-        <div class="toast__icon">
+        advertise.classList.add('advertise', `advertise--${type}`);
+        advertise.style.animation = `slideInLeft ease 0.3s, fadeOut linear 1s ${delay}s forwards`;
+        advertise.innerHTML = `<div class="advertise__private" >
+        <div class="advertise__icon">
             <i class="${icon}"></i>
         </div>
-        <div class="toast__body">
-            <h3 class="toast__title" >${title}</h3>
-            <p class="toast__msg">
+        <div class="advertise__body">
+            <h3 class="advertise__title" >${title}</h3>
+            <p class="advertise__msg">
                 ${message}
             </p>
         </div>
 
     </div>
     
-    <div class="toast__background"style="background-color: ${color};">
+    <div class="advertise__background"style="background-color: ${color};">
     </div>`
-    // document.querySelector('.toast__background').classList.add("initial");
-    main.appendChild(toast);
+    // document.querySelector('.advertise__background').classList.add("initial");
+    main.appendChild(advertise);
     }
 }
 
@@ -783,12 +788,18 @@ let modalFillterDate = document.querySelector(".modal-fillter-date");
         if(i == 0) {
             document.getElementById('fillter-date').style.right = '23%';
             document.getElementById('btn-acp-date-cus').style.display='block';
+            document.getElementById('btn-acp-date-od').style.display='none';
+            document.getElementById('btn-acp-date-tk').style.display='none';
         }else if(i == 1) {
             document.getElementById('fillter-date').style.right = '9.4%';
             document.getElementById('btn-acp-date-od').style.display='block';
+            document.getElementById('btn-acp-date-cus').style.display='none';
+            document.getElementById('btn-acp-date-tk').style.display='none';
         }else if(i == 2) {
             document.getElementById('fillter-date').style.right = '27.8%';
             document.getElementById('btn-acp-date-tk').style.display='block';
+            document.getElementById('btn-acp-date-od').style.display='none';
+            document.getElementById('btn-acp-date-cus').style.display='none';
         }
   };
 }
@@ -1308,7 +1319,8 @@ function showThongKe(arr,mode) {
         orderHtml += `
         <tr>
         <td>${i + 1}</td>
-        <td><div class="prod-img-title"><img class="prd-img-tbl" src="${mergeObj[i].img}" alt=""><p>${mergeObj[i].title.toUpperCase()}</p></div></td>
+        <td><div class="prod-img-title"><img class="prd-img-tbl" src="${mergeObj[i].img}" alt=""><p id="title-prod-tk">${mergeObj[i].title.toUpperCase()}</p></div></td>
+        <td>${mergeObj[i].category}</td>
         <td>${mergeObj[i].quantity}</td>
         <td>${vnd(mergeObj[i].doanhthu)}</td>
         <td><button class="btn-detail product-order-detail" data-id="${mergeObj[i].id}"><i class="fa-regular fa-eye"></i> Chi tiết</button></td>
@@ -1350,6 +1362,7 @@ function detailOrderProduct(arr,id) {
         if(item.id == id) {
             orderHtml += `<tr>
             <td>${item.madon}</td>
+            <td>${item.title.toUpperCase()}</td>
             <td>${item.quantity}</td>
             <td>${vnd(item.price)}</td>
             <td>${formatDate(item.time)}</td>
@@ -1507,6 +1520,7 @@ function deleteAcount(id) {
 }
 
 let indexFlag;
+let sttUs;
 function editAccount(id) {
     document.querySelector(".signup").classList.add("open");
     document.querySelectorAll(".add-account-e").forEach(item => {
@@ -1524,7 +1538,32 @@ function editAccount(id) {
     document.getElementById("email").value = accounts[index].email;
     document.getElementById("phone").value = accounts[index].phone;
     document.getElementById("password").value = accounts[index].password;
-    document.getElementById("user-status").checked = accounts[index].status == 1 ? true : false;
+    var statusUs = accounts[index].status;
+    if(statusUs == 1){
+        document.getElementById("status-acv").classList.add("open");
+        document.getElementById("status-nonacv").classList.remove("open");
+        sttUs = 1;
+    }
+    else{
+        document.getElementById("status-nonacv").classList.add("open");
+        document.getElementById("status-acv").classList.remove("open");
+        sttUs = 0;
+    }
+    var checkAcv = document.getElementById("status-acv");
+    var checkNonAcv = document.getElementById("status-nonacv");
+    
+    checkAcv.onclick = function () {
+            checkNonAcv.classList.remove("open");
+            checkAcv.classList.add("open");
+            sttUs = 1;
+        };
+    checkNonAcv.onclick = function () {
+            checkAcv.classList.remove("open");
+            checkNonAcv.classList.add("open");
+            sttUs = 0;
+        };
+    
+
 }
 function isValidEmail(email) {
     // Sử dụng biểu thức chính quy để kiểm tra định dạng email
@@ -1543,6 +1582,12 @@ function isValidPhoneNumber(phoneNumber) {
 updateAccount.addEventListener("click", (e) => {
     e.preventDefault();
     let accounts = JSON.parse(localStorage.getItem("accounts"));
+    let fullname = accounts[indexFlag].fullname;
+    let email = accounts[indexFlag].email;
+    let phone = accounts[indexFlag].phone;
+    let password = accounts[indexFlag].password;
+    let status = accounts[indexFlag].status;
+
     let fullNameUser = document.getElementById('fullname').value;
     let emailUser = document.getElementById('email').value;
     let phoneUser = document.getElementById('phone').value;
@@ -1613,16 +1658,24 @@ updateAccount.addEventListener("click", (e) => {
 
 
     if(nameCheck && emailCheck && phoneCheck && passwrCheck){
+        if(fullNameUser != fullname || emailUser != email || phoneUser != phone || passwordUser != password || parseInt(sttUs) != parseInt(status) ){
         accounts[indexFlag].fullname = document.getElementById("fullname").value;
         accounts[indexFlag].email = document.getElementById("email").value;
         accounts[indexFlag].phone = document.getElementById("phone").value;
         accounts[indexFlag].password = document.getElementById("password").value;
-        accounts[indexFlag].status = document.getElementById("user-status").checked ? true : false;
+        accounts[indexFlag].status = sttUs;
         localStorage.setItem("accounts", JSON.stringify(accounts));
-        toast({ title: 'Thành công', message: 'Thay đổi thông tin thành công !', type: 'success', duration: 3000 });
+        advertise({ title: 'Thành công', message: 'Thay đổi thông tin thành công !', type: 'success', duration: 3000 });
         document.querySelector(".signup").classList.remove("open");
         signUpFormReset();
         showUser();
+       }
+       else{
+        advertise({ title: 'Warning', message: 'Thay đổi thông tin không thành công !', type: 'warning', duration: 3000 });
+        document.querySelector(".signup").classList.remove("open");
+        signUpFormReset();
+        showUser();
+       }
     }
 })
 
@@ -1727,7 +1780,7 @@ addAccount.addEventListener("click", (e) => {
         }
             accounts.push(user);
             localStorage.setItem('accounts', JSON.stringify(accounts));
-            toast({ title: 'Thành công', message: 'Tạo thành công tài khoản !', type: 'success', duration: 3000 });
+            advertise({ title: 'Thành công', message: 'Tạo thành công tài khoản !', type: 'success', duration: 3000 });
             document.querySelector(".signup").classList.remove("open");
             showUser();
             signUpFormReset();

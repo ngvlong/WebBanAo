@@ -368,6 +368,7 @@
                             <tr>
                                 <td>STT</td>
                                 <td>Tên áo</td>
+                                <td>Phân loại</td>
                                 <td>Số lượng bán</td>
                                 <td>Doanh thu</td>
                                 <td></td>
@@ -521,13 +522,16 @@
         </div>
     </div>
     <div class="modal detail-order-product">
+
         <div class="modal-container">
+            <h2>THỐNG KÊ CHI TIẾT</h2>
             <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
             <div class="table">
                 <table width="100%">
                     <thead>
                         <tr>
                             <td>Mã đơn</td>
+                            <td>Tên áo</td>
                             <td>Số lượng</td>
                             <td>Đơn giá</td>
                             <td>Ngày đặt</td>
@@ -572,10 +576,18 @@
                         </div>
                         <span class="form-message-password form-message"></span>
                     </div>   
-                    <div class="form-group edit-account-e">
-                        <label for="" class="form-label">Trạng thái</label>
-                        <input type="checkbox" id="user-status" class="switch-input">
-                        <label for="user-status" class="switch"></label>
+                    <div class="form-group edit-account-e" id="edit-account-e">
+                        <div style="display: flex;"><label for="" class="form-label">Trạng thái</label>
+                        <div class="form-status" id="status-acv">
+                            <span><i class="fa-solid fa-circle"></i></span>
+                            <label for="">Hoạt động</label>
+                        </div>
+                        <div class="form-status" id="status-nonacv">
+                            <span><i class="fa-solid fa-circle"></i></span>
+                            <label for="">Tắt hoạt động</label>
+                        </div>
+                        </div>
+
                     </div>
                     <button class="form-submit add-account-e" id="signup-button">Đăng ký</button>
                     <button class="form-submit edit-account-e" id="btn-update-account"><i class="fa-regular fa-floppy-disk"></i> Lưu thông tin</button>
@@ -584,7 +596,7 @@
         </div>
     </div>
     </div>
-    <div id="toast"></div>
+    <div id="advertise"></div>
     <script src="./js/admin.js"></script>
 
 
