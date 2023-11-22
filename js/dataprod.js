@@ -28,6 +28,7 @@ function createProduct() {
             sizeL: 35,
             sizeXL:40,
             price: 360000,
+            newprice:'',
             desc: 'Form basic mới\n Áo bo cổ \nThiết kế 2 line dọc theo vai áo\n Hoạ tiết chữ mặt trước sử dụng kỹ thuật thêu nổi\n Nameplate inox đính ở mặt sau áo\n Chất liệu: Cotton 2 chiều'
         },
         {
@@ -42,6 +43,7 @@ function createProduct() {
             sizeL: 25,
             sizeXL:40,
             price: 320000,
+            newprice:299999,
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -56,6 +58,7 @@ function createProduct() {
             sizeL: 55,
             sizeXL:20,
             price: 320000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -70,6 +73,7 @@ function createProduct() {
             sizeL: 80,
             sizeXL:40,
             price: 350000,
+            newprice:320000,
             desc: 'Form boxy\nGraphic in kéo full bản ở mặt trước và mặt sau áo\nLogo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
        
@@ -85,6 +89,7 @@ function createProduct() {
             sizeL: 99,
             sizeXL:40,
             price: 280000,
+            newprice:'',
             desc: 'Form boxy\nGraphic in kéo full bản ở mặt trước và mặt sau áo\nLogo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -99,6 +104,7 @@ function createProduct() {
             sizeL: 91,
             sizeXL:40,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -113,6 +119,7 @@ function createProduct() {
             sizeL: 39,
             sizeXL:41,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
 
@@ -128,7 +135,8 @@ function createProduct() {
             sizeM: 31,
             sizeL: 30,
             sizeXL:40,
-            price: 140000,
+            price: 200000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
 
@@ -144,6 +152,7 @@ function createProduct() {
             sizeL: 31,
             sizeXL:40,
             price: 340000,
+            newprice:310000,
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -158,6 +167,7 @@ function createProduct() {
             sizeL: 36,
             sizeXL:40,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -172,6 +182,7 @@ function createProduct() {
             sizeL: 48,
             sizeXL:40,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -186,6 +197,7 @@ function createProduct() {
             sizeL: 80,
             sizeXL:40,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -200,6 +212,7 @@ function createProduct() {
             sizeL: 30,
             sizeXL:40,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -210,10 +223,11 @@ function createProduct() {
             imghv: './assets/image/TOURO GRIM TEE-Hover.webp',
             category: 'Áo Thun',
             sizeS: 30,
-            sizeM: 30,
-            sizeL: 30,
+            sizeM: 31,
+            sizeL: 38,
             sizeXL:40,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -228,6 +242,7 @@ function createProduct() {
             sizeL: 39,
             sizeXL:40,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -242,6 +257,7 @@ function createProduct() {
             sizeL: 30,
             sizeXL:40,
             price: 250000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -256,6 +272,7 @@ function createProduct() {
             sizeL: 30,
             sizeXL:40,
             price: 450000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -266,10 +283,11 @@ function createProduct() {
             imghv: './assets/image/madness - tee- hover.webp',
             category: 'Áo Thun',
             sizeS: 30,
-            sizeM: 30,
-            sizeL: 30,
+            sizeM: 31,
+            sizeL: 38,
             sizeXL:40,
             price: 350000,
+            newprice:330000,
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -284,6 +302,7 @@ function createProduct() {
             sizeL: 32,
             sizeXL:40,
             price: 350000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -298,6 +317,7 @@ function createProduct() {
             sizeL: 30,
             sizeXL:40,
             price: 350000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -312,6 +332,7 @@ function createProduct() {
             sizeL: 20,
             sizeXL: 50,
             price: 360000,
+            newprice:'',
             desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
         },
         {
@@ -326,6 +347,7 @@ function createProduct() {
         sizeL: 35,
         sizeXL:40,
         price: 360000,
+        newprice:'',
         desc: 'Form basic mới\n Áo bo cổ \nThiết kế 2 line dọc theo vai áo\n Hoạ tiết chữ mặt trước sử dụng kỹ thuật thêu nổi\n Nameplate inox đính ở mặt sau áo\n Chất liệu: Cotton 2 chiều'
     },
     {
@@ -340,6 +362,7 @@ function createProduct() {
         sizeL: 25,
         sizeXL:40,
         price: 420000,
+        newprice:399000,
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -354,6 +377,7 @@ function createProduct() {
         sizeL: 31,
         sizeXL:20,
         price: 380000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -368,6 +392,7 @@ function createProduct() {
         sizeL: 60,
         sizeXL:40,
         price: 699000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -382,6 +407,7 @@ function createProduct() {
         sizeL: 32,
         sizeXL:40,
         price: 480000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
 
@@ -397,6 +423,7 @@ function createProduct() {
         sizeL: 37,
         sizeXL:40,
         price: 340000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
 
@@ -412,6 +439,7 @@ function createProduct() {
         sizeL: 30,
         sizeXL:40,
         price: 340000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
 
@@ -426,7 +454,8 @@ function createProduct() {
         sizeM: 30,
         sizeL: 51,
         sizeXL:40,
-        price: 140000,
+        price: 240000,
+        newprice:220000,
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
 
@@ -441,7 +470,8 @@ function createProduct() {
         sizeM: 29,
         sizeL: 30,
         sizeXL:40,
-        price: 34000,
+        price: 340000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -456,6 +486,7 @@ function createProduct() {
         sizeL: 68,
         sizeXL:40,
         price: 250000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -470,6 +501,7 @@ function createProduct() {
         sizeL: 30,
         sizeXL:40,
         price: 450000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -484,6 +516,7 @@ function createProduct() {
         sizeL: 34,
         sizeXL:40,
         price: 450000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -498,6 +531,7 @@ function createProduct() {
         sizeL: 55,
         sizeXL:40,
         price: 650000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -512,6 +546,7 @@ function createProduct() {
         sizeL: 69,
         sizeXL:40,
         price: 500000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -526,6 +561,7 @@ function createProduct() {
         sizeL: 10,
         sizeXL:40,
         price: 540000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
 
@@ -538,10 +574,11 @@ function createProduct() {
         imghv: './assets/image/Slim Jean Shirt-Hover.jpg',
         category: 'Áo Sơ mi',
         sizeS: 30,
-        sizeM: 30,
-        sizeL: 30,
+        sizeM: 31,
+        sizeL: 38,
         sizeXL:40,
         price: 250000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -556,6 +593,7 @@ function createProduct() {
         sizeL: 30,
         sizeXL:40,
         price: 350000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -570,6 +608,7 @@ function createProduct() {
         sizeL: 30,
         sizeXL:40,
         price: 350000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -583,6 +622,7 @@ function createProduct() {
         sizeL: 60,
         sizeXL:40,
         price: 699000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
 
@@ -598,6 +638,7 @@ function createProduct() {
         sizeL: 35,
         sizeXL:40,
         price: 350000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -612,6 +653,7 @@ function createProduct() {
         sizeL: 68,
         sizeXL:40,
         price: 450000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -626,6 +668,7 @@ function createProduct() {
         sizeL: 34,
         sizeXL:40,
         price: 450000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -654,6 +697,7 @@ function createProduct() {
         sizeL: 33,
         sizeXL:40,
         price: 500000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -668,6 +712,7 @@ function createProduct() {
         sizeL: 10,
         sizeXL:40,
         price: 540000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
 
@@ -683,6 +728,7 @@ function createProduct() {
         sizeL: 22,
         sizeXL:40,
         price: 250000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -697,6 +743,7 @@ function createProduct() {
         sizeL: 51,
         sizeXL:40,
         price: 350000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -711,6 +758,7 @@ function createProduct() {
         sizeL: 30,
         sizeXL:40,
         price: 250000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -725,6 +773,7 @@ function createProduct() {
         sizeL: 51,
         sizeXL:40,
         price: 350000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -739,6 +788,7 @@ function createProduct() {
         sizeL: 37,
         sizeXL:40,
         price: 250000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -753,6 +803,7 @@ function createProduct() {
         sizeL: 51,
         sizeXL:40,
         price: 350000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -767,6 +818,7 @@ function createProduct() {
         sizeL: 50,
         sizeXL:40,
         price: 350000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -781,6 +833,7 @@ function createProduct() {
         sizeL: 33,
         sizeXL:40,
         price: 450000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -795,6 +848,7 @@ function createProduct() {
         sizeL: 34,
         sizeXL:40,
         price: 450000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -809,6 +863,7 @@ function createProduct() {
         sizeL: 55,
         sizeXL:40,
         price: 250000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -823,6 +878,7 @@ function createProduct() {
         sizeL: 60,
         sizeXL:40,
         price: 500000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -837,6 +893,7 @@ function createProduct() {
         sizeL: 34,
         sizeXL:40,
         price: 450000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -851,6 +908,7 @@ function createProduct() {
         sizeL: 54,
         sizeXL:40,
         price: 450000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -865,6 +923,7 @@ function createProduct() {
         sizeL: 30,
         sizeXL:40,
         price: 500000,
+        newprice:399999,
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -879,6 +938,7 @@ function createProduct() {
         sizeL: 30,
         sizeXL:40,
         price: 500000,
+        newprice:'',
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
         

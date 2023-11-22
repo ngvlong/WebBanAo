@@ -164,7 +164,8 @@ function showProductArr(arr) {
                     </div>
                 <div class="list-right">
                     <div class="list-price">
-                    <span class="list-current-price">${vnd(product.price)}</span>                   
+                    <span class="list-old-price"> ${vnd(product.price)}</span>               
+                    <span class="list-current-price">${vnd(product.newprice)}</span>     
                     </div>
                     <div class="list-control">
                     <div class="list-tool">
@@ -182,12 +183,25 @@ function showProductArr(arr) {
                 </div>
                 </div> 
             </div>`;
-
-
+           
         });
     }
+    
     document.getElementById("show-product").innerHTML = productHtml;
+
+    const currentPrice = document.querySelectorAll(".list-current-price");
+    const oldPrice = document.querySelectorAll(".list-old-price");
+    console.log(currentPrice);
+    for (let i = 0; i < oldPrice.length; i++) {
+    if(currentPrice[i].textContent != ""){
+    oldPrice[i].classList.add("active");
+    console.log(currentPrice[i].textContent);
+      }
+    }
+
 }
+
+
 
 let minPriceTemp = 0;
 let maxPriceTemp = 1000000;
@@ -352,9 +366,9 @@ function editProduct(id) {
     //
     document.querySelector(".upload-image-preview").src = products[index].img;
     document.querySelector(".image-hover").src = products[index].imghv;
-    console.log(products[index].imghv);
     document.getElementById("ten-ao").value = products[index].title.toUpperCase();
-    document.getElementById("gia-moi").value = products[index].price;
+    document.getElementById("gia-cu").value = products[index].price;
+    document.getElementById("gia-moi").value = products[index].newprice;
     document.getElementById("mo-ta").value = products[index].desc;
     document.getElementById("chon-loai-ao").value = products[index].category;
     document.getElementById("ip-quantity-product").value = products[index].sizeS;
@@ -496,12 +510,14 @@ function showQuantity(button){
 let btnUpdateProductIn = document.getElementById("update-product-button");
 btnUpdateProductIn.addEventListener("click", (e) => {
     e.preventDefault();
+    const outprice =  document.querySelectorAll(".list-old-price");
     let products = JSON.parse(localStorage.getItem("products"));
     let idProduct = products[indexCur].id;
     let imgProduct = products[indexCur].img;
     let imgProductHvr = products[indexCur].imghv;
     let titleProduct = products[indexCur].title;
-    let curProduct = products[indexCur].price;
+    let priceProduct = products[indexCur].price;
+    let newpriceProduct = products[indexCur].newprice;
     let descProduct = products[indexCur].desc;
     let categoryProduct = products[indexCur].category;
     let sizeSProduct = products[indexCur].sizeS;
@@ -514,7 +530,11 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     let imgProductCur = decodeURIComponent(getPathImage(document.querySelector(".upload-image-preview").src))
     let imgProductHvrCur = decodeURIComponent(getPathImage(document.querySelector(".image-hover").src))
     let titleProductCur = document.getElementById("ten-ao").value;
-    let curProductCur = document.getElementById("gia-moi").value;
+    let priceProductCur = document.getElementById("gia-cu").value;
+    let newpriceProductCur = document.getElementById("gia-moi").value;
+    if(newpriceProductCur == ""){
+        outprice[indexCur-1].classList.remove("active");
+    }
     let descProductCur = document.getElementById("mo-ta").value;
     let categoryText = document.getElementById("chon-loai-ao").value;
 
@@ -538,37 +558,56 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     let sizeMCur = szM;
     let sizeLCur = szL;
     let sizeXLCur = szXL; 
-
-    if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || curProductCur != curProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
-
-        let productadd = {
-            id: idProduct,
-            title: titleProductCur,
-            img: imgProductCur,
-            imghv: imgProductHvrCur,
-            sizeS: sizeSCur,
-            sizeM: sizeMCur,
-            sizeL: sizeLCur,
-            sizeXL: sizeXLCur,
-            category: categoryText,
-            price: parseInt(curProductCur),
-            desc: descProductCur,
-            status: 1,
-        };
-        console.log(productadd);
-        products.splice(indexCur, 1);
-        products.splice(indexCur, 0, productadd);
-        localStorage.setItem("products", JSON.stringify(products));
-        advertise({ title: "Successsss", message: "Sửa sản phẩm thành công!", type: "success", duration: 3000, });
-        setDefaultValue();
-        document.querySelector(".add-product").classList.remove("open");
-        showProduct();
-    } else {
-        advertise({ title: "warning", message: "Sửa sản phẩm không thành công!", type: "warning", duration: 3000, });
-        setDefaultValue();
-        document.querySelector(".add-product").classList.remove("open");
-        showProduct();
+    if(titleProductCur ==""|| priceProductCur =="" || descProductCur =="")
+    {
+        advertise({ title: "Chú ý", message: "Vui lòng nhập đầy đủ thông tin sản phẩm!", type: "warning", duration: 3000, });
+    }else if(isNaN(priceProductCur)) {
+        advertise({ title: "Chú ý", message: "Giá phải ở dạng số!", type: "warning", duration: 3000, });
+    }else if(isNaN(newpriceProductCur) && newpriceProductCur != "") {
+        advertise({ title: "Chú ý", message: "Giá khuyến mãi phải ở dạng số!", type: "warning", duration: 3000, });
     }
+    else{
+        if(newpriceProductCur != "") {
+            if(parseInt(newpriceProductCur) >= parseInt(priceProductCur) ){
+                 advertise({ title: "Chú ý", message: "Giá khuyến mãi không hợp lệ!", type: "warning", duration: 3000, });
+                }
+            else{
+                if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || priceProductCur != priceProduct || newpriceProductCur != newpriceProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
+
+                    let productadd = {
+                        id: idProduct,
+                        title: titleProductCur,
+                        img: imgProductCur,
+                        imghv: imgProductHvrCur,
+                        sizeS: sizeSCur,
+                        sizeM: sizeMCur,
+                        sizeL: sizeLCur,
+                        sizeXL: sizeXLCur,
+                        category: categoryText,
+                        price: parseInt(priceProductCur),
+                        newprice: newpriceProductCur,
+                        desc: descProductCur,
+                        status: 1,
+                    };
+                    console.log(productadd);
+                    products.splice(indexCur, 1);
+                    products.splice(indexCur, 0, productadd);
+                    localStorage.setItem("products", JSON.stringify(products));
+                    advertise({ title: "Successsss", message: "Sửa sản phẩm thành công!", type: "success", duration: 3000, });
+                    setDefaultValue();
+                    document.querySelector(".add-product").classList.remove("open");
+                    showProduct();
+                } else {
+                    advertise({ title: "warning", message: "Sửa sản phẩm không thành công!", type: "warning", duration: 3000, });
+                    setDefaultValue();
+                    document.querySelector(".add-product").classList.remove("open");
+                    showProduct();
+                }
+            }
+        }
+       
+    }
+    
 });
 
 let btnAddProductIn = document.getElementById("add-product-button");
@@ -579,7 +618,8 @@ btnAddProductIn.addEventListener("click", (e) => {
 
 
     let tenAo = document.getElementById("ten-ao").value;
-    let price = document.getElementById("gia-moi").value;
+    let price = document.getElementById("gia-cu").value;
+    let newprice = document.getElementById("gia-moi").value;
     let moTa = document.getElementById("mo-ta").value;
     let categoryText = document.getElementById("chon-loai-ao").value;
     if(tenAo == "" || price == "" || moTa == "") {
@@ -596,6 +636,7 @@ btnAddProductIn.addEventListener("click", (e) => {
                 imghv: imgHvrProduct,
                 category: categoryText,
                 price: price,
+                newprice: newprice,
                 sizeS: szS,
                 sizeM: szM,
                 sizeL: szL,
@@ -683,6 +724,7 @@ function setDefaultValue() {
     document.querySelector(".upload-image-preview").src = "./assets/upload 2.png";
     document.querySelector(".image-hover").src = "./assets/upload 2.png";
     document.getElementById("ten-ao").value = "";
+    document.getElementById("gia-cu").value = "";
     document.getElementById("gia-moi").value = "";
     document.getElementById("mo-ta").value = "";
     document.getElementById("chon-loai-ao").value = "Áo Thun";
