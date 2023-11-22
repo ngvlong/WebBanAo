@@ -568,11 +568,9 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     }
     else{
         if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || priceProductCur != priceProduct || newpriceProductCur != newpriceProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
-            if(newpriceProductCur != "") {
-                if(parseInt(newpriceProductCur) >= parseInt(priceProductCur) ){
-                     advertise({ title: "Chú ý", message: "Giá khuyến mãi không hợp lệ!", type: "warning", duration: 3000, });
+            if(newpriceProductCur != "" && parseInt(newpriceProductCur) >= parseInt(priceProductCur) ){
+                advertise({ title: "Chú ý", message: "Giá khuyến mãi không hợp lệ!", type: "warning", duration: 3000, });
                     }
-            }
             else{    
                 let productadd = {
                     id: idProduct,
