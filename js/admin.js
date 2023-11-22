@@ -191,11 +191,11 @@ function showProductArr(arr) {
 
     const currentPrice = document.querySelectorAll(".list-current-price");
     const oldPrice = document.querySelectorAll(".list-old-price");
-    console.log(currentPrice);
+
     for (let i = 0; i < oldPrice.length; i++) {
     if(currentPrice[i].textContent != ""){
     oldPrice[i].classList.add("active");
-    console.log(currentPrice[i].textContent);
+
       }
     }
 
@@ -567,47 +567,44 @@ btnUpdateProductIn.addEventListener("click", (e) => {
         advertise({ title: "Chú ý", message: "Giá khuyến mãi phải ở dạng số!", type: "warning", duration: 3000, });
     }
     else{
-        if(newpriceProductCur != "") {
-            if(parseInt(newpriceProductCur) >= parseInt(priceProductCur) ){
-                 advertise({ title: "Chú ý", message: "Giá khuyến mãi không hợp lệ!", type: "warning", duration: 3000, });
-                }
-            else{
-                if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || priceProductCur != priceProduct || newpriceProductCur != newpriceProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
-
-                    let productadd = {
-                        id: idProduct,
-                        title: titleProductCur,
-                        img: imgProductCur,
-                        imghv: imgProductHvrCur,
-                        sizeS: sizeSCur,
-                        sizeM: sizeMCur,
-                        sizeL: sizeLCur,
-                        sizeXL: sizeXLCur,
-                        category: categoryText,
-                        price: parseInt(priceProductCur),
-                        newprice: newpriceProductCur,
-                        desc: descProductCur,
-                        status: 1,
-                    };
-                    console.log(productadd);
-                    products.splice(indexCur, 1);
-                    products.splice(indexCur, 0, productadd);
-                    localStorage.setItem("products", JSON.stringify(products));
-                    advertise({ title: "Successsss", message: "Sửa sản phẩm thành công!", type: "success", duration: 3000, });
-                    setDefaultValue();
-                    document.querySelector(".add-product").classList.remove("open");
-                    showProduct();
-                } else {
-                    advertise({ title: "warning", message: "Sửa sản phẩm không thành công!", type: "warning", duration: 3000, });
-                    setDefaultValue();
-                    document.querySelector(".add-product").classList.remove("open");
-                    showProduct();
-                }
+        if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || priceProductCur != priceProduct || newpriceProductCur != newpriceProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
+            if(newpriceProductCur != "") {
+                if(parseInt(newpriceProductCur) >= parseInt(priceProductCur) ){
+                     advertise({ title: "Chú ý", message: "Giá khuyến mãi không hợp lệ!", type: "warning", duration: 3000, });
+                    }
             }
+            else{    
+                let productadd = {
+                    id: idProduct,
+                    title: titleProductCur,
+                    img: imgProductCur,
+                    imghv: imgProductHvrCur,
+                    sizeS: sizeSCur,
+                    sizeM: sizeMCur,
+                    sizeL: sizeLCur,
+                    sizeXL: sizeXLCur,
+                    category: categoryText,
+                    price: parseInt(priceProductCur),
+                    newprice: newpriceProductCur,
+                    desc: descProductCur,
+                    status: 1,
+                };
+                console.log(productadd);
+                products.splice(indexCur, 1);
+                products.splice(indexCur, 0, productadd);
+                localStorage.setItem("products", JSON.stringify(products));
+                advertise({ title: "Successsss", message: "Sửa sản phẩm thành công!", type: "success", duration: 3000, });
+                setDefaultValue();
+                document.querySelector(".add-product").classList.remove("open");
+                showProduct();   
+            } 
+        }else {
+            advertise({ title: "warning", message: "Sửa sản phẩm không thành công!", type: "warning", duration: 3000, });
+            setDefaultValue();
+            document.querySelector(".add-product").classList.remove("open");
+            showProduct();     
         }
-       
-    }
-    
+    }  
 });
 
 let btnAddProductIn = document.getElementById("add-product-button");
