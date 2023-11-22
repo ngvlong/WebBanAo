@@ -352,6 +352,7 @@ function editProduct(id) {
     //
     document.querySelector(".upload-image-preview").src = products[index].img;
     document.querySelector(".image-hover").src = products[index].imghv;
+    console.log(products[index].imghv);
     document.getElementById("ten-ao").value = products[index].title.toUpperCase();
     document.getElementById("gia-moi").value = products[index].price;
     document.getElementById("mo-ta").value = products[index].desc;
@@ -507,11 +508,11 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     let sizeMProduct = products[indexCur].sizeM;
     let sizeLProduct = products[indexCur].sizeL;
     let sizeXLProduct = products[indexCur].sizeXL;
-    console.log(products[indexCur]);
+    console.log(products[indexCur].imghv);
 
 
-    let imgProductCur = getPathImage(document.querySelector(".upload-image-preview").src)
-    let imgProductHvrCur = getPathImage(document.querySelector(".image-hover").src)
+    let imgProductCur = decodeURIComponent(getPathImage(document.querySelector(".upload-image-preview").src))
+    let imgProductHvrCur = decodeURIComponent(getPathImage(document.querySelector(".image-hover").src))
     let titleProductCur = document.getElementById("ten-ao").value;
     let curProductCur = document.getElementById("gia-moi").value;
     let descProductCur = document.getElementById("mo-ta").value;
@@ -519,7 +520,7 @@ btnUpdateProductIn.addEventListener("click", (e) => {
 
     let selectbtn = document.querySelector(".list-btn-size.active .btn-size").textContent;
 
-    if(selectbtn ==="S"){
+    if(selectbtn =="S"){
         szS = document.querySelector("#ip-quantity-product").value;
 
     }else if(selectbtn ==="M"){
@@ -533,12 +534,13 @@ btnUpdateProductIn.addEventListener("click", (e) => {
 
     }
 
-    let sizeSCur = szS;
+    var sizeSCur = szS;
     let sizeMCur = szM;
     let sizeLCur = szL;
     let sizeXLCur = szXL; 
 
-    if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || curProductCur != curProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur) != parseInt(sizeSProduct) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
+    if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || curProductCur != curProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
+
         let productadd = {
             id: idProduct,
             title: titleProductCur,
@@ -1136,7 +1138,7 @@ function detailOrder(id) {
         ".modal-detail-bottom"
     ).innerHTML = `<div class="modal-detail-bottom-left">
         <div class="price-total">
-            <span class="thanhtien">Thành tiền</span>
+            <span class="thanhtien">Thành tiền:</span>
             <span class="price">${vnd(order.tongtien)}</span>
         </div>
     </div>
