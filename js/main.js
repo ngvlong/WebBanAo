@@ -48,3 +48,53 @@ function showForm() {
 
     
   }
+
+  function showdetail(){
+    document.getElementById("div_detail").style.display="grid";
+  }
+
+  function closedetail(){
+    document.getElementById("div_detail").style.display="none";
+  }
+
+  function choose_side(){
+    var a = document.getElementById("div_size");
+    var b = a.getElementsByClassName("size");
+    for (var i=0;i<b.length;i++){
+      b[i].addEventListener("click", function() {
+      var c = document.getElementsByClassName("active");
+      c[0].className=c[0].className.replace(" active", "");
+      this.className+=" active";
+      });
+    }
+  } 
+
+
+  function handlePlus(){
+    let amountElement = document.getElementById("amount");
+    let amount = amountElement.value;
+    let render = (amount) =>{
+      amountElement.value=amount
+    }
+      amount++;
+      render(amount);
+      amountElement.addEventListener('input',() => {
+        amount = amountElement.value;
+        amount = parentInt(amount);
+      });
+  }
+
+  function handleMinus(){
+    let amountElement = document.getElementById("amount");
+    let amount = amountElement.value;
+    let render = (amount) =>{
+      amountElement.value=amount
+    }
+      if(amount>1){
+        amount--;
+      } render(amount);
+      amountElement.addEventListener('input',() => {
+        amount = amountElement.value;
+        amount = parentInt(amount);
+      });
+  }
