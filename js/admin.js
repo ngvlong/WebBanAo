@@ -90,7 +90,7 @@ function getMoney() {
 
 // Doi sang dinh dang tien VND
 function vnd(price) {
-    return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+       return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
 // Phân trang 
 let perPage = 10;
@@ -191,7 +191,6 @@ function showProductArr(arr) {
 
     const currentPrice = document.querySelectorAll(".list-current-price");
     const oldPrice = document.querySelectorAll(".list-old-price");
-
     for (let i = 0; i < oldPrice.length; i++) {
     if(currentPrice[i].textContent != ""){
     oldPrice[i].classList.add("active");
@@ -241,7 +240,9 @@ function showProduct() {
         result = products.filter((item) => item.status == 1);
     } else if(selectOp == "Đã xóa") {
         result = products.filter((item) => item.status == 0);
-    } else {
+    } else if(selectOp == "Sale"){
+        result = products.filter((item) => item.newprice != '');
+    }else{
         result = products.filter((item) => item.category == selectOp);
     }
 
@@ -296,6 +297,8 @@ function filterProductPrice(){
         result = products.filter((item) => item.status == 1);
     } else if(selectOp == "Đã xóa") {
         result = products.filter((item) => item.status == 0);
+    }else if(selectOp == "Sale"){
+        result = products.filter((item) => item.newprice != "");
     } else {
         result = products.filter((item) => item.category == selectOp);
     }
@@ -303,14 +306,23 @@ function filterProductPrice(){
     result = valeSearchInput == "" ? result : result.filter(item => {
         return item.title.toString().toUpperCase().includes(valeSearchInput.toString().toUpperCase());
     })
-    result = result.filter(item => {
+    resultOldPrice = result.filter(item => item.newprice =="");
+    resultOldPrice = resultOldPrice.filter(item => {
         const itemPrice = parseInt(item.price);
         const minPrice = parseInt(minPriceTemp);
         const maxPrice = parseInt(maxPriceTemp);
-        
         return itemPrice >= minPrice && itemPrice <= maxPrice;
-        
     });
+
+    resultNewPrice = result.filter(item => item.newprice !="");
+    resultNewPrice = resultNewPrice.filter(item => {
+        const itemPrice = parseInt(item.newprice);
+        const minPrice = parseInt(minPriceTemp);
+        const maxPrice = parseInt(maxPriceTemp);
+        return itemPrice >= minPrice && itemPrice <= maxPrice;
+    });
+    result= resultNewPrice.concat(resultOldPrice);
+    result.sort((a, b) => a.id - b.id);
 
 
     displayList(result, perPage, currentPage);
@@ -524,7 +536,7 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     let sizeMProduct = products[indexCur].sizeM;
     let sizeLProduct = products[indexCur].sizeL;
     let sizeXLProduct = products[indexCur].sizeXL;
-    console.log(products[indexCur].imghv);
+
 
 
     let imgProductCur = decodeURIComponent(getPathImage(document.querySelector(".upload-image-preview").src))
@@ -567,7 +579,11 @@ btnUpdateProductIn.addEventListener("click", (e) => {
         advertise({ title: "Chú ý", message: "Giá khuyến mãi phải ở dạng số!", type: "warning", duration: 3000, });
     }
     else{
-        if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || priceProductCur != priceProduct || newpriceProductCur != newpriceProduct || descProductCur != descProduct || categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
+        if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || 
+            priceProductCur != priceProduct || newpriceProductCur != newpriceProduct || descProductCur != descProduct ||
+            categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || 
+            parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || 
+            parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
             if(newpriceProductCur != "" && parseInt(newpriceProductCur) >= parseInt(priceProductCur) ){
                 advertise({ title: "Chú ý", message: "Giá khuyến mãi không hợp lệ!", type: "warning", duration: 3000, });
                     }
@@ -583,11 +599,10 @@ btnUpdateProductIn.addEventListener("click", (e) => {
                     sizeXL: sizeXLCur,
                     category: categoryText,
                     price: parseInt(priceProductCur),
-                    newprice: newpriceProductCur,
+                    newprice: parseInt(newpriceProductCur),
                     desc: descProductCur,
                     status: 1,
                 };
-                console.log(productadd);
                 products.splice(indexCur, 1);
                 products.splice(indexCur, 0, productadd);
                 localStorage.setItem("products", JSON.stringify(products));
@@ -768,7 +783,6 @@ function uploadImage(input) {
                 const flname = "./assets/image/"+ file.name;
                 imagePreview.src =  flname;
 
-                // Lấy đường dẫn ảnh và làm gì đó với nó, ví dụ: in ra console.
                 console.log("Đường dẫn ảnh:", flname);
             }
 }
@@ -780,8 +794,6 @@ function uploadImageMore(input) {
         const flname = "./assets/image/"+ file.name;
         imagePreview.src =  flname;
 
-        // Lấy đường dẫn ảnh và làm gì đó với nó, ví dụ: in ra console.
-        console.log("Đường dẫn ảnh:", flname);
     }
 }
 
@@ -1305,7 +1317,7 @@ function thongKe(mode) {
             );
         });
     }    
-    console.log(result);
+
     showThongKe(result,mode);
 }
 

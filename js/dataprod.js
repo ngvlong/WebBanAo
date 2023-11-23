@@ -423,7 +423,7 @@ function createProduct() {
         sizeL: 37,
         sizeXL:40,
         price: 340000,
-        newprice:'',
+        newprice:320000,
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
 
@@ -471,7 +471,7 @@ function createProduct() {
         sizeL: 30,
         sizeXL:40,
         price: 340000,
-        newprice:'',
+        newprice:320000,
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -682,7 +682,8 @@ function createProduct() {
         sizeM: 34,
         sizeL: 52,
         sizeXL:40,
-        price: 250000,
+        price: 350000,
+        newprice: 330000,
         desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
     },
     {
@@ -1057,7 +1058,7 @@ function createOrder() {
             sdtnhan: '0934583532',
             diachinhan: '49 Bát Đàn, Quận Hoàn Kiếm, Hà Nội',
             thoigiandat: "11/12/2023",
-            tongtien:680000,
+            tongtien:250000,
             trangthai: 0
         },
         {
