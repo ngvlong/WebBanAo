@@ -1071,7 +1071,7 @@ function createOrder() {
             sdtnhan: '0934835328',
             diachinhan: '119 Trần Phú, Hải Châu 1, Hải Châu, Đà Nẵng',
             thoigiandat: "11/14/2023",
-            tongtien:640000,
+            tongtien: 1640000,
             trangthai: 1
         }
         )
@@ -1126,7 +1126,18 @@ function createDetailOrder() {
             title : 'HOODIE SPACE' ,
             img :'./assets/image/HOODIE SPACE.jpg',
 
-        }
+        },
+        {
+            id : 61,
+            madon :'MĐ03',
+            price : 500000,
+            size: 'XL',
+            quantity :2,
+            category:"Áo Khoác",
+            title : 'Legacy Line United' ,
+            img :'./assets/image/Legacy Line United.webp',
+
+        },
         
 
         )

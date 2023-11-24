@@ -1261,15 +1261,7 @@ function cancelSearchOrder(){
 
     showOrder(orders);
 }
-function showTooltip(btn) {
-    const tooltip = document.getElementById('tooltip');
-    tooltip.textContent = btn.textContent;
-}
 
-function hideTooltip(btn) {
-    const tooltip = document.getElementById('tooltip');
-    tooltip.textContent = '';
-}
 
 // Create Object Thong ke
 function createObj() {
@@ -1280,16 +1272,21 @@ function createObj() {
     orderDetails.forEach(item => {
         // Lấy thông tin sản phẩm
         let prod = products.find(product => {return product.id == item.id;});
-        let obj = new Object();
-        obj.id = item.id;
-        obj.madon = item.madon;
-        obj.price = item.price;
-        obj.quantity = item.quantity;
-        obj.category = prod.category;
-        obj.title = prod.title;
-        obj.img = prod.img;
-        obj.time = (orders.find(order => order.id == item.madon)).thoigiandat;
-        result.push(obj);
+        if (prod) {
+            let obj = {
+                id: item.id,
+                madon: item.madon,
+                size: item.size,
+                price: item.price,
+                quantity: item.quantity,
+                category: prod.category,
+                title: prod.title,
+                img: prod.img,
+                time: (orders.find(order => order.id == item.madon)).thoigiandat
+            };
+
+            result.push(obj);
+        }
     });
     return result;
 }
@@ -1407,7 +1404,7 @@ showThongKe(createObj())
 function mergeObjThongKe(arr) {
     let result = [];
     arr.forEach(item => {
-        let check = result.find(i => i.id == item.id) // Không tìm thấy gì trả về undefined
+        let check = result.find(i => i.id == item.id) // Không tìm thấy gì trả về undefined. Sẽ thêm check vào result 
 
         if(check){
             check.quantity = parseInt(check.quantity)  + parseInt(item.quantity);
@@ -1429,12 +1426,15 @@ function detailOrderProduct(arr,id) {
             orderHtml += `<tr>
             <td>${item.madon}</td>
             <td>${item.title.toUpperCase()}</td>
+            <td>${item.size}</td>
             <td>${item.quantity}</td>
             <td>${vnd(item.price)}</td>
             <td>${formatDate(item.time)}</td>
             </tr>      
             `;
+            console.log(item.size);
         }
+
     });
     document.getElementById("show-product-order-detail").innerHTML = orderHtml
     document.querySelector(".modal.detail-order-product").classList.add("open")
