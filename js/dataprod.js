@@ -949,7 +949,7 @@ function createProduct() {
 }
 
 // Create admin account 
-function createAdminAccount() {
+function createAccount() {
     let accounts = localStorage.getItem("accounts");
     if (!accounts) {
         accounts = [];
@@ -1137,6 +1137,6 @@ function createDetailOrder() {
 
 
 window.onload = createProduct();
-window.onload = createAdminAccount();
+window.onload = createAccount();
 window.onload = createOrder();
 window.onload = createDetailOrder();

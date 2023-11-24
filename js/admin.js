@@ -847,7 +847,7 @@ let modalFillterDate = document.querySelector(".modal-fillter-date");
             document.getElementById('btn-acp-date-cus').style.display='none';
             document.getElementById('btn-acp-date-tk').style.display='none';
         }else if(i == 2) {
-            document.getElementById('fillter-date').style.right = '27.8%';
+            document.getElementById('fillter-date').style.right = '27.5%';
             document.getElementById('btn-acp-date-tk').style.display='block';
             document.getElementById('btn-acp-date-od').style.display='none';
             document.getElementById('btn-acp-date-cus').style.display='none';
@@ -1084,7 +1084,7 @@ function showOrder(arr) {
             <td>${vnd(item.tongtien)}</td>                               
             <td>${status}</td>
             <td class="control">
-            <button class="btn-detail" id="" onclick="detailOrder('${item.id}')"><i class="fa-regular fa-circle-info"></i> Chi tiết</button>
+            <button class="btn-detail" id="" onclick="detailOrder('${item.id}')"><i class="fa-regular fa-circle-info"></i></button>
             </td>
             </tr>      
             `;
@@ -1261,6 +1261,15 @@ function cancelSearchOrder(){
 
     showOrder(orders);
 }
+function showTooltip(btn) {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.textContent = btn.textContent;
+}
+
+function hideTooltip(btn) {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.textContent = '';
+}
 
 // Create Object Thong ke
 function createObj() {
@@ -1365,6 +1374,12 @@ function showThongKe(arr,mode) {
         case 2:
             mergeObj.sort((a,b) => parseInt(b.quantity) - parseInt(a.quantity))
             break;
+        case 3:
+            mergeObj.sort((a,b) => parseInt(a.price*a.quantity) - parseInt(b.price*b.quantity))
+            break;
+        case 4:
+            mergeObj.sort((a,b) => parseInt(b.price*b.quantity) - parseInt(a.price*a.quantity))
+            break;
     }
     for(let i = 0; i < mergeObj.length; i++) {
         orderHtml += `
@@ -1374,7 +1389,7 @@ function showThongKe(arr,mode) {
         <td>${mergeObj[i].category}</td>
         <td>${mergeObj[i].quantity}</td>
         <td>${vnd(mergeObj[i].doanhthu)}</td>
-        <td><button class="btn-detail product-order-detail" data-id="${mergeObj[i].id}"><i class="fa-regular fa-eye"></i> Chi tiết</button></td>
+        <td><button class="btn-detail product-order-detail" data-id="${mergeObj[i].id}"><i class="fa-regular fa-eye"></i></button></td>
         </tr>      
         `;
     }

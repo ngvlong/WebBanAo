@@ -32,7 +32,7 @@ html {
 }
 
 body::-webkit-scrollbar {
-    width: 3px;
+    width: 5px;
     /* height:50px; */
 }
 
@@ -43,7 +43,7 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
     /* background: rgba(0, 0, 0, 0); */
     background: rgba(0, 0, 0, 0.45);
-    border-radius: 10px;
+    border-radius: 3px;
     -webkit-box-shadow: rgba(255, 255, 255, 0.3) 0 0 0 1px;
     box-shadow: rgba(255, 255, 255, 0.3) 0 0 0 1px;
 }
@@ -945,7 +945,7 @@ tbody tr td {
 .btn-detail{
     background-color: var(--lighter-gray);
     color: white;
-    padding: 10px 10px ;
+    padding: 12px 10px ;
     border-radius: 10px;
     font-size: 14px;
     color: var(--text-color);
@@ -954,7 +954,7 @@ tbody tr td {
     outline: none;
     border: none;
     cursor: pointer;
-    width: 100px;
+    width: 50px;
     align-items: center;
 }
 .btn-detail:hover{
@@ -1340,9 +1340,14 @@ label a {
 .admin-control {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     flex-wrap: wrap;
     align-items: center;
+    position: relative;
+}
+.tk .admin-control {
+    top: -15px;
+    margin-bottom: 37px;
 }
 @media (max-width: 600.98px){
     .admin-control{
@@ -1356,6 +1361,7 @@ label a {
 
 .admin-control-right {
     display: flex;
+    align-items: center;
 }
 
 .admin-control-right button {
@@ -1394,7 +1400,10 @@ label a {
     height: 40px;
     outline: none;
     border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
     background-color: #f0f0f0;
+    
     padding: 10px 20px;
     padding-left: 0;
     width: 70%;
@@ -1424,6 +1433,7 @@ label a {
 #btn-fillter-Us,
 #btn-fillter-Od{
     width: 150px;
+    margin-left: 0;
 }
 .modal-fillter-date{
     width: 100%;
@@ -1443,12 +1453,10 @@ label a {
     background-color:var(--lightest-gray);
     box-shadow: 0px 4px 30px rgb(0 0 0 / 25%);
     border-radius: 5px;
-    overflow: hidden;
-    overflow-y: scroll;
-    overflow-y: overlay;
+    border: 0.01px solid var(--light-gray);
     transform: translateX(-4%) scale(0.8);
     transition: 0.3s ease;
-    top: 60px;
+    top: 50px;
     right: 21.7%;
     z-index: 100;
     width: 320px;
@@ -1511,6 +1519,48 @@ label a {
 .acp-date{
     right: 20px;
     position: fixed;
+}
+.form-gr-info{
+    display: flex;
+    border: 0.5px solid var(--lighter-gray);
+    padding: 7.5px 3px;
+    border-radius: 10px;
+    position: relative;
+    margin-left: 10px;
+    background-color: var(--lightest-gray);
+
+}
+
+
+.tk .admin-control-right button{
+    width: 50px;
+    margin: 0 7.5px;
+}
+.form-info{
+    position: relative;
+}
+
+.mess-info{
+    visibility: hidden;
+    position:absolute;
+    top: 110%;
+    width: 130px;
+    left: -48%;
+    font-size: 12px;
+    text-align: center;
+    background-color: var(--lightest-gray);
+    border: 0.01px solid var(--light-gray);
+    z-index: 100;
+    border-radius: 10px;
+    padding: 2px;
+
+}
+.btn-down-quatity:hover + .mess-info,
+.btn-up-quatity:hover + .mess-info{
+    visibility: visible;
+}
+#btn-reset-tk{
+    width: 120px;
 }
 
 #btn-acp-date-tk,
@@ -1888,7 +1938,7 @@ label a {
     box-shadow: 0px 1px 5px 2px #f1f1f1;
     width: 24%;   
     display: flex;
-    padding: 15px;
+    padding: 15px 15px 5px 15px;
     align-items: center;
     justify-content: space-between;
 }
