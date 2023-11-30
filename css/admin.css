@@ -718,17 +718,14 @@ tbody tr td {
     margin-right: 14px;
     border-radius: 5px;
 }
-@media (max-width: 700px) {
+@media (max-width: 850px) {
     .list-left img{
         min-width: 40px;
         max-width: 50px;
         height: 70px;
-
-
     }
-    
-}
 
+}
 
 .list-category {
     display: inline-block;
@@ -800,12 +797,13 @@ tbody tr td {
     flex-direction: column;
     align-items: flex-end;
 }
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     .list-right span{
-        min-width: 100px;
-        max-width: 100px;
+        min-width: 70px;
+        max-width: 90px;
         height: auto;
         font-size: 13.5px;
+        margin-right: -20px;
 
     }
     
@@ -839,7 +837,7 @@ tbody tr td {
     /* -webkit-box-orient: vertical; */
     overflow: hidden;
 }
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     .list-info h4,span,label{
        
         font-size: 13px;
@@ -847,12 +845,12 @@ tbody tr td {
     } .list-info{
         min-width: 100px;
         max-width: 100px;
-      
-
     }
-
-    
+    .list-note{
+        font-size: 12px;
+    }
 }
+    
 
 .list-price {
     display: flex;
@@ -873,6 +871,16 @@ tbody tr td {
     color: var(--light-gray);
     font-size: 18px;
     margin-right: 20px;
+}
+@media (max-width: 900px) {
+    .list-price{
+        font-size: 12px;
+        margin-right: 5px;
+    }
+    .list-old-price.active{
+        font-size: 12px;
+        margin-right: 5px;
+    }
 }
 
 
@@ -1545,13 +1553,13 @@ label a {
     position:absolute;
     top: 110%;
     width: 130px;
-    left: -48%;
+    left: -52%;
     font-size: 12px;
     text-align: center;
     background-color: var(--lightest-gray);
     border: 0.01px solid var(--light-gray);
     z-index: 100;
-    border-radius: 10px;
+    border-radius: 7px;
     padding: 2px;
 
 }
@@ -1900,6 +1908,14 @@ label a {
     column-gap: 10px;
     margin-top: 10px;
 
+    position: sticky;
+
+}
+@media (max-width:900px){
+    .page-nav,
+    .page-nav-list{
+        margin-top: 40px;
+    }
 }
 .page-nav-list{
     padding: 13px 25px;
@@ -2350,7 +2366,8 @@ label a {
     font-size: 20px;
 }
 #star1,
-#star2{
+#star2,
+#star3{
     color: var(--star-rate)
 
 }
