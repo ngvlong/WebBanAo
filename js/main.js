@@ -145,7 +145,7 @@ function showForm() {
                 <div class="food-info">
                     <div class="card-content">
                         <div class="card-title">
-                            <a href="#" class="card-title-link" onclick="detailProduct(${product.id})">${product.title}</a>
+                            <a href="#" class="card-title-link" onclick="detailProduct(${product.id})">${product.title.toUpperCase()}</a>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -153,7 +153,7 @@ function showForm() {
                             <span class="current-price">${vnd(product.price)}</span>
                         </div>
                     <div class="product-buy">
-                        <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i> Đặt hang</button>
+                        <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i> Đặt hàng</button>
                     </div> 
                 </div>
                 </div>
