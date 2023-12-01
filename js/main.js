@@ -125,9 +125,51 @@ function showForm() {
         amount = parentInt(amount);
       });
   }
+  document.querySelector(".filter-btn").addEventListener("click",(e) => {
+    e.preventDefault();
+    document.querySelector(".advanced-search").classList.toggle("open");
+    document.getElementById("home-title").scrollIntoView();
+})
 
+document.querySelector(".form-search-input").addEventListener("click",(e) => {
+    e.preventDefault();
+    document.getElementById("home-title").scrollIntoView();
+})
 
-  function renderProducts(showProduct) {
+function closeSearchAdvanced() {
+    document.querySelector(".advanced-search").classList.toggle("open");
+}
+
+let minPriceTemp = 0;
+let maxPriceTemp = 1000000;
+function sliderPrice() {
+    var minPrice = 0;
+    var maxPrice = 1000000;
+    
+    $("#max-price").val(vnd(maxPrice));
+    $("#min-price").val(vnd(minPrice));
+
+    
+    $("#price-range").slider({
+      range: true,
+      min: 0,
+      max: 1000000,
+      values: [minPrice, maxPrice],
+      slide: function(event, ui) {
+        $("#min-price").val(vnd(ui.values[0]));
+        $("#max-price").val(vnd(ui.values[1]));
+        minPriceTemp = ui.values[0];
+        maxPriceTemp = ui.values[1];
+
+      }
+    });
+    
+    // $("#min-price").val($("#price-range").slider("values", 0));
+    // $("#max-price").val($("#price-range").slider("values", 1));
+}
+sliderPrice();
+
+function renderProducts(showProduct) {
     let productHtml = '';
     if(showProduct.length == 0) {
         document.getElementById("home-title").style.display = "none";
@@ -205,7 +247,7 @@ function paginationChange(page, productAll, currentPage) {
             t[i].classList.remove('active');
         }
         node.classList.add('active');
-        document.getElementById("home-service").scrollIntoView();
+        document.getElementById("home-title").scrollIntoView();
     })
     return node;
 }
