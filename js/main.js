@@ -167,7 +167,7 @@ let perPage = 12;
 let currentPage = 1;
 let totalPage = 0;
 let perProducts = [];
-
+var productAll = JSON.parse(localStorage.getItem('products')).filter(item => item.status == 1);
 function displayList(productAll, perPage, currentPage) {
     let start = (currentPage - 1) * perPage;
     let end = (currentPage - 1) * perPage + perPage;
@@ -209,3 +209,18 @@ function paginationChange(page, productAll, currentPage) {
     })
     return node;
 }
+function showCategory(category) {
+  // document.getElementById('trangchu').classList.remove('hide');
+  // document.getElementById('account-user').classList.remove('open');
+  // document.getElementById('order-history').classList.remove('open');
+  let productSearch = productAll.filter(value => {
+      return value.category.toString().toUpperCase().includes(category.toUpperCase());
+  })
+  let currentPageSeach = 1;
+  displayList(productSearch, perPage, currentPageSeach);
+  setupPagination(productSearch, perPage, currentPageSeach);
+  document.getElementById("home-title").scrollIntoView();
+}
+
+
+

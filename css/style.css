@@ -22,6 +22,10 @@ li {
     list-style: none;
     padding: 0;
 }
+a{
+    text-decoration: none;
+    color: #000;
+}
 
 #customalert {
     visibility: hidden;
@@ -53,11 +57,10 @@ li {
 .headcenter{
     display: flex;
     flex-grow: 1;
-    margin-left: 10%;
-    margin-right: 10%;
-    border: 1px rgb(213, 213, 213) solid;
-    border-radius: 10px;
-    margin-top: 4px;
+    align-items: center;
+    margin-top: 7px;
+    justify-content: center;
+
 }
 .headcenter button{
     border: 0px;
@@ -66,17 +69,16 @@ li {
     padding: 0px 10px 5px 10px;
 }
 .headbox{
-    /* background-color:transparent; */
+
     height: 35px;
     width: 101%;
     z-index: 99;
-    /* justify-content:space-be tween;  */
     flex-grow: 1;
     padding: 10px 0;
     transition: background-color 0.5s, color 0.5s;
     background-color: rgb(255, 255, 255);
      color: black;
-     border-bottom: 1px black solid;
+     border-bottom: 1px var(--lightest-gray);
      align-items: center;
      position: fixed;
      display: flex;
@@ -84,11 +86,127 @@ li {
 .headbox.scrolled{
     background-color: rgb(221, 221, 221);
      color: black;
-     border-bottom: 1px black solid;
+     border-bottom: 1px var(--lightest-gray);
      align-items: center;
      position: fixed;
      display: flex;
 }
+
+
+#logo{
+    width: 180px;
+    height: 40px;
+    border:rgb(221, 221, 221) solid 0px;
+    border-radius: 5px;
+}
+#logo1{
+    width: 180px;
+    height: 40px;
+    margin-left: 65px;
+    margin-top: 6px;
+    border-radius: 5px;
+}
+#sreachicon2{
+    width: 35px;
+    background-color: white;
+}
+#iconmenu{              /* icon menu*/
+    background-color: transparent;
+    background-size:35px;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    top: 8px;
+    left: 8px; 
+    border: 0px;
+    border-radius: 10px;
+    z-index: 99;
+    /* display: none; */
+}
+
+.headericon{
+    border:0px;
+    border-radius: 10px;
+    float: right;
+    display: none;
+    z-index: 200;
+    cursor: pointer;
+}
+.headericon button{
+    background: center no-repeat transparent;
+    background-size:contain ;
+    width: 35px;
+    height: 35px;
+    margin-left: 15px;
+    margin-top: 5px;
+    border-radius: 20px;
+}
+.sreachicon2{
+    background: center no-repeat white;
+    background-size:contain ; 
+    width: 40px;
+    height: 40px;
+    border: 0px;
+    border-left:1px black solid;
+    border-radius: 0px 10px 10px 0px;
+}
+.inputsreach{
+    border: 0px;
+    border-radius: 10px 0px 0px 10px;
+    width: 100%;
+    display: flex;
+}
+
+#menulist{                        /* menu form  */
+    position:fixed;
+    display:none;
+    background-color: rgb(202, 202, 202);
+    top: 0px;
+    width: 250px;
+    height: 100%;
+    z-index: 999;
+}
+#menulist .sreachform{
+    margin-top: 10px;
+    width: 240px;
+}
+.menubuton{
+    background-color: transparent;
+    border: 0px;
+    padding: 5px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    width: 90%;
+    text-align: left;
+}
+.smallsreachform{
+    display: none;
+    position: fixed;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-between;
+    z-index: 1000;
+    width: 101%;
+    height: 45px;
+    margin-top: 8px;
+    background-color: white;
+}
+.smallsreachform div{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 0px;
+}
+.smallsreachform button{
+    border: 0px;
+    border-radius: 20px;
+    background-size: 30px;
+    
+}
+
 .pagination{
     display: inline-flex;
     justify-content: space-between;
@@ -113,8 +231,6 @@ li {
     background-color: transparent;
     border: none;
     align-items: center;
-
-
 }
 
 
@@ -171,12 +287,11 @@ li {
     width: 100%;
 }
 .lowmenu{
-    border-top: 1px black solid;
     width: 101%;
     height: auto;
     background-color: rgb(219, 219, 219);
     top: 40px;
-    padding-bottom: 10px;
+    padding: 10px 0;
     position: fixed;
     display: flex;
     justify-content: center;
@@ -187,38 +302,123 @@ li {
 }
 .lowmenu button{
     border: 0px;
-    padding: 14px;
-    margin-right: 25px;
+    padding: 7px;
+    margin-right: 35px;
     background-color: transparent;
     border-radius: 5px;
-    box-shadow: 2px 2px 4px rgba(119, 119, 119, 0.4);
-    font-size: 12px;
+    /* box-shadow: 2px 2px 4px rgba(119, 119, 119, 0.4); */
+    font-size: 16px;
 }
+.form-search {
+    display: flex;
+    justify-content: center;
+}
+
+
+
 .search-btn {
     border: none;
     outline: none;
-    font-size: 20px;
-    height: 40px;
+    font-size: 15px;
+    height: 35px;
     padding: 0 15px;
     color: var(--text-color);
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     background-color: #f0f0f0;
 }
 .form-search-input {
-    height: 20px;
+    height: 15px;
     outline: none;
     border: none;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     background-color: #f0f0f0;
-    
     padding: 10px 20px;
-    padding-left: 0;
-    width: 70%;
+    width: 50%;
+}
+
+
+.inputsreach:focus{
+    outline: none; 
+    border-color: transparent;
+}
+
+#iconmenu:hover{
+    background-color: #a6a6a6;
+    
+}
+button:hover{
+    background-color: rgba(169, 169, 169, 0.547)
+}
+.inputsreach2:focus{
+    border: 0px;
+    outline: 0px;
+}
+button{
+    cursor: pointer;
+}
+@media screen and (max-width:1300px){
+    .headleft-click{
+        padding: 2px 2px 2px 2px ;
+    }
+    .headerright-click{
+        margin-top: 8px;
+        padding:2px 2px 2px 2px ;
+    }
+    
+}
+@media screen and (max-width:900px){
+    .headcenter{
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+}
+@media screen and (max-width:800px){
+    .lowmenu{
+        display: none;
+    }
+    
+    .headleft-click{
+        display: none;
+    }
+    .headerright-click{
+        display: none;
+    }
+    .headericon{
+        display: inline-block;
+    }
+    div.headericon button#sreachicon{
+        display: none;
+    }
+    #iconmenu{
+        display: block;
+    }
+    .headcenter{
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+}
+@media screen and (max-width:500px){
+    /* .sreachform{
+        display: none;
+    } */
+    div.headericon button#sreachicon{
+        display: block;
+    }
+    .headericon #sreach{
+        display: none;
+    }
+    .headericon #sreachicon{
+        display: flex;
+    }
+    .headcenter{
+        display: none;
+    }
 }
 
 
@@ -317,9 +517,11 @@ li {
 }
 
 .card-title-link {
-    color: var(--text-color);
+    color: var(--black);
     font-size: 16px;
     font-weight: 600;
+    text-decoration: none;
+    
 }
 
 .card-footer {
@@ -350,7 +552,7 @@ li {
 }
 
 .card-button {
-    background-color: var(--red);
+    background-color: var(--light-gray);
     outline: none;
     border: none;
     width: 85%;
@@ -385,18 +587,20 @@ li {
     display: inline-block;
     color: var(--black);
     border: 2px solid #000;
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
     text-align: center;
     line-height: 27px;
     border-radius: 50%;
     font-size: 15px;
+    text-decoration: none;
 }
 
 .page-nav-item.active a,.page-nav-item a:hover {
-    background-color: var(--red);
-    color: var(--white);
-    border: 2px solid var(--red);
+    background-color: var(--medium-gray);
+    color: white;
+    border: 2px solid var(--medium-gray);
+    border-radius: 50%;
 }
 #modal{
     height: 100%;
