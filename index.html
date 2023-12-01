@@ -3,158 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./fonts/fontawesome-free-6.2.0-web/fontawesome-free-6.2.0-web/css/all.min.css">
+    <link href="./css/font/font-awesome-pro-v6-6.2.0/css/all.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <link rel="stylesheet" type="text/css" href="./image">
+
+    <link rel="stylesheet" type="text/css" href="./css/menu1.css">
+    <!-- <link rel="stylesheet" href="css/admin.css"> -->
+    <link rel="icon" type="images/x-icon"  href="./icon/icontitle1.png">
     <title>HALO STORE</title>
 </head>
 <body >
-    <div id="customalert"></div>
-
     <div class="header" > 
-     <div class="headbox scrolled">
-        <div><picture></picture></div>
-        <div class="headleft">
-            <div class="headleft-click"> <button >Áo sơ mi</button></div>
-            <div class="headleft-click"> <button>Áo thun</button></div>
-            <div class="headleft-click"> <button>Áo Khoác</button></div>
-            <div class="headleft-click"> <button>Áo Polo</button></div>
-            <div class="headleft-click"> <button>Chính sách đổi trả</button></div>
-            <div class="headleft-click"> <button>Sale</button></div>
+        <div class="headbox">
+           <!-- <div><picture></picture></div> -->
+           
+           <div class="headleft">
+
+               <div><img src="./assets/image/logo.png" id="logo"></div>
+           </div>
+           <form class="headcenter" onclick="sreachform()">
+            <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
+               <input type="text" id="form-search-product" type="text" class="form-search-input inputsreach" placeholder="TÌm kiếm....."  onclick="sreachform()">
+           </form>
+           <div class="headerright">
+               <div class="headerright-click"><button onclick="showForm()"> Đăng nhập</button></div>
+               <div class="headerright-click"><button> Giỏ hàng</button></div>
+               <div class="headericon"><button id="sreachicon"  onclick="sreachform()"></button></div>
+               <div class="headericon"><button id="loginicon"  onclick="showForm()"></button></div>
+               <div class="headericon"><button id="bagicon"></button></div>
+           </div>
+           
+           </div>
+           <div>
+               <form class="smallsreachform">
+                   <div><button id="backsreachicon" class="sreachicon2" onclick="closesmallsreach()"></button></div>
+                   <form action="">
+                       <span><i class="fa-sharp fa-regular fa-magnifying-glass"></i></span>
+                       <input type="text" class="inputsreach2" id="smallsreach"  placeholder="TÌm kiếm">
+                    </form>
+                   <div><button id="sreachicon" class="sreachicon2" onclick="sreachform1()"></button></div>
+               </form>
+           </div>
+           <div class="lowmenu">
+                   <div class=""> <button>Áo sơ mi</button></div>
+                   <div class=""> <button>Áo thun</button></div>
+                   <div class=""> <button>Áo Khoác</button></div>
+                   <div class=""> <button>Áo Polo</button></div>
+                   <div class=""> <button>Áo Hoodie</button></div>
+                   <div class=""> <button>Sale</button></div>
+   
+               <!-- </div> -->
+           </div>
+           <picture class="head-img">
+               <img src="./assets/image/2.webp" height="800px" width="1550px" alt="">
+           </picture>
+           
+       </div>
+       <div >
+       <form id="menulist">
+           <button id="iconmenu" onclick="menulist()"></button>
+           <div><img src=".assets/image/logo1.jpg" id="logo1"> </div>
+           <div>
+               <div class="sreachform" >
+                   <input type="search" placeholder="TÌm kiếm"   class="inputsreach">
+                   <button id="sreachicon" class="sreachicon2" onclick="sreachform1()"></button>
+               </div>
+               <div><button class="menubuton" style="margin-top: 20px;">Áo sơ mi</button></div>
+               <div><button class="menubuton">Áo Thun</button></div>
+               <div><button class="menubuton">Áo Khoắc</button></div>
+               <div><button class="menubuton">Áo Polo</button></div>
+               <div><button class="menubuton">Áo Phong</button></div>
+
+               <div style="border-bottom: 2px rgb(0, 0, 0) solid;"><button class="menubuton">Sale</button></div>
+               <div><button class="menubuton">Giỏ Hàng</button></div>
+               <div><button class="menubuton">Đăng nhập</button></div>
+               <div><button class="menubuton">Đăng ký</button></div>
+               <!-- <div><ul id="product-list">sss</ul></div> -->
+           </div>
+       </form>
+       <div class="home-title-block" id="home-title">
+            <h2 class="home-title">Khám phá sản phẩm của chúng tôi</h2>
         </div>
-        <div class="headerright">
-            <div class="headerright-click"><button onclick="showForm()"> Đăng nhập</button></div>
-            <div class="headerright-click"><button> Tìm kiếm <i
-                class="fa-solid fa-magnifying-glass"></i></button></div>
-            <div class="headerright-click"><button> Giỏ hàng</button></div>
-        </div>
-        </div>
-        <picture class="head-img">
-            <img src="./assets/image/2.webp" height="800px" width="1550px" alt="">
-        </picture>
+        <div class="container">     
+            <div class="home-products" id="home-products">
+            </div>
+            <div class="page-nav">
+              <ul class="page-nav-list">
+              </ul>
+            </div>
+         </div>
         
     </div>
 
+   
+   
+   
 
-    <div id="div_detail" style="display: none;">
-        <div class="detail">
-            <p class="title">NAME PRODUCTS</p>
-            <div class="div_img">
-                <img src="/assets/image/ALLYSON ATHLETE JERSEY polo-hover.webp" height="100%" width="100%"/>
-            </div>
-            <div class="div_type">
-                <span class="type">Phân loại:</span>
-                <span class="nametype">Áo thun</span>
-            </div>
-            <div class="div_price">
-                <p class="price">500.000₫</p>
-            </div>
-            <div id="div_size"> 
-                <span class="size active">S</span>
-                <span class="size">M</span>
-                <span class="size">L</span>
-                <span class="size">XL</span>
-            </div>
-             <script>choose_side()</script> 
-            <div class="div_describe">
-                <p class="describe">. fdslgnldsng</p>
-                <p class="describe">. eqeqdslgnldsng</p>
-                <p class="describe">. fdsdsadasffang</p>
-                <p class="describe">. fdslgnldsng</p>
-            </div>
-            <div id="div_quantity">
-                <button class="quantity" onclick="handleMinus()">-</button>
-                <input id="amount" name="amount" type="text" value="1"/>
-                <button class="quantity" onclick="handlePlus()">+</button>
-            </div> 
-            <button class="div_buy">CHỌN MUA</button>
-            <button class="close_detail" onclick="closedetail()">+</button>
-        </div>
-    </div>
-
-    <div id="container-search" style="display: none;">
-        <div class="sizebar">
-            <form class="search">
-                <input type="text" class="form-search"  placeholder="Tim kiem san pham....."/>
-                <span class="icon-search"><i class="fa-solid fa-magnifying-glass"></i><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></span> 
-            </form>
-        <button class="close-search" onclick="closeSearch()">+</button>
-        </div>
-    </div> 
-
-    <div class="content">
-
-
-
-            <div class="list-prod">
-               
-            <div class="products"><li><a href="">sản phẩm</a></li></div>
-            <div class="products"><li><a href="">sản phẩm</a></li></div>
-            <div class="products"><li><a href="">sản phẩm</a></li></div>
-            <div class="products"><li><a href="">sản phẩm</a></li></div>
-            <div class="products"><li><a href="">sản phẩm</a></li></div>
-            <div class="products"><li><a href="">sản phẩm</a></li></div>
-            <div class="products"><li><a href="">sản phẩm</a></li></div>
+       <!-- <div class="section active product-all">
+           <div class="admin-control">
+               <div class="admin-control-left">
+                   <select name="the-loai" id="the-loai" onchange="showProduct()">
+                       <option>Tất cả</option>
+                       <option>Áo Thun</option>
+                       <option>Áo Polo</option>
+                       <option>Áo Sơ mi</option>
+                       <option>Áo Khoác</option>
+                       <option>Áo Hoodie</option>
+                       <option>Sale</option>
+                       <option>Đã xóa<duct/option>
+                   </select>
+               </div>
+               <div class="admin-control-center">
+                   <form action="" class="form-search">
+                       <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
+                       <input id="form-search-product" type="text" class="form-search-input" placeholder="Tìm kiếm sản phẩm ..." oninput="showProduct()">
+                   </form>
+               </div>
+               <div id="price-range">
+                   <button id="filter-price" onclick="filterProductPrice()"><i class="fa-light fa-filter-circle-dollar"></i>Lọc</button>
+                   <label for="min-price">Giá :</label>
+                   <input type="text" id="min-price" readonly> - <input type="text" id="max-price" readonly>
+               </div>
+               <div class="admin-control-right">
+                   <button class="btn-control-large" id="btn-cancel-product" onclick="cancelSearchProduct()"><i class="fa-light fa-rotate-right"></i> Làm mới</button>
+                   <button class="btn-control-large" id="btn-add-product"><i class="fa-light fa-plus"></i> Thêm sản phẩm</button>                  
+               </div>
+   
            </div>
-           <div class="content-foot"></div>
-
-
-    </div>
-    <div id="modal">
-        <div id="login">
-            <form id="loginform">
-                <div class="header-login">
-                    <h1>Đăng nhập</h1>
-                    <button type="button" class="btnclose" onclick="closeForm()">+</button>
-                </div>
-                <div class="datalogin">
-                        <label for="username">Tên đăng nhập</label>
-                        <input type="text" name="" id="">
-                </div>
-                <div class="datalogin">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" name="" id="">
-                </div>
-                <div class="footlogin">
-                    <button type="button" class="btnlogin" onclick="showRSLogin()">Đăng nhập</button>
-                    <p>Bạn chưa có tài khoản? <a href="#" onclick="showSignupForm()">Đăng kí</a></p>
-                </div>
-            </form>
-        </div>
-        <div id="signup">
-            <form  id="signupform">
-                <div class="header-signup">
-                    <h1>Đăng kí</h1>
-                    <button type="button" class="btnclose" onclick="closeForm()">+</button>
-                </div>
-                <div class="datasignup">
-                    <label for="username">Tên đăng nhập</label>
-                    <input type="text">
-                </div>
-                <div class="datasignup">
-                    <label for="usernameSignUp">Email</label>
-                    <input type="text">
-                </div>
-                <div class="datasignup">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" name="" id="">
-                </div>
-                <div class="datasignup">
-                    <label for="password">Nhập lại mật khẩu</label>
-                    <input type="password" name="" id="">
-                </div>
-                <div class="footsignup">
-                    <button type="button" class="btnsignup" onclick="showRSSignUp()">Đăng kí</button>
-                    <p>Quay lại đăng nhập?<a href="#" onclick="showLoginForm()">Đăng nhập</a></p>
-                </div>
-            </form>
-        </div>
+           <div id="show-product">
+           </div>
+           <div class="page-nav">
+               <ul class="page-nav-list">
+               </ul>
+           </div>
+       </div> -->
+   
+   
+   
+   
+       <div id="modal">
+           <div id="login">
+               <form id="loginform">
+                   <div class="header-login">
+                       <h1>Đăng nhập</h1>
+                       <button type="button" class="btnclose" onclick="closeForm()">+</button>
+                   </div>
+                   <div class="datalogin">
+                           <label for="username">Tên đăng nhập</label>
+                           <input type="text" name="" id="">
+                   </div>
+                   <div class="datalogin">
+                       <label for="password">Mật khẩu</label>
+                       <input type="password" name="" id="">
+                   </div>
+                   <div class="footlogin">
+                       <button type="button" class="btnlogin" onclick="showRSLogin()">Đăng nhập</button>
+                       <p>Bạn chưa có tài khoản? <a href="#" onclick="showSignupForm()">Đăng kí</a></p>
+                   </div>
+               </form>
+           </div>
+           <div id="signup">
+               <form  id="signupform">
+                   <div class="header-signup">
+                       <h1>Đăng kí</h1>
+                       <button type="button" class="btnclose" onclick="closeForm()">+</button>
+                   </div>
+                   <div class="datasignup">
+                       <label for="username">Tên đăng nhập</label>
+                       <input type="text">
+                   </div>
+                   <div class="datasignup">
+                       <label for="usernameSignUp">Email</label>
+                       <input type="text">
+                   </div>
+                   <div class="datasignup">
+                       <label for="password">Mật khẩu</label>
+                       <input type="password" name="" id="">
+                   </div>
+                   <div class="datasignup">
+                       <label for="password">Nhập lại mật khẩu</label>
+                       <input type="password" name="" id="">
+                   </div>
+                   <div class="footsignup">
+                       <button type="button" class="btnsignup" onclick="showRSSignUp()">Đăng kí</button>
+                       <p>Quay lại đăng nhập?<a href="#" onclick="showLoginForm()">Đăng nhập</a></p>
+                   </div>
+               </form>
+           </div>
+          
+       </div>
+                                   <!-- menu forrm  ############ -->
        
-    </div>
-    <div class="footer">
-        <div class="footleft">Thông tin shop</div>
-    </div>
-    <script src="./js/main.js"></script>
-    <script src="./js/dataprod.js"></script>
+           
+           
+       
+       <div class="footer">
+           <div class="footleft">Thông tin shop</div>
+       </div>
+       <script src="./js/main.js"></script>
+       <script src="./js/dataprod.js"></script>
+       <script src="./js/admin.js"></script>
 </body>
 </html>

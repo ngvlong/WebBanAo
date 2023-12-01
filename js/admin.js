@@ -739,6 +739,7 @@ function setDefaultValue() {
     document.getElementById("mo-ta").value = "";
     document.getElementById("chon-loai-ao").value = "Áo Thun";
     document.getElementById("ip-quantity-product").value="";
+
     szS = "";
     szM = "";
     szL = "";
@@ -1481,6 +1482,13 @@ function signUpFormReset() {
     document.querySelector('.form-message-email').innerHTML = '';
     document.querySelector('.form-message-phone').innerHTML = '';
     document.querySelector('.form-message-password').innerHTML = '';
+
+    const password = document.getElementById("password");
+    if (password.type === "text") {
+        password.type = "password";
+        document.getElementById("showPassword").style.display = "none";
+        document.getElementById("hidePassword").style.display = "block";
+    } 
 }
 
 
