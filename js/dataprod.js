@@ -718,21 +718,6 @@ function createProduct() {
     },
 
     {
-        id: 47,
-        status: 1, 
-        title: 'ROYAL HORSE SHIRT',
-        img: './assets/image/ROYAL HORSE SHIRT.jpg',
-        imghv: './assets/image/ROYAL HORSE SHIRT-Hover.jpg',
-        category: 'Áo Khoác',
-        sizeS: 30,
-        sizeM: 69,
-        sizeL: 22,
-        sizeXL:40,
-        price: 250000,
-        newprice:'',
-        desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
-    },
-    {
         id: 48,
         status: 1, 
         title: 'ALPHABETIC JEAN JACKET',

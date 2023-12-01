@@ -26,6 +26,10 @@ a{
     text-decoration: none;
     color: #000;
 }
+.slide-img{
+    display: none;
+    border: none;
+}
 
 #customalert {
     visibility: hidden;
@@ -391,9 +395,10 @@ a{
 
 .advanced-search .container{
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     margin: 2px;
+    right: 50%;
 }
 
 .advanced-search-price{
@@ -436,10 +441,10 @@ a{
 }
 #min-price{
     margin-top: 15px;
-    width: 85px;
+    width: 95px;
 }
 #max-price{
-    width: 85px;
+    width: 95px;
     margin-top: 15px;
 }
 #filter-price{
@@ -491,11 +496,12 @@ a{
     outline: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 .advanced-search-control button:hover{
-    background-color: var(--red);
-    color: var(--white);
+    background-color: var(--medium-gray);
+    color: white;
 }
 
 #iconmenu:hover{
@@ -578,6 +584,7 @@ button{
     right: 0;
     left: 0;
     text-align: center;
+    border-bottom: 2px solid black;
 }
 .products{
     border: 1px solid green;
@@ -588,25 +595,28 @@ button{
 
 }
 .container{
-    max-width: 1230px;
     padding: 0 10px;
     margin: 70px auto;
+    justify-content: center;
+    align-items: center;
 }
 .home-products {
     display: flex;
     flex-wrap: wrap;
     margin-top: 15px;
+    justify-content: center;
+    align-items: center;
 }
 
 .col-product {
-    width: 23%;
-    padding: 10px;
+    width: 20%;
+    padding: 20px;
     overflow: hidden;
 }
 .card-product {
     background-color: var(--white);
-    border-radius: 10px;
-    border: 1px solid var(--light-gray);
+    border-radius: 5px;
+    height: 385px;
 }
 
 .card-header {
@@ -614,6 +624,7 @@ button{
     border-top-right-radius: 5px;
     overflow: hidden;
     position: relative;
+    height: 280px;
 }
 
 .card-header strong {
@@ -630,17 +641,36 @@ button{
 }
 
 .card-image {
-    max-width: 220px;
-    min-width: 220px;
-    height: 220px;
+    width: 230px;
+    width: 210px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     object-fit: cover;
-    transition: transform 0.4s ease;
-    display: block;
-    margin: 0 auto;
+    transition: opacity 0.5s ease-in-out;
+    align-items: center;
+    opacity: 1;
 }
-
+.card-image-hover{
+   height: 230px;
+   width: 210px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    transition: opacity 0.5s ease-in-out;
+    align-items: center;
+    opacity: 0;
+}
 .card-image:hover {
-    transform: scale(1.05);
+   opacity: 0;
+}
+.card-image-hover:hover{
+    opacity: 1;
 }
 
 .card-image-link {
@@ -660,12 +690,12 @@ button{
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
-    font-family: "SF Pro Display", sans-serif;
+    font-family: Font Awesome 6 Pro;
     
 }
 
 .card-footer {
-    padding: 5px 10px 10px;
+    padding: 5px ;
 }
 
 .product-price{
@@ -673,16 +703,23 @@ button{
 }
 
 .product-price .current-price {
-    color: var(--red);
+    color: black;
     font-weight: 600;
-    font-size: 15px
+    font-size: 19px;
+    font-family: Font Awesome 6 Pro;
 }
 
 .product-price .old-price {
-    text-decoration: line-through;
-    color: #808080;
-    font-size: 13px;
+    color: black;
+    font-size: 16px;
     margin-left: 5px;
+    font-weight: 600;
+    font-family: Font Awesome 6 Pro;
+    background-color: transparent;
+}
+.product-price .old-price.active{
+    text-decoration: line-through;
+    color: var(--light-gray);
 }
 
 .product-buy {
@@ -692,13 +729,13 @@ button{
 }
 
 .card-button {
-    background-color: var(--lightest-gray);
+    background-color: var(--light-gray);
     outline: none;
     border: none;
-    width: 85%;
-    padding: 10px;
+    width:80%;
+    padding: 12px;
     color: var(--white);
-    border-radius: 15px;
+    border-radius: 5px;
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 600;
@@ -706,6 +743,8 @@ button{
 
 .card-button:hover {
     box-shadow: inset 0 0 0 100px rgb(0 0 0 / 20%);
+    color: white;
+    border-radius: 10px;
 
 }
 
@@ -735,20 +774,23 @@ button{
     padding: 13px 25px;
     border-radius: 35px;
 
+
 }
 .page-nav-item{
     border-radius: 50%;
+
 }
 .page-nav-item a {
-    display: inline-block;
+
     color: #000;
     border: 2px solid #000;
     height: 35px;
     width: 35px;
     text-align: center;
-    line-height: 27px;
+    align-items: center;
     border-radius: 50%;
-    font-size: 15px;
+    font-size: 17px;
+    display: inline-block;
 }
 
 .page-nav-item.active a,

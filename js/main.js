@@ -1,6 +1,22 @@
 function vnd(price) {
   return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
+let slideIndex = 0;
+function showSlides() {
+    let slides = document.getElementsByClassName("slide-img");
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+    slides[slideIndex - 1].style.display = "block";
+    setTimeout(showSlides, 4000); 
+}
+
+showSlides();
+
 function menulist() {
   var form = document.getElementById('menulist');
   if (form.style.display === 'none') {
@@ -182,6 +198,7 @@ function renderProducts(showProduct) {
                 <div class="card-header">
                     <a href="#" class="card-image-link" onclick="detailProduct(${product.id})">
                     <img class="card-image" src="${product.img}" alt="${product.title}">
+                    <img class="card-image-hover" src="${product.imghv}" alt="${product.title}">
                     </a>
                 </div>
                 <div class="food-info">
@@ -192,7 +209,8 @@ function renderProducts(showProduct) {
                     </div>
                     <div class="card-footer">
                         <div class="product-price">
-                            <span class="current-price">${vnd(product.price)}</span>
+                            <span class="old-price">${vnd(product.price)}</span>
+                            <span class="current-price">${vnd(product.newprice)}</span>
                         </div>
                     <div class="product-buy">
                         <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i> Đặt hàng</button>
@@ -204,6 +222,14 @@ function renderProducts(showProduct) {
         });
     }
     document.getElementById('home-products').innerHTML = productHtml;
+    const currentPrice = document.querySelectorAll(".current-price");
+    const oldPrice = document.querySelectorAll(".old-price");
+    for (let i = 0; i < oldPrice.length; i++) {
+    if(currentPrice[i].textContent != ""){
+    oldPrice[i].classList.add("active");
+
+      }
+    }
 }
 let perPage = 12;
 let currentPage = 1;
