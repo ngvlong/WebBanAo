@@ -213,7 +213,7 @@ function renderProducts(showProduct) {
                             <span class="current-price">${vnd(product.newprice)}</span>
                         </div>
                     <div class="product-buy">
-                        <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i> Đặt hàng</button>
+                        <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i>Xem sản phẩm</button>
                     </div> 
                 </div>
                 </div>

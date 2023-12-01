@@ -612,7 +612,12 @@ button{
     width: 20%;
     padding: 20px;
     overflow: hidden;
+    border: 0.01px solid transparent;
 }
+.col-product:hover{
+   font-size: 20px;
+}
+
 .card-product {
     background-color: var(--white);
     border-radius: 5px;
@@ -787,7 +792,7 @@ button{
     height: 35px;
     width: 35px;
     text-align: center;
-    align-items: center;
+    line-height: 32px;
     border-radius: 50%;
     font-size: 17px;
     display: inline-block;
