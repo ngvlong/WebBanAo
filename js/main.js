@@ -82,14 +82,16 @@ function showForm() {
 
   function closedetail(){
     document.getElementById("div_detail").style.display="none";
+    let detaildiv = document.getElementsByClassName("detail")[0];
+    detaildiv.innerHTML = "";
   }
 
-  function choose_side(){
+  function choose_size(){
     var a = document.getElementById("div_size");
     var b = a.getElementsByClassName("size");
     for (var i=0;i<b.length;i++){
       b[i].addEventListener("click", function() {
-      var c = document.getElementsByClassName("active");
+      var c = a.getElementsByClassName("active");
       c[0].className=c[0].className.replace(" active", "");
       this.className+=" active";
       });
@@ -222,5 +224,93 @@ function showCategory(category) {
   document.getElementById("home-title").scrollIntoView();
 }
 
+let productsave =JSON.parse(localStorage.getItem("products"));
 
+function findProductByID(productid){
+  for (let i = 0; i < productsave.length; i++){
+    if (productid != productsave[i].id) continue;
 
+    return productsave[i];
+  }
+
+  return null;
+}
+
+function detailProduct(id){
+  let divdetail = document.getElementById('div_detail');
+  divdetail.style.display='grid';
+
+  let product = findProductByID(id);
+  
+
+  let detailcontainer = document.getElementsByClassName('detail')[0];
+ 
+
+  detailcontainer.innerHTML += (`
+    <button class="close_detail" onclick="closedetail()">+</button>
+      <div class="title-container">
+        <h1 class="title">${product.title}</h1>
+      </div>
+      <div class="detail-container">
+        <div class="img-container">
+          <img src="${product.img}" alt="" id="img_main">
+          <div class="swap-img-container">
+              <img class="idtruoc" src="${product.img}" onclick="swap_img(this)"/>
+              <img class="idsau" src="${product.imghv}"  onclick="swap_img(this)"/>
+          </div>
+        </div>
+        <div class="detail-content">
+          <div class="div_type">
+            <span class="type">Phân loại:</span>
+            <span class="nametype">${product.category}</span>
+          </div>
+          <div class="div_price">
+            <h1 class="price">${product.price}</h1>
+          </div>
+          <div id="div_size"> 
+              <span class="size active">S</span>
+              <span class="size">M</span>
+              <span class="size">L</span>
+              <span class="size">XL</span>
+          </div>
+          <div id="div_quantity">
+            <button class="quantity" onclick="handleMinus()">-</button>
+            <input id="amount" name="amount" type="text" value="1"/>
+            <button class="quantity" onclick="handlePlus()">+</button>
+          </div> 
+          <button class="div_buy" >CHỌN MUA</button>
+          <div class="div_describe">` + writeDescribe(product.desc) + `</div>
+        </div>
+      </div>
+  `)
+  choose_size();
+}
+
+function swap_img(reviewimg){
+  swap_img_noneb();
+  reviewimg.style.border="solid 2px black";
+  let a = reviewimg.getAttribute('src');
+  document.getElementById("img_main").setAttribute('src',a);
+}
+
+function swap_img_noneb(){
+  document.getElementsByClassName('idtruoc')[0].style.border="none";
+  document.getElementsByClassName('idsau')[0].style.border="none";
+}
+
+function writeDescribe(describe){
+  let desarray = getDescription(describe);
+  let destext = "";
+
+  for (let i = 0; i < desarray.length; i++){
+    destext += `<span>${desarray[i]}</span>`;
+  }
+
+  return destext;
+}
+
+function getDescription(describe){
+  let describearray = describe.split('\n ');
+
+  return describearray;
+}

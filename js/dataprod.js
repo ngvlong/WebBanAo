@@ -44,12 +44,12 @@ function createProduct() {
             sizeXL:40,
             price: 320000,
             newprice:299999,
-            desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
+            desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\n Chất liệu: Cotton 2 chiều'
         },
         {
             id: 3,
             status: 1, 
-            title: 'HOODIE SPACE',
+            title: 'HOODIE SPACE',  
             img: './assets/image/HOODIE SPACE.jpg',
             imghv: './assets/image/HOODIE SPACE -Hover.jpg',
             category: 'Áo Hoodie',
@@ -59,7 +59,7 @@ function createProduct() {
             sizeXL:20,
             price: 320000,
             newprice:'',
-            desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\nChất liệu: Cotton 2 chiều'
+            desc: 'Form boxy\n Graphic in kéo full bản ở mặt trước và mặt sau áo\n Logo Hades thêu nổi ở tay áo\n Chất liệu: Cotton 2 chiều'
         },
         {
             id: 4,
