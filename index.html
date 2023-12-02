@@ -9,6 +9,9 @@
 
     <!-- <link rel="stylesheet" href="css/admin.css"> -->
     <link rel="icon" type="images/x-icon"  href="./icon/icontitle1.png">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>HALO STORE</title>
 </head>
 <body >
@@ -22,7 +25,8 @@
            </div>
            <form class="headcenter" class="form-search">
             <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
-               <input type="text" id="form-search-product" type="text" class="form-search-input inputsearch" placeholder="TÌm kiếm sản phẩm"  onclick="searchform()">
+             <input type="text" id="form-search-product" type="text" class="form-search-input inputsearch" placeholder="TÌm kiếm sản phẩm"  onclick="searchform()">
+             <span class="filter-btn"><i class="fa-light fa-filter-list"></i>Lọc</span>
            </form>
            <div class="headerright">
                <div class="headerright-click"><button onclick="showForm()"> Đăng nhập</button></div>
@@ -54,9 +58,43 @@
    
                <!-- </div> -->
            </div>
-           <picture class="head-img">
-               <img src="./assets/image/2.webp" height="800px" width="100%" alt="">
-           </picture>
+           <div class="advanced-search">
+            <div class="container">
+                <div class="advanced-search-category">
+                    <span>Phân loại </span>
+                    <select name="" id="advanced-search-category-select" onchange="searchProducts()">
+                        <option>Tất cả</option>
+                        <option>Áo Sơ mi</option>
+                        <option>Áo Thun</option>
+                        <option>Áo Khoác</option>
+                        <option>Áo polo</option>
+                        <option>Áo Hoodie</option>
+                        <option>Sale</option>
+                    </select>
+                </div>
+                <div class="advanced-search-price">
+                    <div id="price-range">
+                        <label for="min-price">Giá :</label>
+                        <input type="text" id="min-price" readonly> - <input type="text" id="max-price" readonly>
+                    </div>
+                    <div>
+                        <button id="filter-price" onclick="filterProductPrice()"><i class="fa-light fa-filter-circle-dollar"></i></button>
+                    </div>
+                  
+                </div>
+
+                <div class="advanced-search-control">
+                    <button id="sort-ascending" onclick="searchProducts(1)"><i class="fa-regular fa-arrow-up-short-wide"></i></button>
+                    <button id="sort-descending" onclick="searchProducts(2)"><i class="fa-regular fa-arrow-down-wide-short"></i></button>
+                    <button id="reset-search" onclick="searchProducts(0)"><i class="fa-light fa-arrow-rotate-right"></i></button>
+                    <button onclick="closeSearchAdvanced()"><i class="fa-light fa-xmark"></i></button>
+                </div>
+            </div>
+        </div>
+           <div class="head-img">
+              <button class="slide-img"><img src="./assets/slide1.webp"  alt=""></button> 
+               <button class="slide-img"><img src="./assets/slide2.webp"  alt=""></button>
+           </div>
            
        </div>
        <div >
@@ -139,8 +177,10 @@
                </ul>
            </div>
        </div> -->
-
-
+   
+   
+   
+   
        <div id="modal">
            <div id="login">
                <form id="loginform">

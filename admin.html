@@ -156,6 +156,7 @@
                             <option>Áo Sơ mi</option>
                             <option>Áo Khoác</option>
                             <option>Áo Hoodie</option>
+                            <option>Sale</option>
                             <option>Đã xóa</option>
                         </select>
                     </div>
@@ -177,8 +178,6 @@
 
                 </div>
                 <div id="show-product">
-
-
                 </div>
                 <div class="page-nav">
                     <ul class="page-nav-list">
@@ -203,19 +202,7 @@
                     </div>
                     <div class="admin-control-right">
                         <button type="button" name="Customer" class="btn-fillter-date" id="btn-fillter-Us"><i class="fa-light fa-calendar-lines-pen"></i>Lọc theo ngày</button>
-                       
 
-
-                        <!-- <form action="" class="fillter-date">
-                            <div>
-                                <label for="time-start">Từ</label>
-                                <input type="date" class="form-control-date" id="time-start-user" onchange="showUser()">
-                            </div>
-                            <div>
-                                <label for="time-end">Đến</label>
-                                <input type="date" class="form-control-date" id="time-end-user" onchange="showUser()">
-                            </div>
-                        </form>       -->
                         <button class="btn-reset-order" onclick="cancelSearchUser()"><i class="fa-light fa-arrow-rotate-right"></i>Làm mới</button>     
                         <button id="btn-add-user" class="btn-control-large" onclick="openCreateAccount()"><i class="fa-light fa-plus"></i> <span>Thêm khách hàng</span></button>          
                     </div>
@@ -230,7 +217,7 @@
                                 <td>Liên hệ</td>
                                 <td> <div>Ngày tham gia</div>
                                     <div class="mess-time">
-                                        <button>
+                                        <button >
                                            <label for=""><i class="fa-light fa-calendar-clock"></i>:</label>
                                            <span class="show-Date" id="result-time-start-cus"></span><span><i class="fa-light fa-arrow-right"></i></span><span class="show-Date" id="result-time-end-cus"></span>
                                         </button>
@@ -291,7 +278,7 @@
                     </table>
                 </div>
             </div>
-            <div class="section">
+            <div class="section tk">
                 <div class="admin-control">
                     <div class="admin-control-left">
                         <select name="the-loai-tk" id="the-loai-tk" onchange="thongKe()">
@@ -308,14 +295,36 @@
                         <form action="" class="form-search">
                             <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
                             <input id="form-search-tk" type="text" class="form-search-input" placeholder="Tìm kiếm tên áo..." oninput="thongKe()">
-                            <span id="filter-Money"><i class="fa-sharp fa-light fa-filter-circle-dollar"></i></span>
+                            <!-- <span id="filter-Money"><i class="fa-sharp fa-light fa-filter-circle-dollar"></i></span> -->
                         </form>
                     </div>
                     <div class="admin-control-right">
-                        <button type="button" class="btn-fillter-date" id="btn-fillter-tk"><i class="fa-light fa-calendar-lines-pen"></i>Lọc theo ngày</button>     
-                        <button class="btn-reset-order" onclick="thongKe(1)"><i class="fa-regular fa-arrow-up-short-wide"></i></i></button>
-                        <button class="btn-reset-order" onclick="thongKe(2)"><i class="fa-regular fa-arrow-down-wide-short"></i></button>
-                        <button class="btn-reset-order" onclick="thongKe(0)"><i class="fa-light fa-arrow-rotate-right"></i>Làm mới</button>                    
+                        <button  class="btn-fillter-date" id="btn-fillter-tk"><i class="fa-light fa-calendar-lines-pen"></i>Lọc theo ngày</button>    
+                        <div class="form-gr-info" style="display: flex;">
+                            <div class="form-info">
+                                <button class="btn-reset-order btn-up-quatity" id="btn-up-quatity" onclick="thongKe(1)"><i class="fa-regular fa-arrow-up-short-wide"></i></button>
+                                <div class="mess-info info-up-quatity">Sắp xếp theo số lượng bán tăng dần</div>
+                            </div> 
+                            <div class="form-info">
+                                <button class="btn-reset-order btn-down-quatity" id="btn-down-quatity"  onclick="thongKe(2)"><i class="fa-regular fa-arrow-down-wide-short"></i></button>
+                                <div class="mess-info info-down-quatity">Sắp xếp theo số lượng bán giảm dần</div>
+                            </div>
+                        </div> 
+
+                        <div class="form-gr-info" >
+                            <div class="form-info">
+                                <button class="btn-reset-order btn-up-quatity" id="btn-up-quatity" onclick="thongKe(3)"><i class="fa-regular fa-chart-line-up"></i></button>
+                                <div class="mess-info info-up-quatity">Sắp xếp theo doanh thu tăng dần</div>
+                            </div> 
+                            <div class="form-info">
+                                <button class="btn-reset-order btn-down-quatity" id="btn-down-quatity"  onclick="thongKe(4)"><i class="fa-regular fa-chart-line-down"></i></button>
+                                <div class="mess-info info-down-quatity">Sắp xếp theo doanh thu giảm dần</div>
+                            </div>
+                        </div>
+
+
+                       
+                        <button class="btn-reset-order" id="btn-reset-tk" onclick="thongKe(0)"><i class="fa-light fa-arrow-rotate-right"></i>Làm mới</button>                    
                     </div>
                 </div>
                 <div class="order-statistical" id="order-statistical">
@@ -368,9 +377,10 @@
                             <tr>
                                 <td>STT</td>
                                 <td>Tên áo</td>
+                                <td>Phân loại</td>
                                 <td>Số lượng bán</td>
                                 <td>Doanh thu</td>
-                                <td></td>
+                                <td>Chi tiết</td>
                             </tr>
                         </thead>
                         <tbody id="showTk">
@@ -427,9 +437,9 @@
                         </div>
 
                         <div class="form-group file">
-                            <label for="up-hinh-anh" class="form-label-file"><i class="fa-regular fa-cloud-arrow-up"></i>Chọn hình ảnh</label>
+                            <label for="up-hinh-anh" class="form-label-file"><i class="fa-regular fa-cloud-arrow-up"></i>Chọn ảnh chính</label>
                             <input accept="image/jpeg, image/png, image/jpg, image/webp" id="up-hinh-anh" name="up-hinh-anh" type="file" class="form-control" onchange="uploadImage(this)">
-                            <label for="up-hinh-anh-hvr" class="form-label-file"><i class="fa-regular fa-cloud-arrow-up"></i>Chọn thêm hình ảnh</label>
+                            <label for="up-hinh-anh-hvr" class="form-label-file"><i class="fa-regular fa-cloud-arrow-up"></i>Chọn ảnh mô tả thêm</label>
                             <input accept="image/jpeg, image/png, image/jpg, image/webp" id="up-hinh-anh-hvr" name="up-hinh-anh-hvr" type="file" class="form-control" onchange="uploadImageMore(this)">
                         </div>
                     </div>
@@ -486,8 +496,13 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="gia-moi" class="form-label">Giá bán</label>
-                            <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá bán" class="form-control">
+                            <label for="gia-cu" class="form-label">Giá bán</label>
+                            <input id="gia-cu" name="gia-cu" type="text" placeholder="Nhập giá bán" class="form-control">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="gia-moi" class="form-label">Giá khuyến mãi</label>
+                            <input id="gia-moi" name="gia-moi" type="text" placeholder="Nhập giá khuyến mãi" class="form-control">
                             <span class="form-message"></span>
                         </div>
                         <div class="form-group">
@@ -521,13 +536,17 @@
         </div>
     </div>
     <div class="modal detail-order-product">
+
         <div class="modal-container">
+            <h2>THỐNG KÊ CHI TIẾT</h2>
             <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
             <div class="table">
                 <table width="100%">
                     <thead>
                         <tr>
                             <td>Mã đơn</td>
+                            <td>Tên áo</td>
+                            <td>Size</td>
                             <td>Số lượng</td>
                             <td>Đơn giá</td>
                             <td>Ngày đặt</td>
@@ -572,10 +591,18 @@
                         </div>
                         <span class="form-message-password form-message"></span>
                     </div>   
-                    <div class="form-group edit-account-e">
-                        <label for="" class="form-label">Trạng thái</label>
-                        <input type="checkbox" id="user-status" class="switch-input">
-                        <label for="user-status" class="switch"></label>
+                    <div class="form-group edit-account-e" id="edit-account-e">
+                        <div style="display: flex;"><label for="" class="form-label">Trạng thái</label>
+                        <div class="form-status" id="status-acv">
+                            <span id="acv-circle"><i class="fa-solid fa-circle"></i></span>
+                            <label for="">Hoạt động</label>
+                        </div>
+                        <div class="form-status" id="status-nonacv">
+                            <span id="nonacv-circle"><i class="fa-solid fa-circle"></i></span>
+                            <label for="">Tắt hoạt động</label>
+                        </div>
+                        </div>
+
                     </div>
                     <button class="form-submit add-account-e" id="signup-button">Đăng ký</button>
                     <button class="form-submit edit-account-e" id="btn-update-account"><i class="fa-regular fa-floppy-disk"></i> Lưu thông tin</button>
@@ -584,7 +611,7 @@
         </div>
     </div>
     </div>
-    <div id="toast"></div>
+    <div id="advertise"></div>
     <script src="./js/admin.js"></script>
 
 

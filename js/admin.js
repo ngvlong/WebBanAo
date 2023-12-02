@@ -90,7 +90,7 @@ function getMoney() {
 
 // Doi sang dinh dang tien VND
 function vnd(price) {
-    return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+       return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
 // Phân trang 
 let perPage = 10;
@@ -164,7 +164,8 @@ function showProductArr(arr) {
                     </div>
                 <div class="list-right">
                     <div class="list-price">
-                    <span class="list-current-price">${vnd(product.price)}</span>                   
+                    <span class="list-old-price"> ${vnd(product.price)}</span>               
+                    <span class="list-current-price">${vnd(product.newprice)}</span>     
                     </div>
                     <div class="list-control">
                     <div class="list-tool">
@@ -182,12 +183,24 @@ function showProductArr(arr) {
                 </div>
                 </div> 
             </div>`;
-
-
+           
         });
     }
+    
     document.getElementById("show-product").innerHTML = productHtml;
+
+    const currentPrice = document.querySelectorAll(".list-current-price");
+    const oldPrice = document.querySelectorAll(".list-old-price");
+    for (let i = 0; i < oldPrice.length; i++) {
+    if(currentPrice[i].textContent != ""){
+    oldPrice[i].classList.add("active");
+
+      }
+    }
+
 }
+
+
 
 let minPriceTemp = 0;
 let maxPriceTemp = 1000000;
@@ -227,7 +240,9 @@ function showProduct() {
         result = products.filter((item) => item.status == 1);
     } else if(selectOp == "Đã xóa") {
         result = products.filter((item) => item.status == 0);
-    } else {
+    } else if(selectOp == "Sale"){
+        result = products.filter((item) => item.newprice != '');
+    }else{
         result = products.filter((item) => item.category == selectOp);
     }
 
@@ -282,6 +297,8 @@ function filterProductPrice(){
         result = products.filter((item) => item.status == 1);
     } else if(selectOp == "Đã xóa") {
         result = products.filter((item) => item.status == 0);
+    }else if(selectOp == "Sale"){
+        result = products.filter((item) => item.newprice != "");
     } else {
         result = products.filter((item) => item.category == selectOp);
     }
@@ -289,14 +306,23 @@ function filterProductPrice(){
     result = valeSearchInput == "" ? result : result.filter(item => {
         return item.title.toString().toUpperCase().includes(valeSearchInput.toString().toUpperCase());
     })
-    result = result.filter(item => {
+    resultOldPrice = result.filter(item => item.newprice =="");
+    resultOldPrice = resultOldPrice.filter(item => {
         const itemPrice = parseInt(item.price);
         const minPrice = parseInt(minPriceTemp);
         const maxPrice = parseInt(maxPriceTemp);
-        
         return itemPrice >= minPrice && itemPrice <= maxPrice;
-        
     });
+
+    resultNewPrice = result.filter(item => item.newprice !="");
+    resultNewPrice = resultNewPrice.filter(item => {
+        const itemPrice = parseInt(item.newprice);
+        const minPrice = parseInt(minPriceTemp);
+        const maxPrice = parseInt(maxPriceTemp);
+        return itemPrice >= minPrice && itemPrice <= maxPrice;
+    });
+    result= resultNewPrice.concat(resultOldPrice);
+    result.sort((a, b) => a.id - b.id);
 
 
     displayList(result, perPage, currentPage);
@@ -314,7 +340,7 @@ function deleteProduct(id) {
     })
     if (confirm("Bạn có chắc muốn xóa?") == true) {
         products[index].status = 0;
-        toast({ title: 'Success', message: 'Xóa sản phẩm thành công !', type: 'success', duration: 3000 });
+        advertise({ title: 'Success', message: 'Xóa sản phẩm thành công !', type: 'success', duration: 3000 });
     }
     localStorage.setItem("products", JSON.stringify(products));
     showProduct();
@@ -327,7 +353,7 @@ function changeStatusProduct(id) {
     })
     if (confirm("Bạn có chắc chắn muốn hủy xóa?") == true) {
         products[index].status = 1;
-        toast({ title: 'Success', message: 'Khôi phục sản phẩm thành công !', type: 'success', duration: 3000 });
+        advertise({ title: 'Success', message: 'Khôi phục sản phẩm thành công !', type: 'success', duration: 3000 });
     }
     localStorage.setItem("products", JSON.stringify(products));
     showProduct();
@@ -353,7 +379,8 @@ function editProduct(id) {
     document.querySelector(".upload-image-preview").src = products[index].img;
     document.querySelector(".image-hover").src = products[index].imghv;
     document.getElementById("ten-ao").value = products[index].title.toUpperCase();
-    document.getElementById("gia-moi").value = products[index].price;
+    document.getElementById("gia-cu").value = products[index].price;
+    document.getElementById("gia-moi").value = products[index].newprice;
     document.getElementById("mo-ta").value = products[index].desc;
     document.getElementById("chon-loai-ao").value = products[index].category;
     document.getElementById("ip-quantity-product").value = products[index].sizeS;
@@ -495,12 +522,14 @@ function showQuantity(button){
 let btnUpdateProductIn = document.getElementById("update-product-button");
 btnUpdateProductIn.addEventListener("click", (e) => {
     e.preventDefault();
+    const outprice =  document.querySelectorAll(".list-old-price");
     let products = JSON.parse(localStorage.getItem("products"));
     let idProduct = products[indexCur].id;
     let imgProduct = products[indexCur].img;
     let imgProductHvr = products[indexCur].imghv;
     let titleProduct = products[indexCur].title;
-    let curProduct = products[indexCur].price;
+    let priceProduct = products[indexCur].price;
+    let newpriceProduct = products[indexCur].newprice;
     let descProduct = products[indexCur].desc;
     let categoryProduct = products[indexCur].category;
     let sizeSProduct = products[indexCur].sizeS;
@@ -509,16 +538,21 @@ btnUpdateProductIn.addEventListener("click", (e) => {
     let sizeXLProduct = products[indexCur].sizeXL;
 
 
-    let imgProductCur = getPathImage(document.querySelector(".upload-image-preview").src)
-    let imgProductHvrCur = getPathImage(document.querySelector(".image-hover").src)
+
+    let imgProductCur = decodeURIComponent(getPathImage(document.querySelector(".upload-image-preview").src))
+    let imgProductHvrCur = decodeURIComponent(getPathImage(document.querySelector(".image-hover").src))
     let titleProductCur = document.getElementById("ten-ao").value;
-    let curProductCur = document.getElementById("gia-moi").value;
+    let priceProductCur = document.getElementById("gia-cu").value;
+    let newpriceProductCur = document.getElementById("gia-moi").value;
+    if(newpriceProductCur == ""){
+        outprice[indexCur-1].classList.remove("active");
+    }
     let descProductCur = document.getElementById("mo-ta").value;
     let categoryText = document.getElementById("chon-loai-ao").value;
 
     let selectbtn = document.querySelector(".list-btn-size.active .btn-size").textContent;
 
-    if(selectbtn ==="S"){
+    if(selectbtn =="S"){
         szS = document.querySelector("#ip-quantity-product").value;
 
     }else if(selectbtn ==="M"){
@@ -532,36 +566,58 @@ btnUpdateProductIn.addEventListener("click", (e) => {
 
     }
 
-    let sizeSCur = szS;
+    var sizeSCur = szS;
     let sizeMCur = szM;
     let sizeLCur = szL;
     let sizeXLCur = szXL; 
-
-    if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || curProductCur != curProduct || descProductCur != descProduct || categoryText != categoryProduct || sizeSCur != sizeSProduct || sizeMCur != sizeMProduct || sizeLCur != sizeLProduct || sizeXLCur != sizeXLProduct) {
-        let productadd = {
-            id: idProduct,
-            title: titleProductCur,
-            img: imgProductCur,
-            imghv: imgProductHvrCur,
-            sizeS: sizeSCur,
-            sizeM: sizeMCur,
-            sizeL: sizeLCur,
-            sizeXL: sizeXLCur,
-            category: categoryText,
-            price: parseInt(curProductCur),
-            desc: descProductCur,
-            status: 1,
-        };
-        products.splice(indexCur, 1);
-        products.splice(indexCur, 0, productadd);
-        localStorage.setItem("products", JSON.stringify(products));
-        toast({ title: "Success", message: "Sửa sản phẩm thành công!", type: "success", duration: 3000, });
-        setDefaultValue();
-        document.querySelector(".add-product").classList.remove("open");
-        showProduct();
-    } else {
-        toast({ title: "warning", message: "Sửa sản phẩm không thành công!", type: "warning", duration: 3000, });
+    if(titleProductCur ==""|| priceProductCur =="" || descProductCur =="")
+    {
+        advertise({ title: "Chú ý", message: "Vui lòng nhập đầy đủ thông tin sản phẩm!", type: "warning", duration: 3000, });
+    }else if(isNaN(priceProductCur)) {
+        advertise({ title: "Chú ý", message: "Giá phải ở dạng số!", type: "warning", duration: 3000, });
+    }else if(isNaN(newpriceProductCur) && newpriceProductCur != "") {
+        advertise({ title: "Chú ý", message: "Giá khuyến mãi phải ở dạng số!", type: "warning", duration: 3000, });
     }
+    else{
+        if (imgProductCur != imgProduct|| imgProductHvrCur != imgProductHvr || titleProductCur != titleProduct || 
+            priceProductCur != priceProduct || newpriceProductCur != newpriceProduct || descProductCur != descProduct ||
+            categoryText != categoryProduct || parseInt(sizeSCur,10) != parseInt(sizeSProduct,10) || 
+            parseInt(sizeMCur) != parseInt(sizeMProduct) || parseInt(sizeLCur) != parseInt(sizeLProduct) || 
+            parseInt(sizeXLCur) != parseInt(sizeXLProduct)) {
+            if(newpriceProductCur != "" && parseInt(newpriceProductCur) >= parseInt(priceProductCur) ){
+                advertise({ title: "Chú ý", message: "Giá khuyến mãi không hợp lệ!", type: "warning", duration: 3000, });
+                    }
+            else{    
+                let productadd = {
+                    id: idProduct,
+                    title: titleProductCur,
+                    img: imgProductCur,
+                    imghv: imgProductHvrCur,
+                    sizeS: sizeSCur,
+                    sizeM: sizeMCur,
+                    sizeL: sizeLCur,
+                    sizeXL: sizeXLCur,
+                    category: categoryText,
+                    price: parseInt(priceProductCur),
+                    newprice: parseInt(newpriceProductCur),
+                    desc: descProductCur,
+                    status: 1,
+                };
+                products.splice(indexCur, 1);
+                products.splice(indexCur, 0, productadd);
+                localStorage.setItem("products", JSON.stringify(products));
+                advertise({ title: "Successsss", message: "Sửa sản phẩm thành công!", type: "success", duration: 3000, });
+                setDefaultValue();
+                document.querySelector(".add-product").classList.remove("open");
+                showProduct();   
+            } 
+        }else {
+            advertise({ title: "warning", message: "Sửa sản phẩm không thành công!", type: "warning", duration: 3000, });
+            setDefaultValue();
+            document.querySelector(".add-product").classList.remove("open");
+            showProduct();     
+        }
+    }  
 });
 
 let btnAddProductIn = document.getElementById("add-product-button");
@@ -572,14 +628,15 @@ btnAddProductIn.addEventListener("click", (e) => {
 
 
     let tenAo = document.getElementById("ten-ao").value;
-    let price = document.getElementById("gia-moi").value;
+    let price = document.getElementById("gia-cu").value;
+    let newprice = document.getElementById("gia-moi").value;
     let moTa = document.getElementById("mo-ta").value;
     let categoryText = document.getElementById("chon-loai-ao").value;
     if(tenAo == "" || price == "" || moTa == "") {
-        toast({ title: "Chú ý", message: "Vui lòng nhập đầy đủ thông tin sản phẩm!", type: "warning", duration: 3000, });
+        advertise({ title: "Chú ý", message: "Vui lòng nhập đầy đủ thông tin sản phẩm!", type: "warning", duration: 3000, });
     } else {
         if(isNaN(price)) {
-            toast({ title: "Chú ý", message: "Giá phải ở dạng số!", type: "warning", duration: 3000, });
+            advertise({ title: "Chú ý", message: "Giá phải ở dạng số!", type: "warning", duration: 3000, });
         } else {
             let products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : [];
             let product = {
@@ -589,6 +646,7 @@ btnAddProductIn.addEventListener("click", (e) => {
                 imghv: imgHvrProduct,
                 category: categoryText,
                 price: price,
+                newprice: newprice,
                 sizeS: szS,
                 sizeM: szM,
                 sizeL: szL,
@@ -600,7 +658,7 @@ btnAddProductIn.addEventListener("click", (e) => {
             localStorage.setItem("products", JSON.stringify(products));
             showProduct();
             document.querySelector(".add-product").classList.remove("open");
-            toast({ title: "Success", message: "Thêm sản phẩm thành công!", type: "success", duration: 3000});
+            advertise({ title: "Success", message: "Thêm sản phẩm thành công!", type: "success", duration: 3000});
             setDefaultValue();
         }
     }
@@ -609,23 +667,23 @@ btnAddProductIn.addEventListener("click", (e) => {
 
 
 
-function toast({
+function advertise({
     title = 'Success',
     message = 'Tạo tài khoản thành công',
     type = 'success', 
     duration = 3000
 }){
-    const main = document.getElementById('toast');
+    const main = document.getElementById('advertise');
     if(main){
-        const toast = document.createElement('div');
-        //Auto remove toast
+        const advertise = document.createElement('div');
+        //Auto remove advertise
         const autoRemove = setTimeout(function(){
-            main.removeChild(toast);
+            main.removeChild(advertise);
         },duration+1000);
-        //Remove toast when click btn close
-        toast.onclick = function(e){
+        //Remove advertise when click btn close
+        advertise.onclick = function(e){
             if(e.target.closest('.fa-regular')){
-                main.removeChild(toast);
+                main.removeChild(advertise);
                 clearTimeout(autoRemove);
             }
         }
@@ -644,25 +702,25 @@ function toast({
         const color = colors[type];
         const icon = icons[type];
         const delay = (duration / 1000).toFixed(2);
-        toast.classList.add('toast', `toast--${type}`);
-        toast.style.animation = `slideInLeft ease 0.3s, fadeOut linear 1s ${delay}s forwards`;
-        toast.innerHTML = `<div class="toast__private" >
-        <div class="toast__icon">
+        advertise.classList.add('advertise', `advertise--${type}`);
+        advertise.style.animation = `slideInLeft ease 0.3s, fadeOut linear 1s ${delay}s forwards`;
+        advertise.innerHTML = `<div class="advertise__private" >
+        <div class="advertise__icon">
             <i class="${icon}"></i>
         </div>
-        <div class="toast__body">
-            <h3 class="toast__title" >${title}</h3>
-            <p class="toast__msg">
+        <div class="advertise__body">
+            <h3 class="advertise__title" >${title}</h3>
+            <p class="advertise__msg">
                 ${message}
             </p>
         </div>
 
     </div>
     
-    <div class="toast__background"style="background-color: ${color};">
+    <div class="advertise__background"style="background-color: ${color};">
     </div>`
-    // document.querySelector('.toast__background').classList.add("initial");
-    main.appendChild(toast);
+    // document.querySelector('.advertise__background').classList.add("initial");
+    main.appendChild(advertise);
     }
 }
 
@@ -676,10 +734,12 @@ function setDefaultValue() {
     document.querySelector(".upload-image-preview").src = "./assets/upload 2.png";
     document.querySelector(".image-hover").src = "./assets/upload 2.png";
     document.getElementById("ten-ao").value = "";
+    document.getElementById("gia-cu").value = "";
     document.getElementById("gia-moi").value = "";
     document.getElementById("mo-ta").value = "";
     document.getElementById("chon-loai-ao").value = "Áo Thun";
     document.getElementById("ip-quantity-product").value="";
+
     szS = "";
     szM = "";
     szL = "";
@@ -724,7 +784,6 @@ function uploadImage(input) {
                 const flname = "./assets/image/"+ file.name;
                 imagePreview.src =  flname;
 
-                // Lấy đường dẫn ảnh và làm gì đó với nó, ví dụ: in ra console.
                 console.log("Đường dẫn ảnh:", flname);
             }
 }
@@ -736,8 +795,6 @@ function uploadImageMore(input) {
         const flname = "./assets/image/"+ file.name;
         imagePreview.src =  flname;
 
-        // Lấy đường dẫn ảnh và làm gì đó với nó, ví dụ: in ra console.
-        console.log("Đường dẫn ảnh:", flname);
     }
 }
 
@@ -783,12 +840,18 @@ let modalFillterDate = document.querySelector(".modal-fillter-date");
         if(i == 0) {
             document.getElementById('fillter-date').style.right = '23%';
             document.getElementById('btn-acp-date-cus').style.display='block';
+            document.getElementById('btn-acp-date-od').style.display='none';
+            document.getElementById('btn-acp-date-tk').style.display='none';
         }else if(i == 1) {
             document.getElementById('fillter-date').style.right = '9.4%';
             document.getElementById('btn-acp-date-od').style.display='block';
+            document.getElementById('btn-acp-date-cus').style.display='none';
+            document.getElementById('btn-acp-date-tk').style.display='none';
         }else if(i == 2) {
-            document.getElementById('fillter-date').style.right = '27.8%';
+            document.getElementById('fillter-date').style.right = '27.5%';
             document.getElementById('btn-acp-date-tk').style.display='block';
+            document.getElementById('btn-acp-date-od').style.display='none';
+            document.getElementById('btn-acp-date-cus').style.display='none';
         }
   };
 }
@@ -1022,7 +1085,7 @@ function showOrder(arr) {
             <td>${vnd(item.tongtien)}</td>                               
             <td>${status}</td>
             <td class="control">
-            <button class="btn-detail" id="" onclick="detailOrder('${item.id}')"><i class="fa-regular fa-circle-info"></i> Chi tiết</button>
+            <button class="btn-detail" id="" onclick="detailOrder('${item.id}')"><i class="fa-regular fa-circle-info"></i></button>
             </td>
             </tr>      
             `;
@@ -1125,7 +1188,7 @@ function detailOrder(id) {
         ".modal-detail-bottom"
     ).innerHTML = `<div class="modal-detail-bottom-left">
         <div class="price-total">
-            <span class="thanhtien">Thành tiền</span>
+            <span class="thanhtien">Thành tiền:</span>
             <span class="price">${vnd(order.tongtien)}</span>
         </div>
     </div>
@@ -1200,6 +1263,7 @@ function cancelSearchOrder(){
     showOrder(orders);
 }
 
+
 // Create Object Thong ke
 function createObj() {
     let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
@@ -1209,16 +1273,21 @@ function createObj() {
     orderDetails.forEach(item => {
         // Lấy thông tin sản phẩm
         let prod = products.find(product => {return product.id == item.id;});
-        let obj = new Object();
-        obj.id = item.id;
-        obj.madon = item.madon;
-        obj.price = item.price;
-        obj.quantity = item.quantity;
-        obj.category = prod.category;
-        obj.title = prod.title;
-        obj.img = prod.img;
-        obj.time = (orders.find(order => order.id == item.madon)).thoigiandat;
-        result.push(obj);
+        if (prod) {
+            let obj = {
+                id: item.id,
+                madon: item.madon,
+                size: item.size,
+                price: item.price,
+                quantity: item.quantity,
+                category: prod.category,
+                title: prod.title,
+                img: prod.img,
+                time: (orders.find(order => order.id == item.madon)).thoigiandat
+            };
+
+            result.push(obj);
+        }
     });
     return result;
 }
@@ -1255,7 +1324,7 @@ function thongKe(mode) {
             );
         });
     }    
-    console.log(result);
+
     showThongKe(result,mode);
 }
 
@@ -1303,15 +1372,22 @@ function showThongKe(arr,mode) {
         case 2:
             mergeObj.sort((a,b) => parseInt(b.quantity) - parseInt(a.quantity))
             break;
+        case 3:
+            mergeObj.sort((a,b) => parseInt(a.price*a.quantity) - parseInt(b.price*b.quantity))
+            break;
+        case 4:
+            mergeObj.sort((a,b) => parseInt(b.price*b.quantity) - parseInt(a.price*a.quantity))
+            break;
     }
     for(let i = 0; i < mergeObj.length; i++) {
         orderHtml += `
         <tr>
         <td>${i + 1}</td>
-        <td><div class="prod-img-title"><img class="prd-img-tbl" src="${mergeObj[i].img}" alt=""><p>${mergeObj[i].title.toUpperCase()}</p></div></td>
+        <td><div class="prod-img-title"><img class="prd-img-tbl" src="${mergeObj[i].img}" alt=""><p id="title-prod-tk">${mergeObj[i].title.toUpperCase()}</p></div></td>
+        <td>${mergeObj[i].category}</td>
         <td>${mergeObj[i].quantity}</td>
         <td>${vnd(mergeObj[i].doanhthu)}</td>
-        <td><button class="btn-detail product-order-detail" data-id="${mergeObj[i].id}"><i class="fa-regular fa-eye"></i> Chi tiết</button></td>
+        <td><button class="btn-detail product-order-detail" data-id="${mergeObj[i].id}"><i class="fa-regular fa-eye"></i></button></td>
         </tr>      
         `;
     }
@@ -1329,7 +1405,7 @@ showThongKe(createObj())
 function mergeObjThongKe(arr) {
     let result = [];
     arr.forEach(item => {
-        let check = result.find(i => i.id == item.id) // Không tìm thấy gì trả về undefined
+        let check = result.find(i => i.id == item.id) // Không tìm thấy gì trả về undefined. Sẽ thêm check vào result 
 
         if(check){
             check.quantity = parseInt(check.quantity)  + parseInt(item.quantity);
@@ -1350,12 +1426,16 @@ function detailOrderProduct(arr,id) {
         if(item.id == id) {
             orderHtml += `<tr>
             <td>${item.madon}</td>
+            <td>${item.title.toUpperCase()}</td>
+            <td>${item.size}</td>
             <td>${item.quantity}</td>
             <td>${vnd(item.price)}</td>
             <td>${formatDate(item.time)}</td>
             </tr>      
             `;
+            console.log(item.size);
         }
+
     });
     document.getElementById("show-product-order-detail").innerHTML = orderHtml
     document.querySelector(".modal.detail-order-product").classList.add("open")
@@ -1402,6 +1482,13 @@ function signUpFormReset() {
     document.querySelector('.form-message-email').innerHTML = '';
     document.querySelector('.form-message-phone').innerHTML = '';
     document.querySelector('.form-message-password').innerHTML = '';
+
+    const password = document.getElementById("password");
+    if (password.type === "text") {
+        password.type = "password";
+        document.getElementById("showPassword").style.display = "none";
+        document.getElementById("hidePassword").style.display = "block";
+    } 
 }
 
 
@@ -1507,6 +1594,7 @@ function deleteAcount(id) {
 }
 
 let indexFlag;
+let sttUs;
 function editAccount(id) {
     document.querySelector(".signup").classList.add("open");
     document.querySelectorAll(".add-account-e").forEach(item => {
@@ -1524,7 +1612,32 @@ function editAccount(id) {
     document.getElementById("email").value = accounts[index].email;
     document.getElementById("phone").value = accounts[index].phone;
     document.getElementById("password").value = accounts[index].password;
-    document.getElementById("user-status").checked = accounts[index].status == 1 ? true : false;
+    var statusUs = accounts[index].status;
+    if(statusUs == 1){
+        document.getElementById("status-acv").classList.add("open");
+        document.getElementById("status-nonacv").classList.remove("open");
+        sttUs = 1;
+    }
+    else{
+        document.getElementById("status-nonacv").classList.add("open");
+        document.getElementById("status-acv").classList.remove("open");
+        sttUs = 0;
+    }
+    var checkAcv = document.getElementById("status-acv");
+    var checkNonAcv = document.getElementById("status-nonacv");
+    
+    checkAcv.onclick = function () {
+            checkNonAcv.classList.remove("open");
+            checkAcv.classList.add("open");
+            sttUs = 1;
+        };
+    checkNonAcv.onclick = function () {
+            checkAcv.classList.remove("open");
+            checkNonAcv.classList.add("open");
+            sttUs = 0;
+        };
+    
+
 }
 function isValidEmail(email) {
     // Sử dụng biểu thức chính quy để kiểm tra định dạng email
@@ -1543,6 +1656,12 @@ function isValidPhoneNumber(phoneNumber) {
 updateAccount.addEventListener("click", (e) => {
     e.preventDefault();
     let accounts = JSON.parse(localStorage.getItem("accounts"));
+    let fullname = accounts[indexFlag].fullname;
+    let email = accounts[indexFlag].email;
+    let phone = accounts[indexFlag].phone;
+    let password = accounts[indexFlag].password;
+    let status = accounts[indexFlag].status;
+
     let fullNameUser = document.getElementById('fullname').value;
     let emailUser = document.getElementById('email').value;
     let phoneUser = document.getElementById('phone').value;
@@ -1613,16 +1732,24 @@ updateAccount.addEventListener("click", (e) => {
 
 
     if(nameCheck && emailCheck && phoneCheck && passwrCheck){
+        if(fullNameUser != fullname || emailUser != email || phoneUser != phone || passwordUser != password || parseInt(sttUs) != parseInt(status) ){
         accounts[indexFlag].fullname = document.getElementById("fullname").value;
         accounts[indexFlag].email = document.getElementById("email").value;
         accounts[indexFlag].phone = document.getElementById("phone").value;
         accounts[indexFlag].password = document.getElementById("password").value;
-        accounts[indexFlag].status = document.getElementById("user-status").checked ? true : false;
+        accounts[indexFlag].status = sttUs;
         localStorage.setItem("accounts", JSON.stringify(accounts));
-        toast({ title: 'Thành công', message: 'Thay đổi thông tin thành công !', type: 'success', duration: 3000 });
+        advertise({ title: 'Thành công', message: 'Thay đổi thông tin thành công !', type: 'success', duration: 3000 });
         document.querySelector(".signup").classList.remove("open");
         signUpFormReset();
         showUser();
+       }
+       else{
+        advertise({ title: 'Warning', message: 'Thay đổi thông tin không thành công !', type: 'warning', duration: 3000 });
+        document.querySelector(".signup").classList.remove("open");
+        signUpFormReset();
+        showUser();
+       }
     }
 })
 
@@ -1727,7 +1854,7 @@ addAccount.addEventListener("click", (e) => {
         }
             accounts.push(user);
             localStorage.setItem('accounts', JSON.stringify(accounts));
-            toast({ title: 'Thành công', message: 'Tạo thành công tài khoản !', type: 'success', duration: 3000 });
+            advertise({ title: 'Thành công', message: 'Tạo thành công tài khoản !', type: 'success', duration: 3000 });
             document.querySelector(".signup").classList.remove("open");
             showUser();
             signUpFormReset();
