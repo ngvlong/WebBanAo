@@ -98,16 +98,16 @@ function showForm() {
 
   function closedetail(){
     document.getElementById("div_detail").style.display="none";
-    let detaildiv = document.getElementsByClassName("detail")[0];
+let detaildiv = document.getElementsByClassName("detail")[0];
     detaildiv.innerHTML = "";
   }
 
-  function choose_size(){
+  function choose_side(){
     var a = document.getElementById("div_size");
     var b = a.getElementsByClassName("size");
     for (var i=0;i<b.length;i++){
       b[i].addEventListener("click", function() {
-      var c = a.getElementsByClassName("active");
+      var c = document.getElementsByClassName("active");
       c[0].className=c[0].className.replace(" active", "");
       this.className+=" active";
       });
@@ -143,9 +143,51 @@ function showForm() {
         amount = parentInt(amount);
       });
   }
+  document.querySelector(".filter-btn").addEventListener("click",(e) => {
+    e.preventDefault();
+    document.querySelector(".advanced-search").classList.toggle("open");
+    document.getElementById("home-title").scrollIntoView();
+})
 
+document.querySelector(".form-search-input").addEventListener("click",(e) => {
+    e.preventDefault();
+    document.getElementById("home-title").scrollIntoView();
+})
 
-  function renderProducts(showProduct) {
+function closeSearchAdvanced() {
+    document.querySelector(".advanced-search").classList.toggle("open");
+}
+
+let minPriceTemp = 0;
+let maxPriceTemp = 1000000;
+function sliderPrice() {
+    var minPrice = 0;
+    var maxPrice = 1000000;
+    
+    $("#max-price").val(vnd(maxPrice));
+    $("#min-price").val(vnd(minPrice));
+
+    
+    $("#price-range").slider({
+      range: true,
+      min: 0,
+      max: 1000000,
+      values: [minPrice, maxPrice],
+      slide: function(event, ui) {
+        $("#min-price").val(vnd(ui.values[0]));
+        $("#max-price").val(vnd(ui.values[1]));
+        minPriceTemp = ui.values[0];
+        maxPriceTemp = ui.values[1];
+
+      }
+    });
+    
+    // $("#min-price").val($("#price-range").slider("values", 0));
+    // $("#max-price").val($("#price-range").slider("values", 1));
+}
+sliderPrice();
+
+function renderProducts(showProduct) {
     let productHtml = '';
     if(showProduct.length == 0) {
         document.getElementById("home-title").style.display = "none";
@@ -158,6 +200,7 @@ function showForm() {
                 <div class="card-header">
                     <a href="#" class="card-image-link" onclick="detailProduct(${product.id})">
                     <img class="card-image" src="${product.img}" alt="${product.title}">
+                    <img class="card-image-hover" src="${product.imghv}" alt="${product.title}">
                     </a>
                 </div>
                 <div class="food-info">
@@ -168,10 +211,11 @@ function showForm() {
                     </div>
                     <div class="card-footer">
                         <div class="product-price">
-                            <span class="current-price">${vnd(product.price)}</span>
+                            <span class="old-price">${vnd(product.price)}</span>
+                            <span class="current-price">${vnd(product.newprice)}</span>
                         </div>
                     <div class="product-buy">
-                        <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i> Đặt hàng</button>
+                        <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i>Xem sản phẩm</button>
                     </div> 
                 </div>
                 </div>
@@ -180,6 +224,14 @@ function showForm() {
         });
     }
     document.getElementById('home-products').innerHTML = productHtml;
+    const currentPrice = document.querySelectorAll(".current-price");
+    const oldPrice = document.querySelectorAll(".old-price");
+    for (let i = 0; i < oldPrice.length; i++) {
+    if(currentPrice[i].textContent != ""){
+    oldPrice[i].classList.add("active");
+
+      }
+    }
 }
 let perPage = 12;
 let currentPage = 1;
@@ -223,7 +275,7 @@ function paginationChange(page, productAll, currentPage) {
             t[i].classList.remove('active');
         }
         node.classList.add('active');
-        document.getElementById("home-service").scrollIntoView();
+        document.getElementById("home-title").scrollIntoView();
     })
     return node;
 }
