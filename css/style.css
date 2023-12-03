@@ -744,6 +744,8 @@ button{
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 600;
+    font-family: Font Awesome 6 Pro;
+    font-size: 14px;
 }
 
 .card-button:hover {
