@@ -98,14 +98,16 @@ function showForm() {
 
   function closedetail(){
     document.getElementById("div_detail").style.display="none";
+    let detaildiv = document.getElementsByClassName("detail")[0];
+    detaildiv.innerHTML = "";
   }
 
-  function choose_side(){
+  function choose_size(){
     var a = document.getElementById("div_size");
     var b = a.getElementsByClassName("size");
     for (var i=0;i<b.length;i++){
       b[i].addEventListener("click", function() {
-      var c = document.getElementsByClassName("active");
+      var c = a.getElementsByClassName("active");
       c[0].className=c[0].className.replace(" active", "");
       this.className+=" active";
       });
@@ -141,51 +143,9 @@ function showForm() {
         amount = parentInt(amount);
       });
   }
-  document.querySelector(".filter-btn").addEventListener("click",(e) => {
-    e.preventDefault();
-    document.querySelector(".advanced-search").classList.toggle("open");
-    document.getElementById("home-title").scrollIntoView();
-})
 
-document.querySelector(".form-search-input").addEventListener("click",(e) => {
-    e.preventDefault();
-    document.getElementById("home-title").scrollIntoView();
-})
 
-function closeSearchAdvanced() {
-    document.querySelector(".advanced-search").classList.toggle("open");
-}
-
-let minPriceTemp = 0;
-let maxPriceTemp = 1000000;
-function sliderPrice() {
-    var minPrice = 0;
-    var maxPrice = 1000000;
-    
-    $("#max-price").val(vnd(maxPrice));
-    $("#min-price").val(vnd(minPrice));
-
-    
-    $("#price-range").slider({
-      range: true,
-      min: 0,
-      max: 1000000,
-      values: [minPrice, maxPrice],
-      slide: function(event, ui) {
-        $("#min-price").val(vnd(ui.values[0]));
-        $("#max-price").val(vnd(ui.values[1]));
-        minPriceTemp = ui.values[0];
-        maxPriceTemp = ui.values[1];
-
-      }
-    });
-    
-    // $("#min-price").val($("#price-range").slider("values", 0));
-    // $("#max-price").val($("#price-range").slider("values", 1));
-}
-sliderPrice();
-
-function renderProducts(showProduct) {
+  function renderProducts(showProduct) {
     let productHtml = '';
     if(showProduct.length == 0) {
         document.getElementById("home-title").style.display = "none";
@@ -198,7 +158,6 @@ function renderProducts(showProduct) {
                 <div class="card-header">
                     <a href="#" class="card-image-link" onclick="detailProduct(${product.id})">
                     <img class="card-image" src="${product.img}" alt="${product.title}">
-                    <img class="card-image-hover" src="${product.imghv}" alt="${product.title}">
                     </a>
                 </div>
                 <div class="food-info">
@@ -209,11 +168,10 @@ function renderProducts(showProduct) {
                     </div>
                     <div class="card-footer">
                         <div class="product-price">
-                            <span class="old-price">${vnd(product.price)}</span>
-                            <span class="current-price">${vnd(product.newprice)}</span>
+                            <span class="current-price">${vnd(product.price)}</span>
                         </div>
                     <div class="product-buy">
-                        <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i>Xem sản phẩm</button>
+                        <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i> Đặt hàng</button>
                     </div> 
                 </div>
                 </div>
@@ -222,14 +180,6 @@ function renderProducts(showProduct) {
         });
     }
     document.getElementById('home-products').innerHTML = productHtml;
-    const currentPrice = document.querySelectorAll(".current-price");
-    const oldPrice = document.querySelectorAll(".old-price");
-    for (let i = 0; i < oldPrice.length; i++) {
-    if(currentPrice[i].textContent != ""){
-    oldPrice[i].classList.add("active");
-
-      }
-    }
 }
 let perPage = 12;
 let currentPage = 1;
@@ -273,7 +223,7 @@ function paginationChange(page, productAll, currentPage) {
             t[i].classList.remove('active');
         }
         node.classList.add('active');
-        document.getElementById("home-title").scrollIntoView();
+        document.getElementById("home-service").scrollIntoView();
     })
     return node;
 }
@@ -290,5 +240,93 @@ function showCategory(category) {
   document.getElementById("home-title").scrollIntoView();
 }
 
+let productsave =JSON.parse(localStorage.getItem("products"));
 
+function findProductByID(productid){
+  for (let i = 0; i < productsave.length; i++){
+    if (productid != productsave[i].id) continue;
 
+    return productsave[i];
+  }
+
+  return null;
+}
+
+function detailProduct(id){
+  let divdetail = document.getElementById('div_detail');
+  divdetail.style.display='grid';
+
+  let product = findProductByID(id);
+  
+
+  let detailcontainer = document.getElementsByClassName('detail')[0];
+ 
+
+  detailcontainer.innerHTML += (`
+    <button class="close_detail" onclick="closedetail()">+</button>
+      <div class="title-container">
+        <h1 class="title">${product.title}</h1>
+      </div>
+      <div class="detail-container">
+        <div class="img-container">
+          <img src="${product.img}" alt="" id="img_main">
+          <div class="swap-img-container">
+              <img class="idtruoc" src="${product.img}" onclick="swap_img(this)"/>
+              <img class="idsau" src="${product.imghv}"  onclick="swap_img(this)"/>
+          </div>
+        </div>
+        <div class="detail-content">
+          <div class="div_type">
+            <span class="type">Phân loại:</span>
+            <span class="nametype">${product.category}</span>
+          </div>
+          <div class="div_price">
+            <h1 class="price">${product.price}</h1>
+          </div>
+          <div id="div_size"> 
+              <span class="size active">S</span>
+              <span class="size">M</span>
+              <span class="size">L</span>
+              <span class="size">XL</span>
+          </div>
+          <div id="div_quantity">
+            <button class="quantity" onclick="handleMinus()">-</button>
+            <input id="amount" name="amount" type="text" value="1"/>
+            <button class="quantity" onclick="handlePlus()">+</button>
+          </div> 
+          <button class="div_buy" >CHỌN MUA</button>
+          <div class="div_describe">` + writeDescribe(product.desc) + `</div>
+        </div>
+      </div>
+  `)
+  choose_size();
+}
+
+function swap_img(reviewimg){
+  swap_img_noneb();
+  reviewimg.style.border="solid 2px black";
+  let a = reviewimg.getAttribute('src');
+  document.getElementById("img_main").setAttribute('src',a);
+}
+
+function swap_img_noneb(){
+  document.getElementsByClassName('idtruoc')[0].style.border="none";
+  document.getElementsByClassName('idsau')[0].style.border="none";
+}
+
+function writeDescribe(describe){
+  let desarray = getDescription(describe);
+  let destext = "";
+
+  for (let i = 0; i < desarray.length; i++){
+    destext += `<span>${desarray[i]}</span>`;
+  }
+
+  return destext;
+}
+
+function getDescription(describe){
+  let describearray = describe.split('\n ');
+
+  return describearray;
+}
