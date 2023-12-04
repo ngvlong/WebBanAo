@@ -981,7 +981,7 @@ function createAccount() {
             phone: "0986409233",
             password: "123456",
             address: '86 P. Nguyễn Văn Tuyết, Trung Liệt, Đống Đa, Hà Nội ',
-            email: 'ngkhlinh@gmail.com',
+            email: 'ngkhngan@gmail.com',
             status: 1,
             join: '2023-8-19',
             cart: [],
@@ -993,14 +993,14 @@ function createAccount() {
             phone: "0934835328",
             password: "123456",
             address: '119 Trần Phú, Hải Châu 1, Hải Châu, Đà Nẵng',
-            email: 'ngmkhoi@gmail.com',
+            email: 'hoanglinhdan@gmail.com',
             status: 1,
             join: '2023-9-2',
             cart: [],
             userType: 0
         },
         {
-            id:4,
+            id:6,
             fullname: "Lê Minh Khôi",
             phone: "0934583532",
             password: "123456",
@@ -1022,7 +1022,7 @@ function createOrder() {
         orders.push(
         {
             id: 'MĐ01',
-            khachhang: 'Nguyễn Khả Ngân',
+            khachhang: 'ngkhngan@gmail.com',
             hinhthucgiao: 'Giao hàng hàng Nhanh',
             thoigiangiao: '',
             ghichu: "Giao hàng nhanh",
@@ -1035,7 +1035,7 @@ function createOrder() {
         },
         {
             id: 'MĐ02',
-            khachhang: 'Lê Minh Khôi',
+            khachhang: 'ngmkhoi@gmail.com',
             hinhthucgiao: 'Giao hàng tiết kiệm',
             thoigiangiao: '',
             ghichu: "Đóng gói cẩn thận",
@@ -1048,7 +1048,7 @@ function createOrder() {
         },
         {
             id: 'MĐ03',
-            khachhang: 'Hoàng Linh Đan',
+            khachhang: 'hoanglinhdan@gmail.com',
             hinhthucgiao: 'Giao hàng tiết kiệm',
             thoigiangiao: '',
             ghichu: "",

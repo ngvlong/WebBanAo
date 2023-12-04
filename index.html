@@ -15,6 +15,7 @@
     <title>HALO STORE</title>
 </head>
 <body >
+    <div id="message"></div>
     <div class="header" > 
         <div class="headbox">
            <!-- <div><picture></picture></div> -->
@@ -29,8 +30,8 @@
              <span class="filter-btn"><i class="fa-light fa-filter-list"></i>Lọc</span>
            </form>
            <div class="headerright">
-               <div class="headerright-click"><button onclick="showForm()"> Đăng nhập</button></div>
-               <div class="headerright-click"><button> Giỏ hàng</button></div>
+               <div class="headerright-click"><button  id="btnAccount"  onclick="showForm()">Đăng nhập</button></div>
+               <div class="headerright-click"><button> <i class="fa-regular fa-cart-shopping"></i></button></div>
                <div class="headericon"><button id="sreachicon"  onclick="sreachform()"></button></div>
                <div class="headericon"><button id="loginicon"  onclick="showForm()"></button></div>
                <div class="headericon"><button id="bagicon"></button></div>
@@ -108,7 +109,7 @@
                </div>
                <div><button class="menubuton" style="margin-top: 20px;">Áo sơ mi</button></div>
                <div><button class="menubuton">Áo Thun</button></div>
-               <div><button class="menubuton">Áo Khoắc</button></div>
+               <div><button class="menubuton">Áo Khoác</button></div>
                <div><button class="menubuton">Áo Polo</button></div>
                <div><button class="menubuton">Áo Phong</button></div>
 
@@ -137,65 +138,174 @@
     <div id="div_detail" >
         <div class="detail"></div>
     </div>
+    <div id="show-imgSize" >
+        <!-- <button type="button" id="img-size-close"><i class="fa-regular fa-xmark"></i></button> -->
+        <div id="imgModal">
+            <img src="assets/bảng size.webp" alt="">
+        </div>
+    </div>
    
 
+    <div id="modal">
+        <div id="login">
+            <form id="login-form">
+                <div class="header-login">
+                    <h1 id="title__signin">ĐĂNG NHẬP</h1>
+                    <button type="button" class="btnclose" onclick="closeForm()">+</button>
+                </div>
 
-   
-   
-   
-       <div id="modal">
-           <div id="login">
-               <form id="loginform">
-                   <div class="header-login">
-                       <h1>Đăng nhập</h1>
-                       <button type="button" class="btnclose" onclick="closeForm()">+</button>
-                   </div>
-                   <div class="datalogin">
-                           <label for="username">Tên đăng nhập</label>
-                           <input type="text" name="" id="">
-                   </div>
-                   <div class="datalogin">
-                       <label for="password">Mật khẩu</label>
-                       <input type="password" name="" id="">
-                   </div>
-                   <div class="footlogin">
-                       <button type="button" class="btnlogin" onclick="showRSLogin()">Đăng nhập</button>
-                       <p>Bạn chưa có tài khoản? <a href="#" onclick="showSignupForm()">Đăng kí</a></p>
-                   </div>
-               </form>
-           </div>
-           <div id="signup">
-               <form  id="signupform">
-                   <div class="header-signup">
-                       <h1>Đăng kí</h1>
-                       <button type="button" class="btnclose" onclick="closeForm()">+</button>
-                   </div>
-                   <div class="datasignup">
-                       <label for="username">Tên đăng nhập</label>
-                       <input type="text">
-                   </div>
-                   <div class="datasignup">
-                       <label for="usernameSignUp">Email</label>
-                       <input type="text">
-                   </div>
-                   <div class="datasignup">
-                       <label for="password">Mật khẩu</label>
-                       <input type="password" name="" id="">
-                   </div>
-                   <div class="datasignup">
-                       <label for="password">Nhập lại mật khẩu</label>
-                       <input type="password" name="" id="">
-                   </div>
-                   <div class="footsignup">
-                       <button type="button" class="btnsignup" onclick="showRSSignUp()">Đăng kí</button>
-                       <p>Quay lại đăng nhập?<a href="#" onclick="showLoginForm()">Đăng nhập</a></p>
-                   </div>
-               </form>
-           </div>
+                <div class="bodylogin">
+                    <div class="datalogin">
+                        <label for="username"><img src="assets/image/username.png"></label>
+                        <input type="text" placeholder="Email" id="emailLogin">
+                        <span class="message"></span>
+                    </div>
+                    <div class="datalogin">
+                        <label for="password"><img src="assets/image/password.png"></label>
+                        <input type="password" placeholder="Mật khẩu" id="passwordLogin">
+                        <div class="showpass">
+                            <img src="assets/image/showPass.png" alt="" id="showIcon">
+                            <img src="assets/image/hidenPass.png" alt="" id="hideIcon">
+                        </div>
+                        <span class="message"></span>
+                    </div>
+                </div>
+                <div class="footlogin">
+                    <button type="button" id="btnlogin">Đăng nhập</button>
+                    <p>Bạn chưa có tài khoản?<a href="#" onclick="showSignupForm()">Đăng kí</a></p>
+                </div>
+            </form>
+        </div>
+        <div id="signup">
+            <form id="signup-form">
+                <div class="header-signup">
+                    <h1 id="title__signup">Đăng kí</h1>
+                    <button type="button" class="btnclose" onclick="closeForm()">+</button>
+                </div>
+                <div class="body_signup">
+                    <div class="datasignup">
+                        <label for="username">Họ và tên</label>
+                        <input type="text" placeholder="Nguyễn Văn A" id="usernameSignUp">
+                        <span class="message"></span>
+                    </div>
+                    <div class="datasignup">
+                        <label for="email">Email</label>
+                        <input type="email" placeholder="nguyenvana@gmail.com" id="emailSignUp">
+                        <span class="message"></span>
+                    </div>
+                    <div class="datasignup">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="text" placeholder="VD: 0986407915" id="phoneSignUp">
+                        <span class="message"></span>
+                    </div>
+                    <div class="datasignup">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" placeholder="Mật khẩu" id="passwordSignUp">
+                        <div class="showpass">
+                            <img src="assets/image/showPass.png" alt="" id="showIcon">
+                            <img src="assets/image/hidenPass.png" alt="" id="hideIcon">
+                        </div>
+                        <span class="message"></span>
+                    </div>
+                    <div class="datasignup">
+                        <label>Nhập lại mật khẩu</label>
+                        <input type="password" placeholder="Nhập lại mật khẩu" id="confirm-password">
+                        <span class="message"></span>
+                    </div>
+                </div>
+                <div class="footsignup">
+                    <button type="submit" id="btnsignup">Đăng kí</button>
+                    <p>Quay lại đăng nhập?             <a href="#" onclick="showLoginForm()">Đăng nhập</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="account-container">
+        <div class="account-menu">
+          <h3>Tài khoản</h3>
+          <ul>
+            <li><a href="#account-info">Thông tin tài khoản</a></li>
+            <li><a href="#order-history">Lịch sử mua hàng</a></li>
+            <li><a href="#change-password">Đổi mật khẩu</a></li>
+          </ul>
+        </div>
+        <div class="account-wrapper">
+            <div class="account-content" id="account-info">
+                <h3>Thông tin cá nhân</h3>
+                <ul>
+                  <li>
+                    <label>Họ tên</label>
+                    <input type="text" id="name" />
+                  </li>
+                  <li>
+                    <label>Email</label>
+                    <input type="email" id="email" />
+                  </li>
+                  <li>
+                    <label>Ngày sinh</label>
+                    <input type="date" id="birthday" />
+                  </li>
+                  <li>
+                    <label>Số điện thoại</label>
+                    <input type="tel" id="phone" />
+                  </li>
+                  <li>
+                    <label>Địa chỉ</label>
+                    <input type="text" id="address" />
+                  </li>
+                  <li>
+                    <button onclick="updateAccountInfo()">Cập nhật thông tin tài khoản</button>
+                  </li>
+                </ul>
+              </div>              
           
-       </div>
-                                   <!-- menu forrm  ############ -->
-       
+            <div class="account-content" id="order-history">
+              <h3>Lịch sử mua hàng</h3>
+          
+              <table>
+                <thead>
+                  <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên người nhận</th>
+                    <th>Ngày mua</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody id="showOrder">
+                </tbody>
+              </table>
+            </div>
+          
+            <div class="account-content" id="change-password">
+              <h3>Đổi mật khẩu</h3>
+              <form action="/account/change-password" method="post" id="changePass-form">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <div class="form-group">
+                    <label for="old_password">Mật khẩu hiện tại</label>   
+                    <input type="password" name="old_password" id="old_password" class="form-control" required />
+                    <span class="message"></span>
+                    </div>  
+                    <div
+                    class="form-group">  
+                    <label
+                    for="new_password">Mật khẩu mới</label>
+                    <input type="password" name="new_password" id="new_password" class="form-control" required/>
+                    <span class="message"></span>
+                    </div>     
+                    <div
+                    class="form-group">
+                    <label for="confirm_password">Xác nhận mật khẩu mới</label>     
+                    <input type="password" name="confirm_password" id="confirm_password" class="form-control" required/>
+                    <span class="message"></span>      
+                    </div>      
+                <button type="submit" class="btn btn-primary">Xác nhận</button>
+              </form>
+            </div>
+        </div>
+        <div class="exit-account-container" onclick="toggleAccountContainer()">Thoát</div>
+    </div>
+
            
            
        
@@ -205,5 +315,25 @@
        <script src="./js/main.js"></script>
        <script src="./js/dataprod.js"></script>
        <script src="./js/admin.js"></script>
+       <script>
+        Validator({
+            form: '#signup-form',
+            rules: [
+                Validator.isUsername('#usernameSignUp'),
+                Validator.isEmail('#emailSignUp'),
+                Validator.checkLength('#passwordSignUp'),
+                Validator.checkPass('#confirm-password', function(){
+                    return document.querySelector('#signup #passwordSignUp').value;
+                })
+            ]
+        })
+        Validator({
+            form: '#login-form',
+            rules: [
+                Validator.isRequited('#emailLogin'),
+                Validator.isRequited('#passwordLogin')
+            ]
+        })
+    </script>
 </body>
 </html>
