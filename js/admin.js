@@ -1080,7 +1080,7 @@ function showOrder(arr) {
             orderHtml += `
             <tr>
             <td>${item.id}</td>
-            <td>${item.khachhang}</td>
+            <td>${item.tennguoinhan}</td>
             <td>${date}</td>
             <td>${vnd(item.tongtien)}</td>                               
             <td>${status}</td>

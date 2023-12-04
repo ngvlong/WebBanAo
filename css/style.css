@@ -1863,3 +1863,33 @@ button{
     position: relative;
     margin-right: 20px;
 }
+.table {
+    width: 100%;
+    overflow: auto;
+    background: #fff;
+    border-radius: 7px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1px solid var(--lighter-gray);
+}
+
+thead td {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: var(--lighter-gray);
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+tbody tr td {
+    padding: 10px 15px;
+    text-align: center;
+    white-space: nowrap;
+}
