@@ -541,7 +541,7 @@ function showOrder(arr) {
   console.log(arr);
   var hisOrder = "";
   if(emailUserNow != ""){
-    hisOrder = arr.find((item) =>item.khachhang === emailUserNow);
+    hisOrder = arr.filter((item) =>{return item.khachhang === emailUserNow});
   }
   console.log(hisOrder);
   if(hisOrder.length == 0 || emailUserNow == "") {
