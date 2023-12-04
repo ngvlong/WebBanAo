@@ -1,5 +1,10 @@
 function vnd(price) {
+  try{
   return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  }
+  catch (e){
+    return "";
+  }
 }
 let slideIndex = 0;
 function showSlides() {
@@ -896,3 +901,106 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.style.overflow = "auto";
   }
 });
+
+let productfilter = productsave;
+let filterName = [];
+
+function checkFilter(filterchoice){
+  let flag = false;
+    for (let i = 0; i < filterName.length; i++){
+      if (filterchoice != filterName[i]) continue;
+
+      filterName.splice(i, 1);
+      flag = true;
+    }
+
+    if (flag) productfilter = productsave;
+}
+
+function filtProduct(){
+  for (let i = 0; i < filterName.length; i++){
+    switch (filterName[i]){
+      case "price":
+        filterProductPrice();
+        break;
+    
+      case "cagetory":
+        searchProducts();
+        break;
+
+      case "asc":
+        ascProducts();
+        break;
+
+        case "desc":
+          descProducts();
+          break;  
+      }
+  }
+}
+
+function Filter(filterchoice){
+    checkFilter(filterchoice);
+    filterName.push(filterchoice);
+    filtProduct();
+}
+
+function filterProductPrice(){
+
+    let tempProduct = [];
+    let minprice = toPrice(document.getElementById("min-price").value);
+    let maxprice = toPrice(document.getElementById("max-price").value);
+    for (let i=0; i< productfilter.length;i++){
+        if(productfilter[i].price >= minprice && productfilter[i].price <= maxprice){
+            tempProduct.push(productfilter[i]);
+        }
+    } productfilter = tempProduct;
+    renderProducts(productfilter); 
+}
+
+function toPrice(text){
+  let price = "";
+  for (let i = 0; i < text.length; i++){
+    let a = text[i];
+    if (!parseFloat(a) && a != '0') continue;
+    price += text[i];
+  }
+  return parseFloat(price);
+}
+
+function searchProducts(){
+
+    let tempProduct = [];
+    let optionvalue = document.getElementById("advanced-search-category-select").value;
+    if (optionvalue=="Tất cả") {
+      renderProducts(productfilter);
+      return ;
+    }
+    for (let i=0 ; i<productfilter.length; i++){
+      if(optionvalue == productfilter[i].category){
+        tempProduct.push(productfilter[i]);
+      }
+      
+    } 
+    productfilter = tempProduct;
+    renderProducts(productfilter);
+
+}
+
+function ascProducts(){
+  productfilter.sort((a,b) => a.price - b.price);
+  renderProducts(productfilter);
+}
+
+function descProducts(){
+  productfilter.sort((a,b) => b.price - a.price);
+  renderProducts(productfilter);
+}
+
+function resetProducts(){
+  filterName =[];
+  productfilter = productsave;
+  renderProducts(productsave);
+  document.getElementById("advanced-search-category-select").value="Tất cả";
+}
+
