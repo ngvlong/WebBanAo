@@ -1,3 +1,6 @@
+const body = document.querySelector("body");
+
+
 function vnd(price) {
   return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
@@ -138,412 +141,241 @@ function showPassword(formID) {
 showPassword(formLogin);
 showPassword(formSignup);
 
-// Định dạng đăng kí và đăng nhập
-function Validator(options){
 
-  var accounts = localStorage.getItem('accounts') ? JSON.parse(localStorage.getItem('accounts')) : [];
 
-    function validate(inputElement, rule){
-      var errorMess = rule.test(inputElement.value);
-      var errorElement = inputElement.parentElement.querySelector('.message');
+// Dang nhap & Dang ky
 
-        if(errorMess){
-          errorElement.innerText = errorMess;
-          inputElement.parentElement.classList.add('invalid')
-        }
-        else{
-          errorElement.innerText = '';
-          inputElement.parentElement.classList.remove('invalid')
-        }
+// Chức năng đăng ký
+let emailUserNow="";
+let signupButton = document.getElementById('btnsignup');
+let loginButton = document.getElementById('btnlogin');
+signupButton.addEventListener('click', () => {
+    event.preventDefault();
+    let fullNameUser = document.getElementById('usernameSignUp').value;
+    let phoneUser = document.getElementById('phoneSignUp').value;
+    let emailUser = document.getElementById('emailSignUp').value;
+    let passwordUser = document.getElementById('passwordSignUp').value;
+    let passwordConfirmation = document.getElementById('confirm-password').value;
 
-        return !errorMess;
+    let accounts = localStorage.getItem('accounts') ? JSON.parse(localStorage.getItem('accounts')) : [];
+
+    let checkExistPhone = accounts.some(account => {
+        return account.phone == phoneUser;
+    })
+    let checkExistEmail = accounts.some(account => {
+        return account.email == emailUser;
+    })
+    // Check validate
+    if (fullNameUser.length == 0) {
+        document.querySelector('.message.fullnameSign').innerHTML = 'Vui lòng nhập họ vâ tên';
+        document.getElementById('fullname').focus();
+    } else if (fullNameUser.length < 3) {
+        document.getElementById('fullname').value = '';
+        document.querySelector('.message.fullnameSign').innerHTML = 'Vui lòng nhập họ và tên lớn hơn 3 kí tự';
+    } else {
+        document.querySelector('.message.fullnameSign').innerHTML = '';
     }
 
-    var elementForm = document.querySelector(options.form)
-    if (elementForm) {
-      elementForm.onsubmit = function (e) {
-        e.preventDefault();
-    
-        var isFormValid = true;
-        let newAccount = {};
-    
-        options.rules.forEach(function (rule) {
-          var inputElement = elementForm.querySelector(rule.selector);
-          var isValid = validate(inputElement, rule);
-          let fullNameUser, phoneUser, emailUser,passwordUser;
-    
-          if (!isValid) {
-            isFormValid = false;
-          } else {
-            var inputValue = inputElement.value.trim();
-    
-            switch (rule.selector) {
-              case '#usernameSignUp':
-                fullNameUser = inputValue;
-                break;
-              case '#passwordSignUp':
-                passwordUser = inputValue;
-                break;
-              case '#emailSignUp':
-                emailUser = inputValue;
-                break;
-              case '#phoneSignUp':
-                phoneUser = inputValue;
-                break;  
+
+    if(emailUser.length == 0){
+      document.querySelector('.message.emailSign').innerHTML = 'Vui lòng nhập vào email';
+    }else if(!isValidEmail(emailUser)){
+      document.querySelector('.message.emailSign').innerHTML = 'Vui lòng nhập vào đúng định dạng email';
+    }else if(checkExistEmail){
+      document.querySelector('.message.emailSign').innerHTML = 'Email đã được sử dụng';
+    }else{
+      document.querySelector('.message.emailSign').innerHTML = '';
+
+    }
+
+
+    if (phoneUser.length == 0) {
+        document.querySelector('.message.phoneSign').innerHTML = 'Vui lòng nhập vào số điện thoại';
+    } else if (!checkExistPhone(phoneUser)) {
+        document.querySelector('.message.phoneSign').innerHTML = 'Vui lòng nhập vào đúng định dạng số điện thoại';
+        document.getElementById('phoneSignUp').value = '';
+    } else {
+        document.querySelector('.message.phoneSign').innerHTML = '';
+    }
+
+
+    if (passwordUser.length == 0) {
+        document.querySelector('.form-message-password').innerHTML = 'Vui lòng nhập mật khẩu';
+    } else if (passwordUser.length < 6) {
+        document.querySelector('.form-message-password').innerHTML = 'Vui lòng nhập mật khẩu lớn hơn 6 kí tự';
+        document.getElementById('password').value = '';
+    } else {
+        document.querySelector('.form-message-password').innerHTML = '';
+    }
+    if (passwordConfirmation.length == 0) {
+        document.querySelector('.form-message-password-confi').innerHTML = 'Vui lòng nhập lại mật khẩu';
+    } else if (passwordConfirmation !== passwordUser) {
+        document.querySelector('.form-message-password-confi').innerHTML = 'Mật khẩu không khớp';
+        document.getElementById('password_confirmation').value = '';
+    } else {
+        document.querySelector('.form-message-password-confi').innerHTML = '';
+    }
+
+    if (fullNameUser && phoneUser && passwordUser && passwordConfirmation && checkSignup && emailUser) {
+        if (passwordConfirmation == passwordUser) {
+            let user = {
+                id:createId(accounts),
+                fullname: fullNameUser,
+                phone: phoneUser,
+                password: passwordUser,
+                address: '',
+                email: emailUser,
+                status: 1,
+                join: new Date(),
+                cart: [],
+                userType: 0
             }
-            newAccount = {
-              id:createId(accounts),
-              fullname: fullNameUser,
-              phone: phoneUser,
-              password: passwordUser,
-              address: '',
-              email: emailUser,
-              status: 1,
-              join: new Date(),
-              cart: [],
-              userType: 0
-             }
-          }
-        });
-    
-        if (isFormValid) {
-          accounts.push(newAccount);
-          localStorage.setItem('accounts', JSON.stringify(accounts));
-          Message('Đăng kí thành công!', 'success')
+                accounts.push(user);
+                localStorage.setItem('accounts', JSON.stringify(accounts));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                emailUserNow = emailUser;
+                advertise({ title: 'Thành công', message: 'Tạo thành công tài khoản !', type: 'success', duration: 3000 });
+                closeModal();
+                kiemtradangnhap();
+                updateAmount();
+
         } else {
-          console.log('Có lỗi khi đăng ký tài khoản!');
+            advertise({ title: 'Thất bại', message: 'Sai mật khẩu !', type: 'error', duration: 3000 });
         }
-      };
-      options.rules.forEach(function (rule){
+    }
+}
+)
 
-        var inputElement = elementForm.querySelector(rule.selector);
-        var errorElement = inputElement.parentElement.querySelector('.message');
+// Dang nhap
+loginButton.addEventListener('click', () => {
+    event.preventDefault();
+    let emailLog = document.getElementById('emailLogin').value;
+    let passlog = document.getElementById('passwordLogin').value;
+    let accounts = JSON.parse(localStorage.getItem('accounts'));
 
-        if(inputElement){
-          // Event người dùng blur ra ngoài input
-          inputElement.onblur = function(){
-              validate(inputElement, rule);
-          }
+    if (emailLog.length == 0) {
+        document.querySelector('.message.emaillog').innerHTML = 'Vui lòng nhập vào Email';
+    } else if (!isValidEmail(emailLog)) {
+        document.querySelector('.message.emaillog').innerHTML = 'Vui lòng nhập đúng định đạng email';
+        document.getElementById('passwordLogin').value = '';
+    } else {
+        document.querySelector('.message.emaillog').innerHTML = '';
+    }
 
-          // Event người dùng nhập vào input
-          inputElement.oninput = function(){
-            errorElement.innerText = '';
-            inputElement.parentElement.classList.remove('invalid')
-          }
-        }else{
-          console.log('có lỗi')
+    if (passlog.length == 0) {
+        document.querySelector('.message.passwordlog').innerHTML = 'Vui lòng nhập mật khẩu';
+    } else if (passlog.length < 6) {
+        document.querySelector('.message.passwordlog').innerHTML = 'Vui lòng nhập mật khẩu lớn hơn 6 kí tự';
+        document.getElementById('passwordlogin').value = '';
+    } else {
+        document.querySelector('.message.passwordlog').innerHTML = '';
+    }
+
+    if (emailLog && passlog) {
+        let vitri = accounts.findIndex(item => item.email == emailLog);
+        if (vitri == -1) {
+            advertise({ title: 'Error', message: 'Tài khoản của bạn không tồn tại', type: 'error', duration: 3000 });
+        } else if (accounts[vitri].password == passlog) {
+            if(accounts[vitri].status == 0) {
+                advertise({ title: 'Warning', message: 'Tài khoản của bạn đã bị ngưng hoạt động', type: 'warning', duration: 3000 });
+            } else {
+                localStorage.setItem('currentUser', JSON.stringify(accounts[vitri]));
+                advertise({ title: 'Success', message: 'Đăng nhập thành công', type: 'success', duration: 3000 });
+                kiemtradangnhap();
+                checkAdmin();
+                updateAmount();
+                emailUserNow = emailLog;
+                showOrder();
+                closeForm();
+            }
+        } else {
+            advertise({ title: 'Warning', message: 'Sai mật khẩu', type: 'warning', duration: 3000 });
         }
-      })
     }
+})
+function isValidEmail(email) {
+  // Sử dụng biểu thức chính quy để kiểm tra định dạng email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+  return emailRegex.test(email);
 }
-Validator.isRequited = function(selector){
-  return {
-    selector: selector,
-    test: function (value){
-      return value.trim() ? undefined : 'Trường này không được bỏ trống';
-    }
+function isValidPhoneNumber(phoneNumber) {
+  // Sử dụng biểu thức chính quy để kiểm tra định dạng số điện thoại
+  const phoneRegex = /^[0-9]{10,}$/;
+
+  // Kiểm tra xem số điện thoại có khớp với biểu thức chính quy không
+  return phoneRegex.test(phoneNumber);
+}
+
+
+function kiemtradangnhap() {
+  let currentUser =  JSON.parse(localStorage.getItem('currentUser'));
+
+  if (currentUser != null) {
+      emailUserNow = currentUser.email;
+      showOrder();
+      document.querySelector("#AccountLogin").innerHTML = ` <button onclick="openAccMenu()" class="text-tk"><i class="fa-regular fa-user"></i>${currentUser.fullname}</button>`;
+      document.querySelector('.header-middle-right').innerHTML = `<li><a href="javascript:;" onclick="myAccount()"><i class="fa-light fa-circle-user"></i> Tài khoản của tôi</a></li>
+          <li class="border"><a id="logout" href="javascript:;"><i class="fa-light fa-right-from-bracket"></i>Đăng xuất</a></li>`;
+      document.querySelector('#logout').addEventListener('click',logOut);
   }
 }
-
-Validator.isUsername = function(selector){
-    return {
-      selector: selector,
-      test: function (value){
-        return (value.length >= 6 && value.length <= 20) ? undefined : 'Tài khoản có ít nhất 6 - 20 kí tự';
-      }
-    }
+function openAccMenu(){
+  document.querySelector(".header-middle-right-menu").classList.toggle("open");
 }
 
-Validator.isEmail = function(selector){
-   return {
-      selector: selector,
-      test: function (value){
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(value) ? undefined : 'Trường này phải là Email'
-      }
-    }
+function myAccount(){
+  document.querySelector(".account-container").classList.add("active");
+  document.querySelector(".header-middle-right-menu").classList.toggle("open");
 }
 
-Validator.checkLength = function(selector){
-  return {
-     selector: selector,
-     test: function (value){
-       return (value.length >= 8 && value.length <= 32) ? undefined : 'Mật khẩu có ít nhất 8 - 32 kí tự';
-     }
-   }
-}
 
-Validator.checkPass = function(selector, password){
-return {
-   selector: selector,
-   test: function (value){
-     return value === password() ? undefined : 'Mật khẩu không khớp'
-   }
- }
-}
-
-// function createAdmin() {
-// const accounts = JSON.parse(localStorage.getItem("accounts")) || [];
-// const admin = {
-// email: "admin@gmail.com",
-// password: "admin",
-// };
-
-// let accountCreated = false;
-
-// if (!accounts.length) {
-// accounts.push(admin);
-// accountCreated = true;
-// } else {
-// const existingAdmin = accounts.find((account) => account.fullname === "admin");
-// if (!existingAdmin) {
-//  accounts.push(admin);
-//  accountCreated = true;
-//  }
-// }
-
-// localStorage.setItem("accounts", JSON.stringify(accounts));
-
-// if (accountCreated) {
-// console.log("Tạo/Thêm tài khoản admin thành công");
-// }
-// }
-// const creatAdmin = document.querySelector("#btnAccount");
-// creatAdmin.addEventListener("click", createAdmin);
-document.querySelector('#login #btnlogin').addEventListener('click', checkLogin);
-
-var storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
-
-var emailUserNow ="";
-
-function checkLogin() {
-  var loginUsername = document.getElementById("emailLogin");
-  var loginPassword = document.getElementById("passwordLogin");
-  var enteredUsername = loginUsername.value;
-  var enteredPassword = loginPassword.value;
-  var matchingAccount = storedAccounts.find(account => account.email === enteredUsername);
-  var isAdmin = enteredUsername === "ngvlong202@gmail.com";
-
-  if(matchingAccount && matchingAccount.password === enteredPassword)
-      if(isAdmin){
-        window.location.href = "admin.html";
-        emailUserNow = matchingAccount.email;
-      }
-      else if (matchingAccount && matchingAccount.password === enteredPassword) {
-        sessionStorage.setItem('currentUser', JSON.stringify(enteredUsername));
-        emailUserNow = matchingAccount.email;
-        Message('Đăng nhập thành công', 'success');
-        closeForm();
-        replaceButtonWithAvatar(matchingAccount);
-        showDropdown();
-        let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
-        showOrder(orders);
-     } else {
-      Message('Đăng nhập không thành công, hãy kiểm tra tài khoản hoặc mật khẩu!', 'error');
+function logOut() {
+  let accounts = JSON.parse(localStorage.getItem('accounts'));
+  let user = JSON.parse(localStorage.getItem('currentUser'));
+  let vitri = accounts.findIndex(item => item.email == user.email);
+  accounts[vitri].cart.length = 0;
+  for (let i = 0; i < user.cart.length; i++) {
+      accounts[vitri].cart[i] = user.cart[i];
   }
+  localStorage.setItem('accounts', JSON.stringify(accounts));
+  localStorage.removeItem('currentUser');
+  window.location = "/";
+}
+function checkAdmin() {
+  let user = JSON.parse(localStorage.getItem('currentUser'));
+  if(user && user.userType == 1) {
+      let node = document.createElement(`li`);
+      node.innerHTML = `<a href="./admin.html"><i class="fa-light fa-gear"></i> Quản lý cửa hàng</a>`
+      document.querySelector('.header-middle-right').prepend(node);
+  } 
 }
 
-function replaceButtonWithAvatar(account) {
-  var loginButton = document.getElementById('btnAccount');
+window.onload = kiemtradangnhap();
+window.onload = checkAdmin();
 
-  var container = document.createElement('div');
-  container.classList.add('avatar-container');
+const sidebars = document.querySelectorAll(".sidebar-list-item");
+const sections = document.querySelectorAll(".account-content");
 
-  var avatar = document.createElement('button');
-  avatar.classList.add('avatar', 'dropbox');
-  avatar.innerHTML =` <i class="fa-regular fa-user"></i>`+ account.fullname;
-  avatar.setAttribute('id', 'custom-avatar');
-
-  container.appendChild(avatar);
-  loginButton.parentNode.replaceChild(container, loginButton);
-
-  avatar.addEventListener('click', showDropdown);
-}
-
-function showDropdown() {
-  var container = document.querySelector('.avatar-container');
-  var existingDropdown = container.querySelector('.dropdown-account');
-  if (!existingDropdown) {
-      var dropdownMenu = document.createElement('div');
-      dropdownMenu.classList.add('dropdown-account');
-      dropdownMenu.innerHTML = `
-          <ul>
-              <li><a href="#" onclick="toggleAccountContainer()">Thông tin tài khoản</a></li>
-              <li><a href="#" onclick="logout()">Đăng xuất</a></li>
-          </ul>
-      `;
-
-      container.appendChild(dropdownMenu);
-      document.addEventListener('click', closeDropdown);
-  }
-}
-
-function closeDropdown(event) {
-  var container = document.querySelector('.avatar-container');
-  if (container && !container.contains(event.target)) {
-      var dropdownContainer = container.querySelector('.dropdown-account');
-      if (dropdownContainer) {
-          dropdownContainer.remove();
-          document.removeEventListener('click', closeDropdown);
-      }
-  }
-}
-
-function logout() {
-var container = document.querySelector('.avatar-container');
-var btnAccount = document.createElement('div');
-btnAccount.classList.add('headerright-click')
-btnAccount.setAttribute('id', 'btnAccount');
-btnAccount.innerHTML = '<button onclick="showForm()"> Đăng nhập</button>';
-
-container.replaceWith(btnAccount);
-}
-
-function toggleAccountContainer() {
-const accountContainer = document.querySelector(".account-container");
-accountContainer.style.display = accountContainer.style.display === "none" ? "flex" : "none";
-}
-
-const menuItems = document.querySelectorAll('.account-menu ul li a');
-const contentSections = document.querySelectorAll('.account-content');
-for (let contentSection of contentSections) {
-contentSection.style.display = 'none';
-}
-const defaultContentId = '#account-info';
-for (let menuItem of menuItems) {
-menuItem.addEventListener('click', (event) => {
-  event.preventDefault();
-  const targetContentId = event.target.getAttribute('href').replace('#', '');
-  for (let contentSection of contentSections) {
-    if (contentSection.id !== targetContentId) {
-      contentSection.style.display = 'none';
-    }
-  }
-  document.getElementById(targetContentId).style.display = 'block';
-  if (targetContentId === defaultContentId) {
-    document.getElementById(defaultContentId).style.display = 'block';
-  }
-});
-}
-
-const storedUser = JSON.parse(sessionStorage.getItem('currentUser'));
-const datalogin = storedUser || {};
-function updateAccountInfo() {
-const storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
-const currentUser = storedAccounts.find(account => account.email === datalogin);
-
-const nameInput = document.querySelector('#account-info #name');
-const emailInput = document.querySelector('#account-info #email');
-const birthdayInput = document.querySelector('#account-info #birthday');
-const phoneInput = document.querySelector('#account-info #phone');
-const addressInput = document.querySelector('#account-info #address');
-
-const name = nameInput.value;
-const email = emailInput.value;
-const birthday = birthdayInput.value;
-const phone = phoneInput.value;
-const address = addressInput.value;
-
-if (currentUser) {
-  currentUser.name = name;
-  currentUser.email = email;
-  currentUser.birthday = birthday;
-  currentUser.phone = phone;
-  currentUser.address = address;
-} 
-
-localStorage.setItem('accounts', JSON.stringify(storedAccounts));
-Message('Cập nhật thông tin tài khoản thành công!', 'success');
-}
-
-const accountInfoLink = document.querySelector('a[href="#account-info"]');
-accountInfoLink.addEventListener('click', getCurrentAccountInfo);
-function getCurrentAccountInfo() {
-const storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
-const currentUser = storedAccounts.find(account => account.email === datalogin);
-
-const nameInput = document.querySelector('#account-info #name');
-const emailInput = document.querySelector('#account-info #email');
-const birthdayInput = document.querySelector('#account-info #birthday');
-const phoneInput = document.querySelector('#account-info #phone');
-const addressInput = document.querySelector('#account-info #address');
-
-if (currentUser) {
-  nameInput.value = currentUser.name;
-  emailInput.value = currentUser.email;
-  birthdayInput.value = currentUser.birthday;
-  phoneInput.value = currentUser.phone;
-  addressInput.value = currentUser.address;
-}
-}
-
-const changePasswordForm = document.querySelector('#change-password');
-const oldPasswordInput = changePasswordForm.querySelector('input[name="old_password"]');
-const newPasswordInput = changePasswordForm.querySelector('input[name="new_password"]');
-const confirmPasswordInput = changePasswordForm.querySelector('input[name="confirm_password"]');
-const submitButton = changePasswordForm.querySelector('button[type="submit"]');
-
-submitButton.addEventListener('click', (event) => {
-event.preventDefault();
-changePassword(oldPasswordInput, newPasswordInput, confirmPasswordInput);
-});
-function changePassword(oldPasswordInput, newPasswordInput, confirmPasswordInput) {
-const errorMessages = [];
-var isValid = true;
-const currentUser = storedAccounts.find(account => account.fullname === datalogin);
-
-for (const input of [oldPasswordInput, newPasswordInput, confirmPasswordInput]) {
-  const inputElement = input;
-
-  if (!inputElement.validity.valid) {
-    errorMessages.push(inputElement.validationMessage);
-    inputElement.classList.add('invalid');
-    isValid = false;
-  }
-
-  switch (inputElement) {
-    case oldPasswordInput:
-      const storedAccounts = JSON.parse(localStorage.getItem('accounts')) || [];
-      if (oldPasswordInput.value !== currentUser.password) {
-        errorMessages.push("Mật khẩu cũ không chính xác");
-        inputElement.classList.add('invalid');
-        isValid = false;
-      }
-      break;
-    case newPasswordInput:
-      if (newPasswordInput.value !== confirmPasswordInput.value) {
-        errorMessages.push("Xác nhận mật khẩu không khớp");
-        confirmPasswordInput.classList.add('invalid');
-        isValid = false;
-      }
-      break;
-    default:
-      break;
-  }
-}
-
-if (isValid) {
-  currentUser.password = newPasswordInput.value;
-  localStorage.setItem('accounts', JSON.stringify(storedAccounts));
-
-  Message('Đổi mật khẩu thành công.', 'success');
-
-  submitButton.disabled = true;
-}else{
-  Message('Đổi mật khẩu không thành công.', 'error');
-}
+for(let i = 0; i < sidebars.length; i++) {
+    sidebars[i].onclick = function () {
+        document.querySelector(".sidebar-list-item.active").classList.remove("active");
+        document.querySelector(".account-content.active").classList.remove("active");
+        sidebars[i].classList.add("active");
+        sections[i].classList.add("active");
+    };
 }
 
 
-function showOrder(arr) {
+
+function showOrder() {
   let orderHtml = "";
-  console.log(emailUserNow);
-  console.log(arr);
-  var hisOrder = "";
+  let order = JSON.parse(localStorage.getItem('order'));
+  let hisOrder = "";
   if(emailUserNow != ""){
-    hisOrder = arr.filter((item) =>{return item.khachhang === emailUserNow});
+    hisOrder = order.filter((item) =>{return item.khachhang === emailUserNow});
   }
-  console.log(hisOrder);
+
   if(hisOrder.length == 0 || emailUserNow == "") {
       orderHtml = `<td colspan="6">Không có dữ liệu</td>`
   } else {
@@ -558,15 +390,15 @@ function showOrder(arr) {
           <td>${vnd(item.tongtien)}</td>                               
           <td>${status}</td>
           <td class="control">
-          <button class="btn-detail" id="" onclick="detailOrder('${item.id}')"><i class="fa-regular fa-circle-info"></i></button>
+              <span class="btn-detail detailicon" id="" onclick="detailOrder('${item.id}')"><i class="fa-light fa-circle-info"></i></span>
           </td>
-          </tr>      
-          `;
- 
+          </tr> `;
       });
   }
-  document.getElementById("showOrder").innerHTML = orderHtml;
+  document.querySelector("#showOrder").innerHTML = orderHtml;
+  console.log(orderHtml);
 }
+
 
 
 
@@ -576,22 +408,13 @@ function showOrder(arr) {
 
   function closedetail(){
     document.getElementById("div_detail").style.display="none";
-let detaildiv = document.getElementsByClassName("detail")[0];
-    detaildiv.innerHTML = "";
+
+
   }
 
-  function choose_size(){
-    var a = document.getElementById("div_size");
-    var b = a.getElementsByClassName("size");
-    for (var i=0;i<b.length;i++){
-      b[i].addEventListener("click", function() {
-      var c = document.getElementsByClassName("active");
-      c[0].className=c[0].className.replace(" active", "");
-      this.className+=" active";
-      });
-    }
-  } 
-
+function  toggleAccountContainer(){
+  document.querySelector(".account-container").classList.remove("active");
+}
 
   function handlePlus(){
     let amountElement = document.getElementById("amount");
@@ -681,7 +504,7 @@ function renderProducts(showProduct) {
                     <img class="card-image-hover" src="${product.imghv}" alt="${product.title}">
                     </a>
                 </div>
-                <div class="food-info">
+                <div class="prod-info">
                     <div class="card-content">
                         <div class="card-title">
                             <a href="#" class="card-title-link" onclick="detailProduct(${product.id})">${product.title.toUpperCase()}</a>
@@ -689,8 +512,9 @@ function renderProducts(showProduct) {
                     </div>
                     <div class="card-footer">
                         <div class="product-price">
+                        <span class="current-price">${vnd(product.newprice)}</span>
                             <span class="old-price">${vnd(product.price)}</span>
-                            <span class="current-price">${vnd(product.newprice)}</span>
+
                         </div>
                     <div class="product-buy">
                         <button onclick="detailProduct(${product.id})" class="card-button order-item"><i class="fa-regular fa-cart-shopping-fast"></i>Xem sản phẩm</button>
@@ -758,9 +582,6 @@ function paginationChange(page, productAll, currentPage) {
     return node;
 }
 function showCategory(category) {
-  // document.getElementById('trangchu').classList.remove('hide');
-  // document.getElementById('account-user').classList.remove('open');
-  // document.getElementById('order-history').classList.remove('open');
   let productSearch = productAll.filter(value => {
       return value.category.toString().toUpperCase().includes(category.toUpperCase());
   })
@@ -781,66 +602,108 @@ function findProductByID(productid){
 
   return null;
 }
-
+let indexPrdDetail="";
+let sizePrd="";
 function detailProduct(id){
+  indexPrdDetail = id;
+  sizePrd = "S";
   let divdetail = document.getElementById('div_detail');
   divdetail.style.display='grid';
 
   let product = findProductByID(id);
+
+
+    document.querySelector("#titleprod").textContent = product.title;
+    document.querySelector("#img_main").src = product.img;
+    document.getElementById("idtruoc").src = product.img;
+    document.getElementById("idsau").src = product.imghv;
+    document.getElementById("newprice").textContent = `${vnd(product.newprice)}`;
+    document.getElementById("price").textContent =  `${vnd(product.price)}`;
+    document.getElementById("detailDesc").textContent = product.desc;
+    document.getElementById("nametype").textContent = product.category;
   
 
-  let detailcontainer = document.getElementsByClassName('detail')[0];
- 
+    const curPrice = document.querySelectorAll(".newprice");
+    const olPrice = document.querySelectorAll(".price");
+    for (let i = 0; i < olPrice.length; i++) {
+    if(curPrice[i].textContent != ""){
 
-  detailcontainer.innerHTML += (`
-    <button class="close_detail" onclick="closedetail()">+</button>
-      <div class="title-container">
-        <h1 class="title">${product.title}</h1>
-      </div>
-      <div class="detail-container">
-        <div class="img-container">
-          <img src="${product.img}" alt="" id="img_main">
-          <div class="swap-img-container">
-              <img class="idtruoc" src="${product.img}" onclick="swap_img(this)"/>
-              <img class="idsau" src="${product.imghv}"  onclick="swap_img(this)"/>
-          </div>
-        </div>
-        <div class="detail-content">
-          <div class="div_type">
-            <span class="type">Phân loại:</span>
-            <span class="nametype">${product.category}</span>
-          </div>
-          <div class="div_price">
-            <h1 class="price">${vnd(product.price)}</h1>
-          </div>
-          <div id="div_size"> 
-              <span class="size active">S</span>
-              <span class="size">M</span>
-              <span class="size">L</span>
-              <span class="size">XL</span>
-          </div>
-          <div id="table-size"> 
-          <span class="btn-img-size" onclick="showTbSize()">Tham khảo bảng size</span>
-          </div>
-          <div id="div_quantity">
-          <span class="lb-quantity">Số lượng:</span>
-            <button class="quantity" id="quantity-down" onclick="handleMinus()">-</button>
-            <input id="amount" name="amount" type="text" value="1"/>
-            <button class="quantity " id="quantity-up" onclick="handlePlus()">+</button>
-          </div> 
-           
-          <div class="div_describe"> 
-          <span class="lb-describe">Mô tả sản phẩm:</span>`
-           + writeDescribe(product.desc) + 
-           `</div>
-           <div class="box-ctl"> 
-                <button class="div_cart" >THÊM VÀO GIỎ HÀNG</button>
-                <button class="div_buy" >MUA NGAY</button>
-           </div>
-          </div>
-      </div>
-  `)
-  choose_size();
+       olPrice[i].classList.add("active");
+
+      }
+    }
+      //Cap nhat gia tien khi tang so luong san pham
+      let tgbtn = document.querySelectorAll('.is-form');
+      let qty = document.querySelector('.detail-container .input-qty');
+      let priceText = document.querySelector('.price');
+      tgbtn.forEach(element => {
+          element.addEventListener('click', () => {
+              let price = product.price * parseInt(qty.value);
+              priceText.innerHTML = vnd(price);
+          });
+      });
+      // Them san pham vao gio hang
+  let productbtn = document.querySelector('.div_cart');
+  productbtn.addEventListener('click', (e) => {
+      if (localStorage.getItem('currentUser')) {
+          addCart(product.id);
+      } else {
+          advertise({ title: 'Warning', message: 'Chưa đăng nhập tài khoản !', type: 'warning', duration: 3000 });
+      }
+
+  })
+}
+
+
+const btnsize = document.querySelectorAll(".list-btn-size.row-size");
+const vlbtnsize = document.querySelectorAll(".btn-size");
+const listiconout = document.querySelectorAll(".icon-out");
+let btnsimp;
+let products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : [];
+
+for(let i = 0; i < btnsize.length; i++) {
+  let prod = products.find((item) => {return item.id == indexPrdDetail});
+    btnsize[i].onclick = function () {
+        // let selectbtn = document.q uerySelector(".list-btn-size.active .btn-size").textContent;
+        let szS = prod.szS;
+        let szM = prod.szM;
+        let szL = prod.szL;
+        let szXL = prod.szXL;
+
+
+        if(parseInt(szS) === 0){
+            document.getElementById('iconszS').style.display="flex";
+        }
+        else if(parseInt(szS) != 0){
+            document.getElementById('iconszS').style.display="none";
+        }
+
+        if(parseInt(szM) === 0){
+            document.getElementById('iconszM').style.display="flex";
+        }
+        else if(parseInt(szM) != 0){
+            document.getElementById('iconszM').style.display="none";
+        }
+
+        if(parseInt(szL) === 0){
+            document.getElementById('iconszL').style.display="flex";
+        }
+        else if(parseInt(szL) != 0){
+            document.getElementById('iconszL').style.display="none";
+        }
+
+        if(parseInt(szXL) === 0){
+            document.getElementById('iconszXL').style.display="flex";
+        }
+        else if(parseInt(szXL) != 0){
+            document.getElementById('iconszXL').style.display="none";
+        }
+        document.querySelector(".list-btn-size.active").classList.remove("active");
+        btnsize[i].classList.add("active");
+        sizePrd = vlbtnsize[i].textContent;
+        console.log(vlbtnsize[i].textContent);
+
+    };
 }
 
 function swap_img(reviewimg){
@@ -873,26 +736,344 @@ function getDescription(describe){
 }
 function showTbSize(){
      let tbSize = document.getElementById("show-imgSize");
-
      tbSize.style.display="flex";
+     
+
 }
-document.addEventListener("DOMContentLoaded", function () {
-  var showImageBtn = document.getElementById("showImageBtn");
-  var imageModal = document.getElementById("imgModal");
-  var tbSize = document.getElementById("show-imgSize");
+let btnImgSize = document.querySelector("#img-size-close");
+btnImgSize.onclick= function(){
+      document.getElementById("show-imgSize").style.display='none';
+      document.getElementById("div_detail").style.display="grid";
+}
+// Them SP vao gio hang
+function addCart(index) {
+  let currentuser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : [];
+  let soluong = document.querySelector('.input-qty').value;
+  let size= sizePrd;
+  console.log(size);
+  let productcart = {
+      id: index,
+      sizeAo: size,
+      soluong: parseInt(soluong),
 
-
-
-  // Đóng modal khi click ra ngoài modal
-  window.addEventListener("click", function (event) {
-    if (imageModal && (event.target == imageModal || !imageModal.contains(event.target))) {
-      closeImageModal();
-    }
-  });
-
-  // Hàm đóng modal
-  function closeImageModal() {
-    tbSize.style.display= "none";
-    document.body.style.overflow = "auto";
   }
-});
+  let vitri = currentuser.cart.findIndex(item => item.id == productcart.id);
+  if (vitri == -1) {
+      currentuser.cart.push(productcart);
+  } else {
+      currentuser.cart[vitri].soluong = parseInt(currentuser.cart[vitri].soluong) + parseInt(productcart.soluong);
+  }
+  localStorage.setItem('currentUser', JSON.stringify(currentuser));
+  updateAmount();
+  advertise({ title: 'Success', message: 'Thêm thành công sản phẩm vào giỏ hàng', type: 'success', duration: 3000 });
+  closedetail();
+  
+}
+
+//Show gio hang
+function showCart() {
+  let indexPrd="";
+  let currentuser = JSON.parse(localStorage.getItem('currentUser'));
+  if(currentuser !=  null){
+      if (currentuser.cart.length != 0) {
+          document.querySelector('.gio-hang-trong').style.display = 'none';
+          document.querySelector('button.thanh-toan').classList.remove('disabled');
+          let productcarthtml = '';
+          currentuser.cart.forEach(item => {
+              let product = getProduct(item);
+              productcarthtml +=`<tr>
+                  <td><div class="cart-img-title"><img class="cart-img-tbl" src="${product.img}" alt=""><p>${product.title}</p></div></td>
+                  <td>${product.category}</td>
+                  <td>${item.sizeAo}</td>
+                  <td>
+                     <span class="cart-item-price price" data-price="${product.price}">
+                      ${vnd(parseInt(product.price))}
+                      </span>
+                  </td>
+                  <td>
+                       <button class="minus is-form" type="button"  onclick="decreasingNumber(this,${item.id})">-</button>
+                       <input class="input-qty" max="100" min="1" name="" type="" value="${item.soluong}">
+                       <button class="plus is-form" type="button" onclick="increasingNumber(this,${item.id})">+</button>
+                  </td>
+                  <td class ="tongtt"></td>                               
+                  <td><button class="cart-item-delete" onclick="deleteCartItem(${product.id},this)"><i class="fa-solid fa-trash"></i></button></td>
+                  </tr>`
+         
+         });
+          document.getElementById("showProdCart").innerHTML = productcarthtml;
+          updateCartTotal();
+          updateCart()
+          saveAmountCart();
+      } else {
+          document.querySelector('.gio-hang-trong').style.display = 'flex';
+          document.querySelector("#cart-list").innerHTML ="" ;
+      }
+    }else{
+      document.querySelector('.gio-hang-trong').style.display = 'flex';
+      document.querySelector("#cart-list").innerHTML ="" ;
+    }
+  let modalCart = document.querySelector('.modal-cart');
+  let containerCart = document.querySelector('.cart-container');
+  let themsp = document.querySelector('.them-sp');
+  modalCart.onclick = function () {
+      closeCart();
+  }
+  themsp.onclick = function () {
+      closeCart();
+  }
+  containerCart.addEventListener('click', (e) => {
+      e.stopPropagation();
+  })
+}
+
+// Delete cart item
+function deleteCartItem(id, el) {
+  let cartParent = el.parentNode.parentNode;
+  cartParent.remove();
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  let vitri = currentUser.cart.findIndex(item => item.id = id)
+  currentUser.cart.splice(vitri, 1);
+
+  // Nếu trống thì hiển thị giỏ hàng trống
+  if (currentUser.cart.length == 0) {
+      document.querySelector('.gio-hang-trong').style.display = 'flex';
+      document.querySelector("#cart-list").innerHTML ="" ;
+      document.querySelector('button.thanh-toan').classList.add('disabled');
+  }
+  localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  updateCartTotal();
+}
+
+//Update cart total
+function updateCartTotal() {
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if(currentUser != null)
+  if(currentUser.cart != null){
+    document.querySelector('.text-price').innerText = vnd(getCartTotal());
+}
+}
+
+function updateCart(){
+  let total = document.querySelectorAll('.tongtt');
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if(currentUser  != null)
+  if(currentUser.cart.length != 0){
+  for(let  i = 0; i < currentUser.cart.length ; i++){
+       total[i].innerHTML = `${vnd(getCartProd(currentUser.cart[i].id))}`;
+  }
+}
+       
+}
+
+// Lay tong tien don hang
+function getCartTotal() {
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  let tongtien = 0;
+  if (currentUser != null) {
+      currentUser.cart.forEach(item => {
+          let product = getProduct(item);
+          tongtien += (parseInt(product.soluong) * parseInt(product.price));
+      });
+  }
+  return tongtien;
+}
+function getCartProd(id){
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  let curUser = currentUser.cart.find((item) => {return item.id == id})
+  let tongtien = 0;
+  if (currentUser != null) {
+          let product = getProduct(curUser);
+          tongtien = (parseInt(product.soluong) * parseInt(product.price));
+  }
+  return tongtien;
+}
+
+// kết hợp localStorage và item
+function getProduct(item) {
+  let products = JSON.parse(localStorage.getItem('products'));
+  let infoProductCart = products.find(sp => item.id == sp.id)
+  let product = {
+      ...infoProductCart,
+      ...item
+  }
+  console.log(product);
+  return product;
+}
+
+window.onload = updateAmount();
+window.onload = updateCartTotal();
+window.onload = updateCart();
+
+
+
+// Lay so luong hang
+
+function getAmountCart() {
+  let currentuser = JSON.parse(localStorage.getItem('currentUser'))
+  let amount = 0;
+  currentuser.cart.forEach(element => {
+      amount += parseInt(element.soluong);
+  });
+  return amount;
+}
+
+//Update Amount Cart 
+function updateAmount() {
+  if (localStorage.getItem('currentUser') != null) {
+      let amount = getAmountCart();
+      // document.querySelector('.count-product-cart').innerText= amount; //chưa sửa
+  }
+}
+
+// Save Cart Info
+function saveAmountCart() {
+  let cartAmountbtn = document.querySelectorAll(".cart-item-control .is-form");
+  let listProduct = document.querySelectorAll('.cart-item');
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  cartAmountbtn.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+          let id = listProduct[parseInt(index / 2)].getAttribute("data-id");
+          let productId = currentUser.cart.find(item => {
+              return item.id == id;
+          });
+          productId.soluong = parseInt(listProduct[parseInt(index / 2)].querySelector(".input-qty").value);
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          updateCartTotal();
+          updateCart();
+        
+      })
+  });
+}
+
+// Open & Close Cart
+function openCart() {
+  showCart();
+  document.querySelector('.modal-cart').classList.add('open');
+  body.style.overflow = "hidden";
+}
+
+function closeCart() {
+  document.querySelector('.modal-cart').classList.remove('open');
+  document.querySelector("#cart-list").innerHTML =`<div class ="cart-left">
+   <table>
+       <thead>
+        <tr>
+          <td>Sản phẩm</td>
+          <td>Phân loại</td>
+          <td>Size</td>
+          <td>Giá</td>
+          <td>Số lượng</td>
+          <td class="text-tt">Tạm tính</td>
+          <td>Tùy chọn</td>
+        </tr>
+      </thead>
+      <tbody id="showProdCart">
+      </tbody>
+   </table>
+   </div>
+   <div class="cart-right">
+       <div class="cart-total-price">
+          <p class="text-tt">Tạm tính:</p>
+          <p class="text-price">0đ</p>
+        </div>
+    </div>` ;
+  body.style.overflow = "auto";
+  updateAmount();
+}
+function increasingNumber(e,id) {
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  let vitri = currentUser.cart.findIndex((item) =>{return item.id ==id })
+
+  let qty = e.parentNode.querySelector('.input-qty');
+  if (parseInt(qty.value) < qty.max) {
+      qty.value = parseInt(qty.value) + 1;
+      console.log(currentUser.cart[vitri].soluong,vitri);
+      currentUser.cart[vitri].soluong =  parseInt(currentUser.cart[vitri].soluong) + 1;
+
+  } else {
+      qty.value = qty.max;
+  }
+  localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  // updateAmount();
+  updateCartTotal();
+  updateCart();
+
+}
+
+function decreasingNumber(e,id) {
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  let vitri = currentUser.cart.findIndex((item) =>{return item.id ==id })
+  let qty = e.parentNode.querySelector('.input-qty');
+  if (qty.value > qty.min) {
+      qty.value = parseInt(qty.value) - 1;
+      currentUser.cart[vitri].soluong =  parseInt(currentUser.cart[vitri].soluong) - 1;
+      console.log(currentUser.cart[vitri].soluong,vitri);
+
+      
+  } else {
+      qty.value = qty.min;
+  }
+  localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  // updateAmount();
+  updateCartTotal();
+  updateCart();
+
+}
+
+
+function advertise({
+  title = 'Success',
+  message = 'Tạo tài khoản thành công',
+  type = 'success', 
+  duration = 3000
+}){
+  const main = document.getElementById('advertise');
+  if(main){
+      const advertise = document.createElement('div');
+      //Auto remove advertise
+      const autoRemove = setTimeout(function(){
+          main.removeChild(advertise);
+      },duration+1000);
+      //Remove advertise when click btn close
+      advertise.onclick = function(e){
+          if(e.target.closest('.fa-regular')){
+              main.removeChild(advertise);
+              clearTimeout(autoRemove);
+          }
+      }
+      const colors = {
+          success: '#47d864',
+          info: '#2f86eb',
+          warning: '#ffc021',
+          error: '#ff6243'
+      }
+      const icons = {
+          success: 'fa-light fa-check',
+          info: 'fa-solid fa-circle-info',
+          warning: 'fa-solid fa-triangle-exclamation',
+          error: 'fa-solid fa-bug'
+      };
+      const color = colors[type];
+      const icon = icons[type];
+      const delay = (duration / 1000).toFixed(2);
+      advertise.classList.add('advertise', `advertise--${type}`);
+      advertise.style.animation = `slideInTop ease 0.3s, fadeOut linear 1s ${delay}s forwards`;
+      advertise.innerHTML = `<div class="advertise__private" >
+      <div class="advertise__icon">
+          <i class="${icon}"></i>
+      </div>
+      <div class="advertise__body">
+          <h3 class="advertise__title" >${title}</h3>
+          <p class="advertise__msg">
+              ${message}
+          </p>
+      </div>
+
+  </div>
+  
+  <div class="advertise__background"style="background-color: ${color};">
+  </div>`
+  // document.querySelector('.advertise__background').classList.add("initial");
+  main.appendChild(advertise);
+  }
+}

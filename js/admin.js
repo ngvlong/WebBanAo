@@ -1,14 +1,14 @@
-// function checkLogin() {
-//     let currentUser = JSON.parse(localStorage.getItem("currentuser"));
-//     if(currentUser == null || currentUser.userType == 0) {
-//         document.querySelector("body").innerHTML = `<div class="access-denied-section">
-//             <img class="access-denied-img" src="./assets/upload 2.png" alt="">
-//         </div>`
-//     } else {
-//         document.getElementById("name-acc").innerHTML = currentUser.fullname;
-//     }
-// }
-// window.onload = checkLogin();
+function checkLogin() {
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser == null || currentUser.userType == 0) {
+        document.querySelector("body").innerHTML = `<div class="access-denied-section">
+            <img class="access-denied-img" src="./assets/cảnh báo.jpg" alt="">
+        </div>`
+    } else {
+        document.getElementById("name-acc").innerHTML = currentUser.fullname;
+    }
+}
+window.onload = checkLogin();
 
 
 const menuIconButton = document.querySelector(".menu-icon-btn");
@@ -1858,8 +1858,6 @@ addAccount.addEventListener("click", (e) => {
             document.querySelector(".signup").classList.remove("open");
             showUser();
             signUpFormReset();
-
-
     }
 })
 

@@ -1886,9 +1886,7 @@ label a {
     column-gap: 10px;
     text-align: center;
     width: 80%;
-
     margin-left: 70px;
-    
     
 }
 #title-prod-tk{
@@ -2037,31 +2035,6 @@ label a {
 }
 
 
-/* #advertise {
-
-	background-color: #2dffa7;
-    min-width: 500px;
-    color: #fff;
-    font-size: 20pt;
-    text-align: center;
-    border-radius: 2px;
-    padding: 20px;
-    position: fixed;
-    left: 35%;
-    right: auto;
-    z-index: 150;
-    top: 20px;
-    transform: translateX(-50%);
-    font-family:Font Awesome 6 Pro ;
-    display: flex;
-}
-#advertise.show {
-
-    visibility: visible;
- 	animation: fadein 0.5s, fadeout 0.1Fsins 1s;
-} */
-
-
 
 /* Css advertise message */
 .advertise {
@@ -2071,11 +2044,10 @@ label a {
     border-radius: 2px;
     min-width: 150px;
     max-width: 350px;
-
     position: relative;
     justify-content: center;
     align-items: center;
-    animation: slideInTop 0.5s ease-out ;
+    animation: slideInTop 0.5s ease-in-out;
 
 }
 
@@ -2164,13 +2136,7 @@ label a {
     align-items: center;
     margin-top: 10px;
 }
-.advertise__close {
-    padding: 0 16px;
-    line-height: 52px;
-    justify-content: center; 
-    align-items: center;
-    margin-top: 10px;
-}
+
 
 .advertise__body {
     flex-grow: 1;
@@ -2195,11 +2161,7 @@ label a {
     line-height: 1.5;
 }
 
-.advertise__close {
-    font-size: 20px;
-    color: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-}
+
 
 
 .advertise--success {

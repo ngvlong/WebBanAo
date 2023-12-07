@@ -30,23 +30,18 @@
              <span class="filter-btn"><i class="fa-light fa-filter-list"></i>Lọc</span>
            </form>
            <div class="headerright">
-               <div class="headerright-click"><button  id="btnAccount"  onclick="showForm()">Đăng nhập</button></div>
-               <div class="headerright-click"><button> <i class="fa-regular fa-cart-shopping"></i></button></div>
-               <div class="headericon"><button id="sreachicon"  onclick="sreachform()"></button></div>
-               <div class="headericon"><button id="loginicon"  onclick="showForm()"></button></div>
-               <div class="headericon"><button id="bagicon"></button></div>
+               <div class="headerright-click ">
+                   <div id="AccountLogin">
+                      <button  id="btnAccount"  onclick="showForm()">Đăng nhập</button>
+                   </div>
+                   <div class="header-middle-right-menu">
+                      <ul class="header-middle-right">
+                      </ul>
+                    </div>
+                 </div>
+                 <div class="headerright-click"><button onclick="openCart()"> <i class="fa-regular fa-cart-shopping"></i></button></div>
            </div>
            
-           </div>
-           <div>
-               <form class="smallsreachform">
-                   <div><button id="backsreachicon" class="sreachicon2" onclick="closesmallsreach()"></button></div>
-                   <form action="">
-                       <span><i class="fa-sharp fa-regular fa-magnifying-glass"></i></span>
-                       <input type="text" class="inputsreach2" id="smallsreach"  placeholder="TÌm kiếm">
-                    </form>
-                   <div><button id="sreachicon" class="sreachicon2" onclick="sreachform1()"></button></div>
-               </form>
            </div>
            <div class="lowmenu">
                   <div class=""> <button type="button"><i class="fa-regular fa-house"></i><a href="">Trang chủ</a></button></div>
@@ -136,12 +131,80 @@
 
    
     <div id="div_detail" >
-        <div class="detail"></div>
+        <div class="detail">
+            <button class="close_detail" onclick="closedetail()">+</button>
+       <div class="title-container">
+        <h1 class="title" id="titleprod"> Tên Áo</h1>
+      </div>
+      <div class="detail-container">
+        <div class="img-container">
+          <img src="" alt="" id="img_main">
+          <div class="swap-img-container">
+              <img class="idtruoc" id="idtruoc" onclick="swap_img(this)"/>
+              <img class="idsau" id="idsau" src=""  onclick="swap_img(this)"/>
+          </div>
+        </div>
+        <div class="detail-content">
+          <div class="div_type">
+            <span class="type">Phân loại:</span>
+            <span class="nametype" id="nametype"></span>
+          </div>
+          <div class="div_price">
+            <h1 class="newprice" id="newprice"></h1>
+            <h1 class="price" id="price"></h1>
+
+          </div>
+          <div id ="list-size" class= "list-size">
+           <ul class="btn-sizes">
+              <li class="list-btn-size row-size active">
+                  <span class="icon-out iconszS" id="iconszS"><i class="fa-thin fa-xmark-large"></i></span>
+                  <button type = "button" class="btn-size btns" id="btns">S</button>           
+              </li>
+              <li class="list-btn-size row-size ">
+                  <span class="icon-out iconszM" id="iconszM"><i class="fa-thin fa-xmark-large"></i></span>
+                  <button type = "button" class="btn-size btnm" id="btnm" >M</button>
+                 
+              </li>
+              <li class="list-btn-size row-size">
+                  <span class="icon-out" id="iconszL"><i class="fa-thin fa-xmark-large"></i></span>
+                  <button type = "button" class="btn-size btnl" id="btnl" >L</button>
+                
+              </li>
+              <li class="list-btn-size row-size">
+                  <span class="icon-out" id="iconszXL"><i class="fa-thin fa-xmark-large"></i></span>
+                  <button type = "button" class="btn-size bntxl" id="btnxl" >XL</button>
+              
+              </li>
+          </ul>
+       </div>
+          <div id="table-size"> 
+          <span class="btn-img-size" onclick="showTbSize()">Tham khảo bảng size</span>
+          </div>
+          <div id="div_quantity">
+          <span class="lb-quantity">Số lượng:</span>
+            <button class="quantity" id="quantity-down" onclick="handleMinus()">-</button>
+            <input id="amount" class="input-qty"name="amount" type="number" value="1">
+            <button class="quantity " id="quantity-up" onclick="handlePlus()">+</button>
+          </div> 
+           
+          <div class="div_describe"> 
+          <span class="lb-describe">Mô tả sản phẩm:</span>
+          <h5 id="detailDesc"></h5>
+           </div>
+           <div class="box-ctl"> 
+                <button class="div_cart" >THÊM VÀO GIỎ HÀNG</button>
+                <button class="div_buy" >MUA NGAY</button>
+           </div>
+          </div>
+      </div>
+        </div>
     </div>
-    <div id="show-imgSize" >
-        <!-- <button type="button" id="img-size-close"><i class="fa-regular fa-xmark"></i></button> -->
-        <div id="imgModal">
-            <img src="assets/bảng size.webp" alt="">
+    <div id="show-imgSize">
+        <div class="modal-img">
+            <button type="button" id="img-size-close"><i class="fa-regular fa-xmark"></i></button>
+            <div id="imgModal">
+               <img src="assets/bảng size.webp" alt="">
+            </div>
         </div>
     </div>
    
@@ -156,9 +219,9 @@
 
                 <div class="bodylogin">
                     <div class="datalogin">
-                        <label for="username"><img src="assets/image/username.png"></label>
+                        <label for="Email"><img src="assets/image/username.png"></label>
                         <input type="text" placeholder="Email" id="emailLogin">
-                        <span class="message"></span>
+                        <span class="message emaillog"></span>
                     </div>
                     <div class="datalogin">
                         <label for="password"><img src="assets/image/password.png"></label>
@@ -167,7 +230,7 @@
                             <img src="assets/image/showPass.png" alt="" id="showIcon">
                             <img src="assets/image/hidenPass.png" alt="" id="hideIcon">
                         </div>
-                        <span class="message"></span>
+                        <span class="message passwordlog"></span>
                     </div>
                 </div>
                 <div class="footlogin">
@@ -186,17 +249,17 @@
                     <div class="datasignup">
                         <label for="username">Họ và tên</label>
                         <input type="text" placeholder="Nguyễn Văn A" id="usernameSignUp">
-                        <span class="message"></span>
+                        <span class="message fullnameSign"></span>
                     </div>
                     <div class="datasignup">
                         <label for="email">Email</label>
                         <input type="email" placeholder="nguyenvana@gmail.com" id="emailSignUp">
-                        <span class="message"></span>
+                        <span class="message emailSign"></span>
                     </div>
                     <div class="datasignup">
                         <label for="phone">Số điện thoại</label>
                         <input type="text" placeholder="VD: 0986407915" id="phoneSignUp">
-                        <span class="message"></span>
+                        <span class="message phoneSign"></span>
                     </div>
                     <div class="datasignup">
                         <label for="password">Mật khẩu</label>
@@ -205,12 +268,12 @@
                             <img src="assets/image/showPass.png" alt="" id="showIcon">
                             <img src="assets/image/hidenPass.png" alt="" id="hideIcon">
                         </div>
-                        <span class="message"></span>
+                        <span class="message passwordSign"></span>
                     </div>
                     <div class="datasignup">
                         <label>Nhập lại mật khẩu</label>
                         <input type="password" placeholder="Nhập lại mật khẩu" id="confirm-password">
-                        <span class="message"></span>
+                        <span class="message passwordConfir"></span>
                     </div>
                 </div>
                 <div class="footsignup">
@@ -221,16 +284,17 @@
         </div>
     </div>
     <div class="account-container">
+      <div class="account-box">
         <div class="account-menu">
           <h3>Tài khoản</h3>
           <ul>
-            <li><a href="#account-info">Thông tin tài khoản</a></li>
-            <li><a href="#order-history">Lịch sử mua hàng</a></li>
-            <li><a href="#change-password">Đổi mật khẩu</a></li>
+            <li class="sidebar-list-item active"><a href="#"  >Thông tin tài khoản</a></li>
+            <li class="sidebar-list-item"><a href="#"  >Lịch sử mua hàng</a></li>
+            <li class="sidebar-list-item"><a href="#"  >Đổi mật khẩu</a></li>
           </ul>
         </div>
         <div class="account-wrapper">
-            <div class="account-content" id="account-info">
+            <div class="account-content  active " id="account-info">
                 <h3>Thông tin cá nhân</h3>
                 <ul>
                   <li>
@@ -241,10 +305,7 @@
                     <label>Email</label>
                     <input type="email" id="email" />
                   </li>
-                  <li>
-                    <label>Ngày sinh</label>
-                    <input type="date" id="birthday" />
-                  </li>
+
                   <li>
                     <label>Số điện thoại</label>
                     <input type="tel" id="phone" />
@@ -265,11 +326,12 @@
               <table>
                 <thead>
                   <tr>
-                    <th>Mã đơn hàng</th>
-                    <th>Tên người nhận</th>
-                    <th>Ngày mua</th>
-                    <th>Tổng tiền</th>
-                    <th>Trạng thái</th>
+                    <td>Mã đơn hàng</td>
+                    <td>Tên người nhận</td>
+                    <td>Ngày mua</td>
+                    <td>Tổng tiền</td>
+                    <td>Trạng thái</td>
+                    <td>Chi tiết</td>
                   </tr>
                 </thead>
                 <tbody id="showOrder">
@@ -305,36 +367,66 @@
             </div>
         </div>
         <div class="exit-account-container" onclick="toggleAccountContainer()">Thoát</div>
+      </div>
     </div>
 
+    <div class="modal-cart">
+        <div class="cart-container">
+            <div class="cart-header">
+                <h3 class="cart-header-title"><i class="fa-regular fa-basket-shopping-simple"></i> Giỏ hàng</h3>
+                <button class="cart-close" onclick="closeCart()"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-body">
+                <div class="gio-hang-trong">
+                    <i class="fa-thin fa-cart-xmark"></i>
+                    <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                </div>
+                <div id="cart-list">
+                    <div class ="cart-left">
+                        <table>
+                            <thead>
+                              <tr>
+                                <td>Sản phẩm</td>>
+                                <td>Phân loại</td>
+                                <td>Size</td>
+                                <td>Giá</td>
+                                <td>Số lượng</td>
+                                <td>Tạm tính</td>
+                                <td>Tùy chọn</td>
+                              </tr>
+                            </thead>
+                            <tbody id="showProdCart">
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <div class="cart-right">
+                      <div class="cart-total-price">
+                         <p class="text-tt">Tạm tính:</p>
+                         <p class="text-price">0đ</p>
+                      </div>
+                    </div>
+                </div>
+               <div class="cart-footer">
+                   <div class="cart-footer-payment">
+                          <button class="them-sp"><i class="fa-sharp fa-regular fa-cart-plus"></i>Tiếp tục mua sắm</button>
+                          <button class="thanh-toan disabled">Thanh toán</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
            
            
        
-       <div class="footer">
+    <div class="footer">
            <div class="footleft">Thông tin shop</div>
-       </div>
+    </div>
+       <div id="advertise"></div>
        <script src="./js/main.js"></script>
        <script src="./js/dataprod.js"></script>
        <script src="./js/admin.js"></script>
-       <script>
-        Validator({
-            form: '#signup-form',
-            rules: [
-                Validator.isUsername('#usernameSignUp'),
-                Validator.isEmail('#emailSignUp'),
-                Validator.checkLength('#passwordSignUp'),
-                Validator.checkPass('#confirm-password', function(){
-                    return document.querySelector('#signup #passwordSignUp').value;
-                })
-            ]
-        })
-        Validator({
-            form: '#login-form',
-            rules: [
-                Validator.isRequited('#emailLogin'),
-                Validator.isRequited('#passwordLogin')
-            ]
-        })
-    </script>
+
+
 </body>
 </html>
