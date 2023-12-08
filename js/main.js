@@ -2,7 +2,9 @@ const body = document.querySelector("body");
 
 
 function vnd(price) {
+  if(price!=null)
   return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  return "";
 }
 let slideIndex = 0;
 function showSlides() {
@@ -191,32 +193,36 @@ signupButton.addEventListener('click', () => {
 
     if (phoneUser.length == 0) {
         document.querySelector('.message.phoneSign').innerHTML = 'Vui lòng nhập vào số điện thoại';
-    } else if (!checkExistPhone(phoneUser)) {
-        document.querySelector('.message.phoneSign').innerHTML = 'Vui lòng nhập vào đúng định dạng số điện thoại';
+    } else if (!isValidPhoneNumber(phoneUser)) {
+      document.querySelector('.message.phoneSign').innerHTML = 'Vui lòng nhập đúng định dạng email';
+    } else if (checkExistPhone) {
+        document.querySelector('.message.phoneSign').innerHTML = 'Số điện thoại đã được sử dụng';
         document.getElementById('phoneSignUp').value = '';
     } else {
-        document.querySelector('.message.phoneSign').innerHTML = '';
+        document.querySelector('.message.phoneSign').textContent = '';
     }
 
 
     if (passwordUser.length == 0) {
-        document.querySelector('.form-message-password').innerHTML = 'Vui lòng nhập mật khẩu';
+        document.querySelector('.message.passwordSign').innerHTML = 'Vui lòng nhập mật khẩu';
     } else if (passwordUser.length < 6) {
-        document.querySelector('.form-message-password').innerHTML = 'Vui lòng nhập mật khẩu lớn hơn 6 kí tự';
-        document.getElementById('password').value = '';
+        document.querySelector('.message.passwordSign').innerHTML = 'Vui lòng nhập mật khẩu lớn hơn 6 kí tự';
+        document.getElementById('passwordSignUp').value = '';
     } else {
-        document.querySelector('.form-message-password').innerHTML = '';
-    }
-    if (passwordConfirmation.length == 0) {
-        document.querySelector('.form-message-password-confi').innerHTML = 'Vui lòng nhập lại mật khẩu';
-    } else if (passwordConfirmation !== passwordUser) {
-        document.querySelector('.form-message-password-confi').innerHTML = 'Mật khẩu không khớp';
-        document.getElementById('password_confirmation').value = '';
-    } else {
-        document.querySelector('.form-message-password-confi').innerHTML = '';
+        document.querySelector('.message.passwordSign').innerHTML = '';
     }
 
-    if (fullNameUser && phoneUser && passwordUser && passwordConfirmation && checkSignup && emailUser) {
+
+    if (passwordConfirmation.length == 0) {
+        document.querySelector('.message.passwordConfir').innerHTML = 'Vui lòng nhập lại mật khẩu';
+    } else if (passwordConfirmation !== passwordUser) {
+        document.querySelector('.message.passwordConfir').innerHTML = 'Mật khẩu không khớp';
+        document.getElementById('confirm-password').value = '';
+    } else {
+        document.querySelector('.message.passwordConfir').innerHTML = '';
+    }
+
+    if (fullNameUser && phoneUser && passwordUser && passwordConfirmation && emailUser) {
         if (passwordConfirmation == passwordUser) {
             let user = {
                 id:createId(accounts),
@@ -235,12 +241,12 @@ signupButton.addEventListener('click', () => {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 emailUserNow = emailUser;
                 advertise({ title: 'Thành công', message: 'Tạo thành công tài khoản !', type: 'success', duration: 3000 });
-                closeModal();
                 kiemtradangnhap();
                 updateAmount();
+                closeForm();
 
         } else {
-            advertise({ title: 'Thất bại', message: 'Sai mật khẩu !', type: 'error', duration: 3000 });
+            advertise({ title: 'Thất bại', message: 'Tạo tài khoản không thành công', type: 'error', duration: 3000 });
         }
     }
 }
@@ -396,7 +402,7 @@ function showOrder() {
       });
   }
   document.querySelector("#showOrder").innerHTML = orderHtml;
-  console.log(orderHtml);
+
 }
 
 
@@ -757,7 +763,7 @@ function addCart(index) {
       soluong: parseInt(soluong),
 
   }
-  let vitri = currentuser.cart.findIndex(item => item.id == productcart.id);
+  let vitri = currentuser.cart.findIndex(item => item.id == productcart.id && item.sizeAo == size);
   if (vitri == -1) {
       currentuser.cart.push(productcart);
   } else {
@@ -802,7 +808,7 @@ function showCart() {
          });
           document.getElementById("showProdCart").innerHTML = productcarthtml;
           updateCartTotal();
-          updateCart()
+          updateCart();
           saveAmountCart();
       } else {
           document.querySelector('.gio-hang-trong').style.display = 'flex';
@@ -856,11 +862,14 @@ function updateCartTotal() {
 function updateCart(){
   let total = document.querySelectorAll('.tongtt');
   let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  if(currentUser  != null)
+  if(currentUser  != null){
+  if(currentUser.cart != null){
   if(currentUser.cart.length != 0){
   for(let  i = 0; i < currentUser.cart.length ; i++){
        total[i].innerHTML = `${vnd(getCartProd(currentUser.cart[i].id))}`;
   }
+}
+}
 }
        
 }
@@ -896,13 +905,13 @@ function getProduct(item) {
       ...infoProductCart,
       ...item
   }
-  console.log(product);
+
   return product;
 }
 
 window.onload = updateAmount();
 window.onload = updateCartTotal();
-window.onload = updateCart();
+
 
 
 
@@ -972,11 +981,44 @@ function closeCart() {
    </table>
    </div>
    <div class="cart-right">
-       <div class="cart-total-price">
-          <p class="text-tt">Tạm tính:</p>
-          <p class="text-price">0đ</p>
-        </div>
-    </div>` ;
+   <div class="cart-total-price">
+      <p class="text-tt">Tạm tính:</p>
+      <p class="text-price">0đ</p>
+   </div>
+   <div class="cart-ship">
+     <p>Giao hàng</p>
+     <div>
+         <ul class="list-ship">
+             <li>
+                 <input type="radio" name="shippingOption">
+                 <label for="" id="transport-fee">Phí vận chuyển:20000vnđ</label>
+             </li>
+             <li>
+                 <input type="radio" name="shippingOption">
+                 <label for="" id="speed-ship">Giao hàng hỏa tốc nội thành:30000vnđ</label>
+             </li>
+         </ul>
+         <p id="ship-to-province">Vận chuyển đến <strong>Hồ Chí Minh</strong></p>
+         
+         <form action="" id="shippingForm">
+             <a href="#" class="change-address">Đổi địa chỉ</a>
+             <section>
+                 <p>
+                     <select name="" id="provinceSelect" onchange="selectProv()">
+                         <option value="selected">Chọn tỉnh/thành phố</option>
+                     </select>
+                     <p>Địa chỉ chi tiết</p>
+                     <input type="text">
+                 </p>
+             </section>
+         </form>
+     </div>
+   </div>
+   <div class="total-price">
+       <p>Tổng</p>
+       <p></p>
+   </div>
+ </div>` ;
   body.style.overflow = "auto";
   updateAmount();
 }
@@ -1020,7 +1062,102 @@ function decreasingNumber(e,id) {
 
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+  let provinces = [
+    'An Giang',
+    'Bà Rịa - Vũng Tàu',
+    'Bạc Liêu',
+    'Bắc Giang',
+    'Bắc Kạn',
+    'Bắc Ninh',
+    'Bến Tre',
+    'Bình Định',
+    'Bình Dương',
+    'Bình Phước',
+    'Bình Thuận',
+    'Cà Mau',
+    'Cần Thơ',
+    'Cao Bằng',
+    'Đà Nẵng',
+    'Đắk Lắk',
+    'Đắk Nông',
+    'Điện Biên',
+    'Đồng Nai',
+    'Đồng Tháp',
+    'Gia Lai',
+    'Hà Giang',
+    'Hà Nam',
+    'Hà Nội',
+    'Hà Tĩnh',
+    'Hải Dương',
+    'Hải Phòng',
+    'Hậu Giang',
+    'Hòa Bình',
+    'Hồ Chí Minh',
+    'Hưng Yên',
+    'Khánh Hòa',
+    'Kiên Giang',
+    'Kon Tum',
+    'Lai Châu',
+    'Lâm Đồng',
+    'Lạng Sơn',
+    'Lào Cai',
+    'Long An',
+    'Nam Định',
+    'Nghệ An',
+    'Ninh Bình',
+    'Ninh Thuận',
+    'Phú Thọ',
+    'Phú Yên',
+    'Quảng Bình',
+    'Quảng Nam',
+    'Quảng Ngãi',
+    'Quảng Ninh',
+    'Quảng Trị',
+    'Sóc Trăng',
+    'Sơn La',
+    'Tây Ninh',
+    'Thái Bình',
+    'Thái Nguyên',
+    'Thanh Hóa',
+    'Thừa Thiên Huế',
+    'Tiền Giang',
+    'Trà Vinh',
+    'Tuyên Quang',
+    'Vĩnh Long',
+    'Vĩnh Phúc',
+    'Yên Bái'
+  ];
 
+  const selectElement = document.getElementById('provinceSelect');
+
+  provinces.forEach(function(province) {
+    const optionElement = document.createElement('option');
+    optionElement.value = province;
+    optionElement.text = province;
+    selectElement.appendChild(optionElement);
+  });
+});
+
+
+
+document.getElementById('shippingForm').addEventListener('change', function(event) {
+  const selectedOption = document.querySelector('input[name="shippingOption"]:checked');
+
+  if (selectedOption) {
+    alert('Bạn đã chọn: ' + selectedOption.nextElementSibling.textContent);
+  }
+});
+
+ function showSectionProv(){
+     document.querySelector(".sectionProvince").classList.toggle("active");
+}
+
+function selectProv(){
+  let province= document.getElementById('provinceSelect').value;
+  console.log(province);
+  document.getElementById("ship-to-province").innerHTML=`Vận chuyển đến <strong >${province}</strong>`
+}
 function advertise({
   title = 'Success',
   message = 'Tạo tài khoản thành công',

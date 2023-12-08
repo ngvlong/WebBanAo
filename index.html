@@ -183,7 +183,7 @@
           <div id="div_quantity">
           <span class="lb-quantity">Số lượng:</span>
             <button class="quantity" id="quantity-down" onclick="handleMinus()">-</button>
-            <input id="amount" class="input-qty"name="amount" type="number" value="1">
+            <input id="amount" class="input-qty"name="amount" type="" value="1">
             <button class="quantity " id="quantity-up" onclick="handlePlus()">+</button>
           </div> 
            
@@ -253,12 +253,12 @@
                     </div>
                     <div class="datasignup">
                         <label for="email">Email</label>
-                        <input type="email" placeholder="nguyenvana@gmail.com" id="emailSignUp">
+                        <input type="email" placeholder="VD:nguyenvana@gmail.com" id="emailSignUp">
                         <span class="message emailSign"></span>
                     </div>
                     <div class="datasignup">
                         <label for="phone">Số điện thoại</label>
-                        <input type="text" placeholder="VD: 0986407915" id="phoneSignUp">
+                        <input type="text" placeholder="VD:0986407915" id="phoneSignUp">
                         <span class="message phoneSign"></span>
                     </div>
                     <div class="datasignup">
@@ -393,7 +393,7 @@
                                 <td>Số lượng</td>
                                 <td>Tạm tính</td>
                                 <td>Tùy chọn</td>
-                              </tr>
+                               </tr>
                             </thead>
                             <tbody id="showProdCart">
                             </tbody>
@@ -404,6 +404,39 @@
                       <div class="cart-total-price">
                          <p class="text-tt">Tạm tính:</p>
                          <p class="text-price">0đ</p>
+                      </div>
+                      <div class="cart-ship">
+                        <p>Giao hàng</p>
+                        <div>
+                            <ul class="list-ship">
+                                <li>
+                                    <input type="radio" name="shippingOption" class="shippingOption">
+                                    <label for="" id="transport-fee">Phí vận chuyển:20000vnđ</label>
+                                </li>
+                                <li>
+                                    <input type="radio"name="shippingOption" class="shippingOption">
+                                    <label for="" id="speed-ship">Giao hàng hỏa tốc nội thành:30000vnđ</label>
+                                </li>
+                            </ul>
+                            <p id="ship-to-province">Vận chuyển đến <strong>Hồ Chí Minh</strong></p>
+                            
+                            <form action="" id="shippingForm">
+                                <span class="change-address" onclick="showSectionProv()">Đổi địa chỉ</span>
+                                <section class="sectionProvince">
+                                    <p>
+                                        <select name="" id="provinceSelect" onchange="selectProv()" >
+                                            <option value="selected" >Chọn tỉnh/thành phố</option>
+                                        </select>
+                                        <p>Địa chỉ chi tiết</p>
+                                        <input type="text" class="detail-address">
+                                    </p>
+                                </section>
+                            </form>
+                        </div>
+                      </div>
+                      <div class="total-price">
+                          <p>Tổng</p>
+                          <p></p>
                       </div>
                     </div>
                 </div>

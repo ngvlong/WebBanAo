@@ -15,10 +15,16 @@ body{
     
     background-color: var(--lighter-gray);
     margin: -5px;
-    overflow: hidden;
-    overflow-y: scroll;
-    overflow-y: overlay;
 
+    overflow-x: hidden;
+
+}
+body::-webkit-scrollbar {
+    width: 5px;
+    /* height:50px; */
+}
+body::-webkit-scrollbar-track {
+    background-color: #fafafa;
 }
 ul,
 li {
@@ -799,14 +805,13 @@ button{
 
 #modal a{
     text-decoration: none;
-    color: rgb(110, 110, 181);
+    color: var(--medium-gray);
     font-size: 20px;
     margin: 10px;
 }
 #modal a:hover{
-    color: blanchedalmond;
-    text-shadow: 0px 0px 10px rgb(0, 0, 0);
-    padding-left: 10px;
+    color:#000;
+
 }
 
 .invalid span{
@@ -818,13 +823,13 @@ button{
 
 #login {
     width: 500px;
-    background-color: var(--lighter-gray);
-	margin: 120px auto;
+    background-color: var(--lightest-gray);
+	margin: 100px auto;
 	position: relative;
     top: 0;
 	z-index: 100;
-    border: 3px solid rgba(0, 0, 0, 0.37);
-    border-radius: 30px;
+    border: noen;
+    border-radius: 10px;
     animation: fadeIn 0.25s ease-in;
 }
 
@@ -858,7 +863,7 @@ button{
 #title__signin{
     font-size: 40px;
     color: rgba(0, 0, 0, 0.8);
-    text-shadow: 1px 3px 4px rgba(55, 53, 53, 0.6)
+    padding: 20px;
 }
 .btnclose {
    right: 0;
@@ -886,6 +891,7 @@ button{
     justify-content: space-around;
 }
 
+
 .datalogin{
     height: 40px;
     position: relative;
@@ -909,7 +915,7 @@ button{
     font-size: 15px;
 }
 .datalogin input::placeholder{
-    color: rgba(255, 255, 255, 0.7);;
+    color:var(--light-gray);
 }
 .datalogin input:focus{
     outline: none;
@@ -954,15 +960,16 @@ button{
 }
 #btnlogin{   
     width: 240px;
-    height: 65px;
-    background:  linear-gradient(0deg, rgba(128, 124, 124, 0.6), rgba(255, 255, 255, 0.6));
+    height: 55px;
+    background:  linear-gradient(0deg, rgba(128, 124, 124, 0.6), rgba(220, 191, 191, 0.6));
     border-radius: 10px;
     text-transform: uppercase;
     font-size: 20px;
     color: #fff;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-shadow: 3px 3px 10px rgba(27, 23, 23, 0.5);
-    z-index: 2;
+    border: none;
+    margin-top: 15px;
 }
 
 #btnlogin:hover{
@@ -974,17 +981,14 @@ button{
 }
 
 #signup{
-    width: 500px;
-	background: linear-gradient(0deg, rgba(76, 76, 76, 0.95), rgba(250, 250, 250, 0.95));
-    background-repeat: no-repeat;
-    box-shadow: 0px 0px 30px rgb(185, 179, 179);
-	margin: 80px auto;
+    width: 550px;
+	background:var(--lighter-gray);
+	margin: 30px auto;
 	position: relative;
     top: 0;
     transition: top 1s ease;
 	z-index: 100;
-    border: 3px solid rgba(0, 0, 0, 0.37);
-    border-radius: 30px;
+    border-radius: 10px;
     animation: fadeIn 0.25s ease-in;
 }
 .header-signup{
@@ -993,7 +997,7 @@ button{
 #title__signup{
     font-size: 45px;
     color: rgba(0, 0, 0, 0.8);
-    text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.6)
+    padding: 20px 5px;
 }
 .body_signup{
     height: 280px;
@@ -1017,7 +1021,7 @@ button{
     display: inline-block;
     height: 30px;
     font-family: 'Times New Roman', Times, serif;
-    text-shadow: 2px 2px 2px rgba(33, 32, 32, 0.588);
+
 }
 .datasignup input{
     height: 35px;
@@ -1034,7 +1038,7 @@ button{
     outline: none;
 }
 .datasignup input::placeholder{
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--light-gray);
 }
 
 .datasignup span{
@@ -1049,14 +1053,14 @@ button{
     width: 25px;
     position: absolute;
     display: none;
-    right: 300%;
+    right: 450%;
     bottom: -25px;
     cursor: pointer;
 }
 .body_signup #hideIcon{
     width: 25px;
     position: absolute;
-    right: 300%;
+    right: 450%;
     bottom: -30px;
     cursor: pointer;
 }
@@ -1068,8 +1072,10 @@ button{
 #btnsignup{
     width: 240px;
     height: 65px;
-    background:  linear-gradient(0deg, rgba(128, 124, 124, 0.6), rgba(255, 255, 255, 0.6));
+    background:  linear-gradient(0deg, rgba(128, 124, 124, 0.6), rgba(221, 169, 169, 0.6));
     border-radius: 10px;
+    border: none;
+    margin-top: 15px;
     text-transform: uppercase;
     font-size: 20px;
     color: #fff;
@@ -1084,7 +1090,7 @@ button{
 }
 
 .footsignup p{
-    color: #ffffffc0;
+    color: var(--light-gray);
 }
 
 .account-container {
@@ -1137,7 +1143,7 @@ button{
 }
 .account-menu li {
     padding: 20px 0;
-    border-radius: 5px;
+
     transition: 0.25s ease;
     cursor: pointer;
 
@@ -1145,7 +1151,7 @@ button{
 }
   
 .account-menu li:hover {
-    background-color: rgba(141, 18, 18, 0.5);
+    background-color: var(--lightest-gray);
 }
   
 .account-menu h3 {
@@ -1258,7 +1264,7 @@ button{
 
 #change-password {
     padding: 20px 30px;
-    background-color: #fff;
+    background-color: transparent;
     position: absolute;
     top: 10px;
     height: 90%;
@@ -2091,7 +2097,7 @@ tbody tr td {
 
 .modal-cart.open .cart-container {
     visibility: visible;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
 .cart-container {
@@ -2104,7 +2110,7 @@ tbody tr td {
     display: flex;
     flex-direction: column;
     padding-top: 66px;
-    transform: translateX(100%);
+    transform: translateY(-100%);
     visibility: hidden;
     transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1), visibility 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
@@ -2113,16 +2119,18 @@ tbody tr td {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-     position: absolute;
+    padding: 0px 20px;
+    position: absolute;
     top: 0;
     left: 0;
+    right: 0;
     width: auto;
     background-color: var(--white);
 }
 
 .cart-header-title {
     font-weight: 600;
+    font-size: 20px;
 }
 
 .cart-header-title i {
@@ -2132,20 +2140,24 @@ tbody tr td {
 }
 
 .cart-close {
-    background-color: var(--white);
+    background-color: var(--lighter-gray);
     border: none;
     outline: none;
     color: var(--black);
-    border: 2px solid var(--black);
     padding: 10px;
     border-radius: 50%;
     height: 30px;
     width: 30px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
     cursor: pointer;
+}
+
+.cart-close:hover{
+    background-color: var(--light-gray);
 }
 
 .cart-body {
@@ -2154,6 +2166,9 @@ tbody tr td {
     overflow: auto;
     width: auto;
     height: 100%;
+}
+.cart-body::-webkit-scrollbar{
+    width: 6px;
 }
 #cart-list{
     height: 100%;
@@ -2203,7 +2218,7 @@ tbody tr td {
     width: 75%;
     overflow: auto;
     padding-right: 20px;
-    height: 70%;
+    height: 100%;
     border-right: 0.5px solid var(--light-gray);
     position: relative;
     overflow: hidden;
@@ -2321,7 +2336,7 @@ tbody tr td {
 
 .cart-footer {
     padding: 10px;
-    border-top: 1px solid var(--light-gray);
+
     right: 0;
     left: 0;
     bottom: 0;
@@ -2348,11 +2363,65 @@ tbody tr td {
     color: rgb(0, 0, 0);
 
 }
+.cart-ship{
+    text-align: start;
+    padding-left: 10px;
+}
+.shippingOption{
+    cursor: pointer;
+}
+.list-ship li{
+   align-items: center;
+   border: 0.01px solid var(--lighter-gray);
+   margin-bottom: 10px;
+   padding: 5px;
+}
+
+.change-address{
+    cursor: pointer;
+    border-bottom: 0.01px solid var(--light-gray);
+}
+.sectionProvince{
+    display: none;
+}
+.sectionProvince.active{
+    display: block;
+    animation:fadeIn 0.5s ease-in-out;
+    
+}
+#provinceSelect{
+    background-color: var(--lighter-gray);
+    height: 30px;
+    border-radius: 5px;
+    border: 0.5px solid var(--lighter-gray);
+    max-height: 50px;
+}
+#provinceSelect option{
+    height: 100px;
+}
+#provinceSelect::-webkit-scrollbar {
+    width: 6px;
+
+}
+#provinceSelect::-webkit-scrollbar-thumb {
+    background-color: var(--lighter-gray); /* Màu của "nút" thanh trượt */
+}
+#ship-to-province strong{
+    font-size: 15.5px;
+    font-weight: 700;
+}
+.detail-address{
+    border: 0.5px solid var(--light-gray);
+    height:40px;
+    border-radius: 5px;
+    width: 100%;
+}
 
 .cart-footer-payment {
     display: flex;
     column-gap: 10px;
-    margin-top: 15px;
+    margin: 15px 70px;
+    justify-content: space-between;
 }
 
 .cart-footer-payment button {
@@ -2361,18 +2430,24 @@ tbody tr td {
     font-size: 15px;
     padding: 10px;
     border-radius: 5px;
-    width: 50%;
+    width: 20%;
     cursor: pointer;
 }
 
-button.them-mon {
-    background-color: var(--white);
-    border: 2px solid;
+button.them-sp {
+    background-color: var(--lighter-gray);
+    border: 0.5px solid var(--light-gray);
+}
+button.them-sp:hover{
+    background-color: var(--light-gray);
 }
 
 button.thanh-toan {
-    background-color: var(--red);
+    background-color: var(--lighter-gray);
     color: var(--white);
+}
+button.thanh-toan:hover{
+    background-color: var(--light-gray);
 }
 
 button.thanh-toan.disabled {

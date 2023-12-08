@@ -2,7 +2,7 @@ function checkLogin() {
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if(currentUser == null || currentUser.userType == 0) {
         document.querySelector("body").innerHTML = `<div class="access-denied-section">
-            <img class="access-denied-img" src="./assets/cảnh báo.jpg" alt="">
+            <img class="access-denied-img" src="./assets/cảnh báo 1.jpg" alt="">
         </div>`
     } else {
         document.getElementById("name-acc").innerHTML = currentUser.fullname;
@@ -90,7 +90,9 @@ function getMoney() {
 
 // Doi sang dinh dang tien VND
 function vnd(price) {
+    if(price != null)
        return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    return "";
 }
 // Phân trang 
 let perPage = 10;
