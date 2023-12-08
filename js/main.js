@@ -2,7 +2,7 @@ const body = document.querySelector("body");
 
 
 function vnd(price) {
-  if(price!=null)
+  if(price != "")
   return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
   return "";
 }
@@ -600,32 +600,24 @@ function detailProduct(id){
     document.getElementById("nametype").textContent = product.category;
   
 
-    const curPrice = document.querySelectorAll(".newprice");
-    const olPrice = document.querySelectorAll(".price");
-    for (let i = 0; i < olPrice.length; i++) {
-    if(curPrice[i].textContent != ""){
 
-       olPrice[i].classList.add("active");
-
-      }
+    const curPrice = document.getElementById("newprice");
+    const olPrice = document.querySelector(".price");
+    console.log(product.newprice);
+    if(product.newprice != ""){
+       olPrice.classList.add("active");
+    }else{
+      olPrice.classList.remove("active");
     }
+
       //Cap nhat gia tien khi tang so luong san pham
-      let tgbtn = document.querySelectorAll('.is-form');
-      let qty = document.querySelector('.detail-container .input-qty');
-      let priceText = document.querySelector('.price');
-      tgbtn.forEach(element => {
-          element.addEventListener('click', () => {
-              let price = product.price * parseInt(qty.value);
-              priceText.innerHTML = vnd(price);
-          });
-      });
       // Them san pham vao gio hang
   let productbtn = document.querySelector('.div_cart');
   productbtn.addEventListener('click', (e) => {
       if (localStorage.getItem('currentUser')) {
           addCart(product.id);
       } else {
-          advertise({ title: 'Warning', message: 'Chưa đăng nhập tài khoản !', type: 'warning', duration: 3000 });
+          advertise({ title: 'Warning', message: 'Vui lòng đăng nhập để mua hàng !', type: 'warning', duration: 3000 });
       }
 
   })
@@ -725,7 +717,9 @@ btnImgSize.onclick= function(){
 // Them SP vao gio hang
 function addCart(index) {
   let currentuser = localStorage.getItem('currentUser') ? JSON.parse(localStorage.getItem('currentUser')) : [];
+  console.log(document.querySelector('#amount').value);
   let soluong = document.querySelector('.input-qty').value;
+
   let size= sizePrd;
   console.log(size);
   let productcart = {
@@ -954,7 +948,7 @@ function closeCart() {
   <table>
       <thead>
         <tr>
-          <td>Sản phẩm</td>>
+          <td>Sản phẩm</td>
           <td>Phân loại</td>
           <td>Size</td>
           <td>Giá</td>
@@ -1038,9 +1032,6 @@ function decreasingNumber(e,id) {
   if (qty.value > qty.min) {
       qty.value = parseInt(qty.value) - 1;
       currentUser.cart[vitri].soluong =  parseInt(currentUser.cart[vitri].soluong) - 1;
-      console.log(currentUser.cart[vitri].soluong,vitri);
-
-      
   } else {
       qty.value = qty.min;
   }
