@@ -15,35 +15,32 @@
     <title>HALO STORE</title>
 </head>
 <body >
-    <div id="message"></div>
     <div class="header" > 
         <div class="headbox">
            <!-- <div><picture></picture></div> -->
            
-           <div class="headleft">
-
-               <div><img src="./assets/image/logo.png" id="logo"></div>
-           </div>
-           <form class="headcenter" class="form-search">
-            <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
-             <input type="text" id="form-search-product" type="text" class="form-search-input inputsearch" placeholder="TÌm kiếm sản phẩm"  onclick="searchform()">
-             <span class="filter-btn"><i class="fa-light fa-filter-list"></i>Lọc</span>
-           </form>
-           <div class="headerright">
-               <div class="headerright-click ">
-                   <div id="AccountLogin">
-                      <button  id="btnAccount"  onclick="showForm()">Đăng nhập</button>
-                   </div>
-                   <div class="header-middle-right-menu">
-                      <ul class="header-middle-right">
-                      </ul>
+                <div class="headleft">
+                     <div><img src="./assets/logoStore.png" id="logo"></div>
+                </div>
+                <form class="headcenter" class="form-search">
+                     <span class="search-btn"><i class="fa-light fa-magnifying-glass"></i></span>
+                     <input type="text" id="form-search-product" type="text" class="form-search-input inputsearch" placeholder="TÌm kiếm sản phẩm"  onclick="searchform()">
+                     <span class="filter-btn"><i class="fa-light fa-filter-list"></i>Lọc</span>
+                </form>
+                <div class="headerright">
+                    <div class="headerright-click ">
+                       <div id="AccountLogin">
+                           <button  id="btnAccount"  onclick="showForm()">Đăng nhập</button>
+                        </div>
+                        <div class="header-middle-right-menu">
+                            <ul class="header-middle-right">
+                             </ul>
+                        </div>
                     </div>
-                 </div>
-                 <div class="headerright-click"><button onclick="openCart()"> <i class="fa-regular fa-cart-shopping"></i></button></div>
-           </div>
-           
-           </div>
-           <div class="lowmenu">
+                    <div class="headerright-click"><button onclick="openCart()"> <i class="fa-regular fa-cart-shopping"></i></button></div>
+                </div>
+        </div>
+        <div class="lowmenu">
                   <div class=""> <button type="button"><i class="fa-regular fa-house"></i><a href="">Trang chủ</a></button></div>
                    <div class=""> <button  onclick="showCategory('Áo sơ mi')">Áo sơ mi</button></div>
                    <div class=""> <button onclick="showCategory('Áo thun')">Áo thun</button></div>
@@ -53,8 +50,8 @@
                    <div class=""> <button onclick="showCategory('Sale')">Sale</button></div>
    
                <!-- </div> -->
-           </div>
-           <div class="advanced-search">
+        </div>
+        <div class="advanced-search">
             <div class="container">
                 <div class="advanced-search-category">
                     <span>Phân loại </span>
@@ -87,34 +84,14 @@
                 </div>
             </div>
         </div>
-           <div class="head-img">
-              <button class="slide-img"><img src="./assets/slide1.webp"  alt=""></button> 
-               <button class="slide-img"><img src="./assets/slide2.webp"  alt=""></button>
-           </div>
-           
-       </div>
-       <div >
-       <form id="menulist">
-           <button id="iconmenu" onclick="menulist()"></button>
-           <div><img src=".assets/image/logo1.jpg" id="logo1"> </div>
-           <div>
-               <div class="sreachform" >
-                   <input type="search" placeholder="TÌm kiếm"   class="inputsreach">
-                   <button id="sreachicon" class="sreachicon2" onclick="sreachform1()"></button>
-               </div>
-               <div><button class="menubuton" style="margin-top: 20px;">Áo sơ mi</button></div>
-               <div><button class="menubuton">Áo Thun</button></div>
-               <div><button class="menubuton">Áo Khoác</button></div>
-               <div><button class="menubuton">Áo Polo</button></div>
-               <div><button class="menubuton">Áo Phong</button></div>
 
-               <div style="border-bottom: 2px rgb(0, 0, 0) solid;"><button class="menubuton">Sale</button></div>
-               <div><button class="menubuton">Giỏ Hàng</button></div>
-               <div><button class="menubuton">Đăng nhập</button></div>
-               <div><button class="menubuton">Đăng ký</button></div>
-               <!-- <div><ul id="product-list">sss</ul></div> -->
-           </div>
-       </form>
+    </div>
+    <div class="head-img">
+        <button class="slide-img"><img src="./assets/slide1.webp"  alt=""></button> 
+         <button class="slide-img"><img src="./assets/slide2.webp"  alt=""></button>
+  </div>
+
+    <div>
        <div class="home-title-block" id="home-title">
             <h2 class="home-title">Khám phá sản phẩm của chúng tôi</h2>
         </div>
@@ -122,8 +99,8 @@
             <div class="home-products" id="home-products">
             </div>
             <div class="page-nav">
-              <ul class="page-nav-list">
-              </ul>
+                <ul class="page-nav-list">
+                </ul>
             </div>
          </div>
         
@@ -408,16 +385,16 @@
                       <div class="cart-ship">
                         <p>Giao hàng</p>
                         <div>
-                            <ul class="list-ship">
-                                <li>
-                                    <input type="radio" name="shippingOption" class="shippingOption">
-                                    <label for="" id="transport-fee">Phí vận chuyển:20000vnđ</label>
-                                </li>
-                                <li>
-                                    <input type="radio"name="shippingOption" class="shippingOption">
-                                    <label for="" id="speed-ship">Giao hàng hỏa tốc nội thành:30000vnđ</label>
-                                </li>
-                            </ul>
+                            <form class="list-ship" id="radioForm">
+                                <div>
+                                    <input type="radio" name="shippingOption" class="shippingOption" value="20000" checked>
+                                    <label for="" id="transport-fee"></label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="shippingOption" class="shippingOption" value="30000">
+                                    <label for="" id="speed-ship"></label>
+                                </div>
+                            </form>
                             <p id="ship-to-province">Vận chuyển đến <strong>Hồ Chí Minh</strong></p>
                             
                             <form action="" id="shippingForm">
@@ -435,14 +412,14 @@
                         </div>
                       </div>
                       <div class="total-price">
-                          <p>Tổng</p>
-                          <p></p>
+                          <p>Tổng:</p>
+                          <p id="total-bill">100000</p>
                       </div>
                     </div>
                 </div>
                <div class="cart-footer">
                    <div class="cart-footer-payment">
-                          <button class="them-sp"><i class="fa-sharp fa-regular fa-cart-plus"></i>Tiếp tục mua sắm</button>
+                          <button class="them-sp"><i class="fa-sharp fa-solid fa-arrow-left"></i></i>Tiếp tục mua sắm</button>
                           <button class="thanh-toan disabled">Thanh toán</button>
                     </div>
                 </div>

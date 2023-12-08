@@ -41,32 +41,8 @@ function menulist() {
     form.style.display = 'none'; // Ẩn form nếu nó đang hiển thị
   }
 }
-function closesmallsreach(){
-  var back = document.getElementsByClassName('smallsreachform');
-  back[0].style.display = 'none';
-}
 
-function sreachform(){
-  var widthscreen = document.documentElement.clientWidth;
-  if(widthscreen< 600 ){
-  var s = document.getElementsByClassName('smallsreachform');
-  s[0].style.display = 'flex';
-  var inputElement = document.getElementById('smallsreach');
-  setTimeout(function() {
-      inputElement.focus();
-  }, 50);     
-}}
 
-window.addEventListener("scroll", function() {
-  var menu = document.querySelector(".headbox");
-  var scrollPosition = window.scrollY;
-
-  if (scrollPosition > 0) {
-    menu.classList.add("scrolled");
-  } else {
-    menu.classList.remove("scrolled");
-  }
-});
 
 function createId(arr) {
   let id = arr.length+1;
@@ -405,18 +381,13 @@ function showOrder() {
 
 }
 
-
-
-
-  function showdetail(){
+function showdetail(){
     document.getElementById("div_detail").style.display="grid";
   }
 
-  function closedetail(){
+function closedetail(){
     document.getElementById("div_detail").style.display="none";
-
-
-  }
+}
 
 function  toggleAccountContainer(){
   document.querySelector(".account-container").classList.remove("active");
@@ -807,9 +778,12 @@ function showCart() {
          
          });
           document.getElementById("showProdCart").innerHTML = productcarthtml;
+          document.getElementById("transport-fee").innerHTML = `Phí vận chuyển: <Strong>${vnd(20000)}</Strong>`;
+          document.getElementById("speed-ship").innerHTML = `Giao hàng hỏa tốc nội thành: <Strong>${vnd(30000)}</Strong>`
           updateCartTotal();
           updateCart();
           saveAmountCart();
+          createProvinceList();
       } else {
           document.querySelector('.gio-hang-trong').style.display = 'flex';
           document.querySelector("#cart-list").innerHTML ="" ;
@@ -831,6 +805,18 @@ function showCart() {
       e.stopPropagation();
   })
 }
+let temp_price_ship = 20000;
+const radioForm = document.getElementById('radioForm');
+const radioInputs = radioForm.elements.shippingOption; // Lấy tất cả các input radio có name là 'options'
+
+radioForm.addEventListener('change', function(event) {
+  for (const radioInput of radioInputs) {
+    if (radioInput.checked) {
+      temp_price_ship = radioInput.value;
+      updateCartTotal();
+    }
+  }
+});
 
 // Delete cart item
 function deleteCartItem(id, el) {
@@ -856,6 +842,7 @@ function updateCartTotal() {
   if(currentUser != null)
   if(currentUser.cart != null){
     document.querySelector('.text-price').innerText = vnd(getCartTotal());
+    document.querySelector('#total-bill').innerText = vnd(getCartTotal()+ parseInt(temp_price_ship));
 }
 }
 
@@ -964,62 +951,64 @@ function openCart() {
 function closeCart() {
   document.querySelector('.modal-cart').classList.remove('open');
   document.querySelector("#cart-list").innerHTML =`<div class ="cart-left">
-   <table>
-       <thead>
+  <table>
+      <thead>
         <tr>
-          <td>Sản phẩm</td>
+          <td>Sản phẩm</td>>
           <td>Phân loại</td>
           <td>Size</td>
           <td>Giá</td>
           <td>Số lượng</td>
-          <td class="text-tt">Tạm tính</td>
+          <td>Tạm tính</td>
           <td>Tùy chọn</td>
-        </tr>
+         </tr>
       </thead>
       <tbody id="showProdCart">
       </tbody>
-   </table>
-   </div>
-   <div class="cart-right">
-   <div class="cart-total-price">
-      <p class="text-tt">Tạm tính:</p>
-      <p class="text-price">0đ</p>
-   </div>
-   <div class="cart-ship">
-     <p>Giao hàng</p>
-     <div>
-         <ul class="list-ship">
-             <li>
-                 <input type="radio" name="shippingOption">
-                 <label for="" id="transport-fee">Phí vận chuyển:20000vnđ</label>
-             </li>
-             <li>
-                 <input type="radio" name="shippingOption">
-                 <label for="" id="speed-ship">Giao hàng hỏa tốc nội thành:30000vnđ</label>
-             </li>
-         </ul>
-         <p id="ship-to-province">Vận chuyển đến <strong>Hồ Chí Minh</strong></p>
-         
-         <form action="" id="shippingForm">
-             <a href="#" class="change-address">Đổi địa chỉ</a>
-             <section>
-                 <p>
-                     <select name="" id="provinceSelect" onchange="selectProv()">
-                         <option value="selected">Chọn tỉnh/thành phố</option>
-                     </select>
-                     <p>Địa chỉ chi tiết</p>
-                     <input type="text">
-                 </p>
-             </section>
-         </form>
-     </div>
-   </div>
-   <div class="total-price">
-       <p>Tổng</p>
-       <p></p>
-   </div>
- </div>` ;
+
+  </table>
+</div>
+<div class="cart-right">
+<div class="cart-total-price">
+   <p class="text-tt">Tạm tính:</p>
+   <p class="text-price">0đ</p>
+</div>
+<div class="cart-ship">
+  <p>Giao hàng</p>
+  <div>
+      <form class="list-ship" id="radioForm">
+          <div>
+              <input type="radio" name="shippingOption" class="shippingOption" value="transport-fee" checked>
+              <label for="" id="transport-fee">Phí vận chuyển: <strong>${vnd(20000)}</strong></label>
+          </div>
+          <div>
+              <input type="radio" name="shippingOption" class="shippingOption" value="speed-ship">
+              <label for="" id="speed-ship">Giao hàng hỏa tốc nội thành: <strong>${vnd(30000)}</strong></label>
+          </div>
+      </form>
+      <p id="ship-to-province">Vận chuyển đến <strong>Hồ Chí Minh</strong></p>
+      
+      <form action="" id="shippingForm">
+          <span class="change-address" onclick="showSectionProv()">Đổi địa chỉ</span>
+          <section class="sectionProvince">
+              <p>
+                  <select name="" id="provinceSelect" onchange="selectProv()" >
+                      <option value="selected" >Chọn tỉnh/thành phố</option>
+                  </select>
+                  <p>Địa chỉ chi tiết</p>
+                  <input type="text" class="detail-address">
+              </p>
+          </section>
+      </form>
+  </div>
+</div>
+<div class="total-price">
+    <p>Tổng:</p>
+    <p id="total-bill"></p>
+</div>
+</div>` ;
   body.style.overflow = "auto";
+  createProvinceList()
   updateAmount();
 }
 function increasingNumber(e,id) {
@@ -1062,7 +1051,7 @@ function decreasingNumber(e,id) {
 
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+  function createProvinceList() {
   let provinces = [
     'An Giang',
     'Bà Rịa - Vũng Tàu',
@@ -1137,20 +1126,23 @@ document.addEventListener('DOMContentLoaded', function() {
     optionElement.text = province;
     selectElement.appendChild(optionElement);
   });
-});
+}
 
 
 
-document.getElementById('shippingForm').addEventListener('change', function(event) {
-  const selectedOption = document.querySelector('input[name="shippingOption"]:checked');
 
-  if (selectedOption) {
-    alert('Bạn đã chọn: ' + selectedOption.nextElementSibling.textContent);
-  }
-});
+
+// document.getElementById('shippingForm').addEventListener('change', function(event) {
+//   const selectedOption = document.querySelector('input[name="shippingOption"]:checked');
+
+//   if (selectedOption) {
+//     alert('Bạn đã chọn: ' + selectedOption.nextElementSibling.textContent);
+//   }
+// });
 
  function showSectionProv(){
      document.querySelector(".sectionProvince").classList.toggle("active");
+     
 }
 
 function selectProv(){

@@ -12,19 +12,17 @@
 }
 
 body{
-    
     background-color: var(--lighter-gray);
-    margin: -5px;
-
+    margin: 0px;
     overflow-x: hidden;
 
 }
 body::-webkit-scrollbar {
     width: 5px;
-    /* height:50px; */
+    color: var(--lightest-gray);
 }
 body::-webkit-scrollbar-track {
-    background-color: #fafafa;
+    background-color: #2a2424;
 }
 ul,
 li {
@@ -69,8 +67,9 @@ a{
 .head-img {
     display: flex;
     width: 70%;
-    margin: 60px auto;
+    margin: 110px auto;
     margin-bottom: 0;
+    position: relative;
 
 
 }
@@ -102,31 +101,21 @@ a{
     flex-grow: 1;
     padding: 7px 0;
     transition: background-color 0.5s, color 0.5s;
-    background-color: rgb(255, 255, 255);
+    background-color:rgb(255, 255, 255);
      color: black;
      align-items: center;
      position: fixed;
      display: flex;
 }
-.headbox.scrolled{
-    background-color: rgb(221, 221, 221);
-     color: black;
-     width: 100%;
-     height: 45px;
-     z-index: 15;
-     flex-grow: 1;
-     padding: 7px 0;
-     align-items: center;
-     position: fixed;
-     display: flex;
-}
+
 
 
 #logo{
     width: 180px;
-    height: 40px;
-    border:rgb(221, 221, 221) solid 0px;
+    height: 60px;
+    border: 0px;
     border-radius: 5px;
+    margin: 0;
 }
 #logo1{
     width: 180px;
@@ -137,28 +126,9 @@ a{
 }
 
 
-#menulist{                        /* menu form  */
-    position:fixed;
-    display:none;
-    background-color: rgb(202, 202, 202);
-    top: 0px;
-    width: 250px;
-    height: 100%;
-    z-index: 20;
-}
-#menulist .sreachform{
-    margin-top: 10px;
-    width: 240px;
-}
-.menubuton{
-    background-color: transparent;
-    border: 0px;
-    padding: 5px;
-    margin-left: 20px;
-    margin-bottom: 5px;
-    width: 90%;
-    text-align: left;
-}
+
+
+
 
 
 .pagination{
@@ -285,7 +255,6 @@ a{
     border-top:0.5px solid var(--light-gray) ;
     background-color:var(--light-gray);
     top: 49px;
-
     position: fixed;
     display: flex;
     justify-content: center;
@@ -296,7 +265,7 @@ a{
 }
 .lowmenu button{
     border: 0px;
-    padding: 15px;
+    padding: 21px 17px 17px 17px;
     margin-right: 35px;
     background-color: transparent;
     border-bottom: 4px solid transparent;
@@ -361,24 +330,24 @@ a{
 .advanced-search{
     background-color: var(--light-gray);
     position: fixed;
-    z-index: 11;
+    z-index: 14;
     left: 0;
     right: 0;
-    transform: translateY(-55px);
+    transform: translateY(-98px);
     transition: transform 0.6s ease;
 }
 
 .advanced-search.open{
-    transform: translateY(5px);
-    box-shadow: 0 3px 5px 0 rgb(0 0 0 / 10%);
+    transform: translateY(-49px);
 }
 
 .advanced-search .container{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2px;
+    margin: -0px;
     right: 50%;
+    top: 0;
 }
 
 .advanced-search-price{
@@ -2370,11 +2339,16 @@ tbody tr td {
 .shippingOption{
     cursor: pointer;
 }
-.list-ship li{
+.list-ship div{
    align-items: center;
    border: 0.01px solid var(--lighter-gray);
    margin-bottom: 10px;
-   padding: 5px;
+   padding: 10px;
+}
+.list-ship div input[type="radio"]:checked{
+    color: var(--medium-gray);
+    background-color: var(--medium-gray);
+    border: 0.5px solid var(--medium-gray);
 }
 
 .change-address{
@@ -2415,6 +2389,18 @@ tbody tr td {
     height:40px;
     border-radius: 5px;
     width: 100%;
+}
+.total-price{
+    justify-content: space-between;
+    display: flex;
+    font-weight: 700;
+    font-size: 20px;
+    border-top: 0.5px solid var(--light-gray);
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.total-price p:first-child{
+    padding-right: 20px;
 }
 
 .cart-footer-payment {
