@@ -612,15 +612,18 @@ function detailProduct(id){
 
       //Cap nhat gia tien khi tang so luong san pham
       // Them san pham vao gio hang
-  let productbtn = document.querySelector('.div_cart');
-  productbtn.addEventListener('click', (e) => {
+  let productbtn = document.getElementById("btnAddCart");
+  console.log(productbtn);
+  productbtn.onclick = function(e) {
+    e.stopPropagation();
       if (localStorage.getItem('currentUser')) {
           addCart(product.id);
       } else {
+        console.log(productbtn);
           advertise({ title: 'Warning', message: 'Vui lòng đăng nhập để mua hàng !', type: 'warning', duration: 3000 });
       }
 
-  })
+  }
 }
 
 
