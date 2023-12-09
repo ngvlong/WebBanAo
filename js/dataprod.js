@@ -1021,10 +1021,9 @@ function createOrder() {
         orders = [];
         orders.push(
         {
-            id: 'MĐ01',
+            id: 'MĐ1',
             khachhang: 'ngkhngan@gmail.com',
             hinhthucgiao: 'Giao hàng hàng Nhanh',
-            thoigiangiao: '',
             ghichu: "Giao hàng nhanh",
             tennguoinhan: 'Ngân',
             sdtnhan: '0986409233',
@@ -1034,10 +1033,9 @@ function createOrder() {
             trangthai: 0
         },
         {
-            id: 'MĐ02',
+            id: 'MĐ2',
             khachhang: 'ngmkhoi@gmail.com',
             hinhthucgiao: 'Giao hàng tiết kiệm',
-            thoigiangiao: '',
             ghichu: "Đóng gói cẩn thận",
             tennguoinhan: 'Khôi',
             sdtnhan: '0934583532',
@@ -1047,10 +1045,9 @@ function createOrder() {
             trangthai: 0
         },
         {
-            id: 'MĐ03',
+            id: 'MĐ3',
             khachhang: 'hoanglinhdan@gmail.com',
             hinhthucgiao: 'Giao hàng tiết kiệm',
-            thoigiangiao: '',
             ghichu: "",
             tennguoinhan: 'Linh Đan',
             sdtnhan: '0934835328',
@@ -1070,7 +1067,7 @@ function createDetailOrder() {
         detailOrders.push(
         {
             id : 61,
-            madon :'MĐ01',
+            madon :'MĐ1',
             price : 500000,
             size: 'M',
             quantity :1,
@@ -1081,7 +1078,7 @@ function createDetailOrder() {
         },
         {
             id : 25,
-            madon :'MĐ01',
+            madon :'MĐ1',
             price : 699000,
             size:'L',
             quantity :2,
@@ -1092,7 +1089,7 @@ function createDetailOrder() {
         },
         {
             id : 14,
-            madon :'MĐ02',
+            madon :'MĐ2',
             price : 250000,
             size:'L',
             quantity :1,
@@ -1103,7 +1100,7 @@ function createDetailOrder() {
         },
         {
             id : 3,
-            madon :'MĐ03',
+            madon :'MĐ3',
             price : 320000,
             size:'L',
             quantity :2,
@@ -1114,7 +1111,7 @@ function createDetailOrder() {
         },
         {
             id : 61,
-            madon :'MĐ03',
+            madon :'MĐ3',
             price : 500000,
             size: 'XL',
             quantity :2,

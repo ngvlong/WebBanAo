@@ -2,8 +2,8 @@ const body = document.querySelector("body");
 
 
 function vnd(price) {
-  if(price != "")
-  return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  if(price != "" && price != "0")
+   return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
   return "";
 }
 let slideIndex = 0;
@@ -383,7 +383,109 @@ function showOrder() {
 
 function showdetail(){
     document.getElementById("div_detail").style.display="grid";
-  }
+}
+
+function detailOrder(id) {
+  document.querySelector(".detail-order").classList.add("open");
+  let orders = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
+  let products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : [];
+  // Lấy hóa đơn 
+  let order = orders.find((item) => item.id == id);
+  // Lấy chi tiết hóa đơn
+  let ctDon = getOrderDetails(id);
+ 
+  let spHtml = `<div class="modal-detail-left"><div class="order-item-group">`;
+
+  let textDetailBtn = order.trangthai == 0 ? "Chưa xử lý" : "Đã xử lý";
+  ctDon.forEach((item) => {
+      let detaiSP = products.find(product => product.id == item.id);
+
+      spHtml += `<div class="order-product">
+          <div class="order-product-left">
+              <img src="${detaiSP.img}" alt="">
+              <div class="order-product-info">
+                  <h4>${detaiSP.title}</h4>
+                  <p class="order-product-category">${item.category}</p>
+                  <p class="order-product-size">Size: ${item.size}<p>
+                  <p class="order-product-quantity">SL: ${item.quantity}<p>
+              </div>
+          </div>
+          <div class="order-product-right">
+              <div class="order-product-price">
+                  <span class="order-product-current-price">${vnd(item.price)}</span>
+              </div> 
+
+              
+          </div>
+      </div>`;
+  });
+  
+  spHtml += `</div>             
+               <div class="modal-detail-bottom-left">
+               <div class="price-ship">
+                      <span class="">Phí ship:</span>
+                      <span class="">${vnd(300000)}</span>
+                 </div>
+                <div class="price-total">
+                      <span class="thanhtien">Thành tiền:</span>
+                      <span class="price">${vnd(order.tongtien)}</span>
+                   </div>
+                </div>
+              </div>`;
+  spHtml += `<div class="modal-detail-right">
+      <h4 class="detail-order-info-cust">Thông tin khách hàng</h4>
+      <ul class="detail-order-group">
+          <li class="detail-order-item">
+              <span class="detail-order-item-left"><i class="fa-thin fa-person"></i> Người nhận</span>
+             <span class="detail-order-item-right">${order.tennguoinhan}</span>
+          </li>
+
+          <li class="detail-order-item">
+              <span class="detail-order-item-left"><i class="fa-light fa-phone"></i> Số điện thoại</span>
+              <span class="detail-order-item-right">${order.sdtnhan}</span>
+          </li>
+          <li class="detail-order-item">
+              <span class="detail-order-item-left"><i class="fa-light fa-calendar-days"></i> Ngày đặt hàng</span>
+              <span class="detail-order-item-right">${formatDate(order.thoigiandat)}</span>
+          </li>
+          <li class="detail-order-item">
+              <span class="detail-order-item-left"><i class="fa-light fa-truck"></i> Hình thức giao</span>
+              <span class="detail-order-item-right">${order.hinhthucgiao}</span>
+          </li>
+
+
+          <li class="detail-order-item tb">
+              <span class="detail-order-item-t"><i class="fa-light fa-location-dot"></i> Địa chỉ nhận</span>
+              <p class="detail-order-item-b">${order.diachinhan}</p>
+          </li>
+          <li class="detail-order-item tb">
+              <span class="detail-order-item-t"><i class="fa-light fa-note-sticky"></i> Ghi chú</span>
+              <p class="detail-order-item-b">${order.ghichu}</p>
+          </li>
+          <li class="detail-order-item">
+              <span class="detail-order-item-left"><i class="fa-light fa-truck"></i>Trạng thái đơn hàng</span>
+              <span class="detail-order-item-right">${textDetailBtn}</span>
+          </li>
+      </ul>
+  </div>`;
+  document.querySelector(".modal-detail-order").innerHTML = spHtml;
+
+
+}
+
+function getOrderDetails(madon) {
+  let orderDetails = localStorage.getItem("orderDetails") ?
+      JSON.parse(localStorage.getItem("orderDetails")) : [];
+  let ctDon = [];
+  orderDetails.forEach((item) => {
+      if (item.madon == madon) {
+          ctDon.push(item);
+         
+      }
+  });
+  return ctDon;
+  
+}
 
 function closedetail(){
     document.getElementById("div_detail").style.display="none";
@@ -459,9 +561,6 @@ function sliderPrice() {
 
       }
     });
-    
-    // $("#min-price").val($("#price-range").slider("values", 0));
-    // $("#max-price").val($("#price-range").slider("values", 1));
 }
 sliderPrice();
 
@@ -600,10 +699,8 @@ function detailProduct(id){
     document.getElementById("nametype").textContent = product.category;
   
 
-
     const curPrice = document.getElementById("newprice");
     const olPrice = document.querySelector(".price");
-    console.log(product.newprice);
     if(product.newprice != ""){
        olPrice.classList.add("active");
     }else{
@@ -613,7 +710,6 @@ function detailProduct(id){
       //Cap nhat gia tien khi tang so luong san pham
       // Them san pham vao gio hang
   let productbtn = document.getElementById("btnAddCart");
-  console.log(productbtn);
   productbtn.onclick = function(e) {
     e.stopPropagation();
       if (localStorage.getItem('currentUser')) {
@@ -625,7 +721,6 @@ function detailProduct(id){
 
   }
 }
-
 
 const btnsize = document.querySelectorAll(".list-btn-size.row-size");
 const vlbtnsize = document.querySelectorAll(".btn-size");
@@ -724,18 +819,17 @@ function addCart(index) {
   let soluong = document.querySelector('.input-qty').value;
 
   let size= sizePrd;
-  console.log(size);
   let productcart = {
       id: index,
-      sizeAo: size,
-      soluong: parseInt(soluong),
+      size: size,
+      quantity: parseInt(soluong),
 
   }
-  let vitri = currentuser.cart.findIndex(item => item.id == productcart.id && item.sizeAo == size);
+  let vitri = currentuser.cart.findIndex(item => item.id == productcart.id && item.size == size);
   if (vitri == -1) {
       currentuser.cart.push(productcart);
   } else {
-      currentuser.cart[vitri].soluong = parseInt(currentuser.cart[vitri].soluong) + parseInt(productcart.soluong);
+      currentuser.cart[vitri].quantity = parseInt(currentuser.cart[vitri].quantity) + parseInt(productcart.quantity);
   }
   localStorage.setItem('currentUser', JSON.stringify(currentuser));
   updateAmount();
@@ -758,7 +852,7 @@ function showCart() {
               productcarthtml +=`<tr>
                   <td><div class="cart-img-title"><img class="cart-img-tbl" src="${product.img}" alt=""><p>${product.title}</p></div></td>
                   <td>${product.category}</td>
-                  <td>${item.sizeAo}</td>
+                  <td>${item.size}</td>
                   <td>
                      <span class="cart-item-price price" data-price="${product.price}">
                       ${vnd(parseInt(product.price))}
@@ -766,7 +860,7 @@ function showCart() {
                   </td>
                   <td>
                        <button class="minus is-form" type="button"  onclick="decreasingNumber(this,${item.id})">-</button>
-                       <input class="input-qty" max="100" min="1" name="" type="" value="${item.soluong}">
+                       <input class="input-qty" max="100" min="1" name="" type="" value="${item.quantity}">
                        <button class="plus is-form" type="button" onclick="increasingNumber(this,${item.id})">+</button>
                   </td>
                   <td class ="tongtt"></td>                               
@@ -775,7 +869,7 @@ function showCart() {
          
          });
           document.getElementById("showProdCart").innerHTML = productcarthtml;
-          document.getElementById("transport-fee").innerHTML = `Phí vận chuyển: <Strong>${vnd(20000)}</Strong>`;
+          document.getElementById("transport-fee").innerHTML = `Giao hàng tiết kiệm: <Strong>${vnd(20000)}</Strong>`;
           document.getElementById("speed-ship").innerHTML = `Giao hàng hỏa tốc nội thành: <Strong>${vnd(30000)}</Strong>`
           updateCartTotal();
           updateCart();
@@ -802,7 +896,7 @@ function showCart() {
       e.stopPropagation();
   })
 }
-let temp_price_ship = 20000;
+let temp_price_ship = 30000;
 const radioForm = document.getElementById('radioForm');
 const radioInputs = radioForm.elements.shippingOption; // Lấy tất cả các input radio có name là 'options'
 
@@ -855,9 +949,7 @@ function updateCart(){
 }
 }
 }
-       
 }
-
 // Lay tong tien don hang
 function getCartTotal() {
   let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -865,7 +957,7 @@ function getCartTotal() {
   if (currentUser != null) {
       currentUser.cart.forEach(item => {
           let product = getProduct(item);
-          tongtien += (parseInt(product.soluong) * parseInt(product.price));
+          tongtien += (parseInt(product.quantity) * parseInt(product.price));
       });
   }
   return tongtien;
@@ -876,11 +968,10 @@ function getCartProd(id){
   let tongtien = 0;
   if (currentUser != null) {
           let product = getProduct(curUser);
-          tongtien = (parseInt(product.soluong) * parseInt(product.price));
+          tongtien = (parseInt(product.quantity) * parseInt(product.price));
   }
   return tongtien;
 }
-
 // kết hợp localStorage và item
 function getProduct(item) {
   let products = JSON.parse(localStorage.getItem('products'));
@@ -905,7 +996,7 @@ function getAmountCart() {
   let currentuser = JSON.parse(localStorage.getItem('currentUser'))
   let amount = 0;
   currentuser.cart.forEach(element => {
-      amount += parseInt(element.soluong);
+      amount += parseInt(element.quantity);
   });
   return amount;
 }
@@ -929,7 +1020,7 @@ function saveAmountCart() {
           let productId = currentUser.cart.find(item => {
               return item.id == id;
           });
-          productId.soluong = parseInt(listProduct[parseInt(index / 2)].querySelector(".input-qty").value);
+          productId.quantity = parseInt(listProduct[parseInt(index / 2)].querySelector(".input-qty").value);
           localStorage.setItem('currentUser', JSON.stringify(currentUser));
           updateCartTotal();
           updateCart();
@@ -962,7 +1053,6 @@ function closeCart() {
       </thead>
       <tbody id="showProdCart">
       </tbody>
-
   </table>
 </div>
 <div class="cart-right">
@@ -975,11 +1065,11 @@ function closeCart() {
   <div>
       <form class="list-ship" id="radioForm">
           <div>
-              <input type="radio" name="shippingOption" class="shippingOption" value="transport-fee" checked>
-              <label for="" id="transport-fee">Phí vận chuyển: <strong>${vnd(20000)}</strong></label>
+              <input type="radio" name="shippingOption" class="shippingOption" value="transport-fee" >
+              <label for="" id="transport-fee">Giao hàng tiết kiệm <strong>${vnd(20000)}</strong></label>
           </div>
           <div>
-              <input type="radio" name="shippingOption" class="shippingOption" value="speed-ship">
+              <input type="radio" name="shippingOption" class="shippingOption" value="speed-ship" checked>
               <label for="" id="speed-ship">Giao hàng hỏa tốc nội thành: <strong>${vnd(30000)}</strong></label>
           </div>
       </form>
@@ -989,7 +1079,7 @@ function closeCart() {
           <span class="change-address" onclick="showSectionProv()">Đổi địa chỉ</span>
           <section class="sectionProvince">
               <p>
-                  <select name="" id="provinceSelect" onchange="selectProv()" >
+                  <select name="" id="provinceSelect" class="formProvinces" onchange="selectProv()">
                       <option value="selected" >Chọn tỉnh/thành phố</option>
                   </select>
                   <p>Địa chỉ chi tiết</p>
@@ -1015,8 +1105,8 @@ function increasingNumber(e,id) {
   let qty = e.parentNode.querySelector('.input-qty');
   if (parseInt(qty.value) < qty.max) {
       qty.value = parseInt(qty.value) + 1;
-      console.log(currentUser.cart[vitri].soluong,vitri);
-      currentUser.cart[vitri].soluong =  parseInt(currentUser.cart[vitri].soluong) + 1;
+      console.log(currentUser.cart[vitri].quantity,vitri);
+      currentUser.cart[vitri].quantity =  parseInt(currentUser.cart[vitri].quantity) + 1;
 
   } else {
       qty.value = qty.max;
@@ -1034,7 +1124,7 @@ function decreasingNumber(e,id) {
   let qty = e.parentNode.querySelector('.input-qty');
   if (qty.value > qty.min) {
       qty.value = parseInt(qty.value) - 1;
-      currentUser.cart[vitri].soluong =  parseInt(currentUser.cart[vitri].soluong) - 1;
+      currentUser.cart[vitri].quantity =  parseInt(currentUser.cart[vitri].quantity) - 1;
   } else {
       qty.value = qty.min;
   }
@@ -1112,38 +1202,238 @@ function decreasingNumber(e,id) {
     'Yên Bái'
   ];
 
-  const selectElement = document.getElementById('provinceSelect');
+  var provinceSelect = document.querySelector('#provinceSelect');
+  var selectProvinceBill = document.querySelector('#selectProvinceBill');
 
   provinces.forEach(function(province) {
     const optionElement = document.createElement('option');
     optionElement.value = province;
     optionElement.text = province;
-    selectElement.appendChild(optionElement);
+
+    provinceSelect.appendChild(optionElement);
+    //tạo một bản sao vì khi thêm vào provincSelect nó sẽ di chuyển không tồn tại trong selectProvinceBill
+    const tempOptionElement = optionElement.cloneNode(true);
+    selectProvinceBill.appendChild(tempOptionElement);
   });
 }
 
-
-
-
-
-// document.getElementById('shippingForm').addEventListener('change', function(event) {
-//   const selectedOption = document.querySelector('input[name="shippingOption"]:checked');
-
-//   if (selectedOption) {
-//     alert('Bạn đã chọn: ' + selectedOption.nextElementSibling.textContent);
-//   }
-// });
 
  function showSectionProv(){
      document.querySelector(".sectionProvince").classList.toggle("active");
      
 }
 
+let tempProvinceSelect= "Hồ Chí Minh";
 function selectProv(){
   let province= document.getElementById('provinceSelect').value;
-  console.log(province);
+  tempProvinceSelect = province;
   document.getElementById("ship-to-province").innerHTML=`Vận chuyển đến <strong >${province}</strong>`
 }
+
+let temp_price_bill = temp_price_ship;
+let nutthanhtoan = document.querySelector('.thanh-toan')
+let checkoutpage = document.querySelector('.checkout-page');
+nutthanhtoan.addEventListener('click', () => {
+    checkoutpage.classList.add('active');
+    thanhtoanpage(1);
+    closeCart();
+    body.style.overflow = "hidden"
+})
+function updateBillTotal() {
+    document.querySelector("#checkout-cart-price-final").innerHTML = vnd(getCartTotal()+ parseInt(temp_price_bill));
+}
+let priceFinal = document.getElementById("checkout-cart-price-final");
+// Trang thanh toan
+function thanhtoanpage(option,product) {
+    // Xu ly don hang
+    switch (option) {
+        case 1: // Truong hop thanh toan san pham trong gio
+            // Hien thi don hang
+            showProductCart();
+            document.getElementById("selectProvinceBill").value = tempProvinceSelect;
+            // Tinh tien
+            document.querySelector("#checkout-cart-total").innerHTML = `${vnd(getCartTotal())}`;
+            // Tong tien
+           updateBillTotal();
+
+            break;
+        case 2: // Truong hop mua ngay
+            // Hien thi san pham
+            showProductBuyNow(product);
+            // Tinh tien
+            document.querySelector("#checkout-cart-total").innerHTML = `${vnd(product.quantity * product.price)}`;
+            // Tong tien
+            priceFinal.innerText = vnd((product.quantity * product.price)+parseInt(temp_price_bill));
+            break;
+    }
+
+    // Tinh tien
+    document.getElementById("transport-fee-bill").innerHTML = `Phí vận chuyển: <Strong>${vnd(20000)}</Strong>`;
+    document.getElementById("speed-ship-bill").innerHTML = `Giao hàng hỏa tốc nội thành: <Strong>${vnd(30000)}</Strong>`
+
+
+
+    // Su kien khu nhan nut dat hang
+    document.querySelector(".complete-checkout-btn").onclick = () => {
+        switch (option) {
+            case 1:
+                xulyDathang();
+                break;
+            case 2:
+                xulyDathang(product);
+                break;
+        }
+    }
+}
+
+const radioFormShip = document.getElementById('radioFormShip');
+const radioValue = radioFormShip.elements.shippingOps; // Lấy tất cả các input radio có name là 'options'
+
+radioFormShip.addEventListener('change', function(event) {
+  for (const radioInput of radioValue) {
+    if (radioInput.checked) {
+      temp_price_bill = radioInput.value;
+      updateBillTotal();
+    }
+  }
+});
+
+function showProductCart() {
+  let currentuser = JSON.parse(localStorage.getItem('currentUser'));
+  let listOrder = document.getElementById("list-order-checkout");
+  let listOrderHtml = '';
+  currentuser.cart.forEach(item => {
+      let product = getProduct(item);
+      listOrderHtml += `<div class="product-total">
+    <div class="product-total-left">
+      <div class=""><img class="check-out-img" src="${product.img}" alt=""></div>
+      <div class="info-prod">
+          <div class="name-prod">${product.title}</div>
+      </div>
+      <div class="sizeProduct">Size ${product.size}</div>
+      <div class="count">  x ${product.quantity}</div>
+    </div>
+    <div class="product-total-right">
+      <div class="priceProd">${vnd(product.price)}</div>
+    </div>
+  </div>`
+  })
+  listOrder.innerHTML = listOrderHtml;
+}
+
+// Hien thi hang mua ngay
+function showProductBuyNow(product) {
+  let listOrder = document.getElementById("list-order-checkout");
+  let listOrderHtml = `<div class="product-total">
+    <div class="product-total-left">
+      <div class=""><img class="check-out-img" src="${product.img}" alt=""></div>
+      <div class="info-prod">
+          <div class="name-prod">${product.title}</div>
+      </div>
+      <div class="sizeProduct">Size ${product.size}</div>
+      <div class="count">  x ${product.quantity}</div>
+    </div>
+    <div class="product-total-right">
+      <div class="priceProd">${vnd(product.price)}</div>
+    </div>
+  </div>`;
+  listOrder.innerHTML = listOrderHtml;
+}
+
+function dathangngay() {
+  let productInfo = document.getElementById("product-detail-content");
+  let datHangNgayBtn = productInfo.querySelector(".button-dathangngay");
+  datHangNgayBtn.onclick = () => {
+      if(localStorage.getItem('currentUser')) {
+          let productId = datHangNgayBtn.getAttribute("data-product");
+          let soluong = parseInt(productInfo.querySelector(".buttons_added .input-qty").value);
+          let notevalue = productInfo.querySelector("#popup-detail-note").value;
+          let ghichu = notevalue == "" ? "Không có ghi chú" : notevalue;
+          let products = JSON.parse(localStorage.getItem('products'));
+          let a = products.find(item => item.id == productId);
+          a.quantity = parseInt(quantity);
+          a.note = ghichu;
+          checkoutpage.classList.add('active');
+          thanhtoanpage(2,a);
+          closeCart();
+          body.style.overflow = "hidden"
+      } else {
+          advertise({ title: 'Warning', message: 'Chưa đăng nhập tài khoản !', type: 'warning', duration: 3000 });
+      }
+  }
+}
+
+// Close Page Checkout
+function closecheckout() {
+  checkoutpage.classList.remove('active');
+  body.style.overflow = "auto"
+}
+
+// Thong tin cac don hang da mua - Xu ly khi nhan nut dat hang
+function xulyDathang(product) {
+  let diachinhan = document.querySelector("#diachinhan").value +", "+document.querySelector("#selectProvinceBill").value;
+
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  let orderDetails = localStorage.getItem("orderDetails") ? JSON.parse(localStorage.getItem("orderDetails")) : [];
+  let order = localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order")) : [];
+  let madon = "MĐ"+createId(order);
+  let tongtien = 0;
+  if(product == undefined) {
+      currentUser.cart.forEach(item => {
+          item.madon = madon;
+          item.price = getpriceProduct(item.id);
+          tongtien += item.price * item.quantity;
+          orderDetails.push(item);
+      });
+  } else {
+      product.madon = madon;
+      product.price = getpriceProduct(product.id);
+      tongtien += product.price * product.quantity;
+      orderDetails.push(product);
+  }   
+  
+  let tennguoinhan = document.querySelector("#tennguoinhan").value;
+  let sdtnhan = document.querySelector("#sdtnhan").value
+
+  if(tennguoinhan == "" || sdtnhan == "" || diachinhan == "") {
+      advertise({ title: 'Chú ý', message: 'Vui lòng nhập đầy đủ thông tin !', type: 'warning', duration: 4000 });
+  } else {
+      let donhang = {
+          id: madon,
+          khachhang: currentUser.email,
+          hinhthucgiao: "hello",
+          ghichu: document.querySelector(".note-order").value,
+          tennguoinhan: tennguoinhan,
+          sdtnhan: sdtnhan,
+          diachinhan: diachinhan,
+          thoigiandat: new Date(),
+          tongtien:tongtien,
+          trangthai: 0
+      }
+  
+      order.unshift(donhang);///them một phan tu tạo do dai moi
+      if(product == null) {
+          currentUser.cart.length = 0;
+      }
+  
+      localStorage.setItem("order",JSON.stringify(order));
+      localStorage.setItem("currentUser",JSON.stringify(currentUser));
+      localStorage.setItem("orderDetails",JSON.stringify(orderDetails));
+      advertise({ title: 'Thành công', message: 'Đặt hàng thành công !', type: 'success', duration: 1000 });
+      closecheckout() 
+      document.getElementById("head-img").scrollIntoView();
+  }
+}
+
+function getpriceProduct(id) {
+  let products = JSON.parse(localStorage.getItem('products'));
+  let sp = products.find(item => {
+      return item.id == id;
+  })
+  return sp.price;
+}
+
+
 function advertise({
   title = 'Success',
   message = 'Tạo tài khoản thành công',

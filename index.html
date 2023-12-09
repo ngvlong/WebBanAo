@@ -16,7 +16,7 @@
 </head>
 <body >
     <div class="header" > 
-        <div class="headbox">
+        <div class="headbox" id="headbox">
            <!-- <div><picture></picture></div> -->
            
                 <div class="headleft">
@@ -86,7 +86,7 @@
         </div>
 
     </div>
-    <div class="head-img">
+    <div class="head-img" id="head-img">
         <button class="slide-img"><img src="./assets/slide1.webp"  alt=""></button> 
          <button class="slide-img"><img src="./assets/slide2.webp"  alt=""></button>
      </div>
@@ -95,7 +95,7 @@
        <div class="home-title-block" id="home-title">
             <h2 class="home-title">Khám phá sản phẩm của chúng tôi</h2>
         </div>
-        <div class="container">     
+        <div class="container-products">     
             <div class="home-products" id="home-products">
             </div>
             <div class="page-nav">
@@ -346,7 +346,15 @@
         <div class="exit-account-container" onclick="toggleAccountContainer()">Thoát</div>
       </div>
     </div>
-
+    <div class="detail-order">
+        <div class="modal-container">
+            <h3 class="modal-container-title">CHI TIẾT ĐƠN HÀNG</h3>
+            <button class="modal-close"><i class="fa-regular fa-xmark"></i></button>
+            <div class="modal-detail-order">
+            </div>
+            </form>
+        </div>
+    </div>
     <div class="modal-cart">
         <div class="cart-container">
             <div class="cart-header">
@@ -386,11 +394,11 @@
                         <div>
                             <form class="list-ship" id="radioForm">
                                 <div>
-                                    <input type="radio" name="shippingOption" class="shippingOption" value="20000" checked>
+                                    <input type="radio" name="shippingOption" class="shippingOption" value="20000" >
                                     <label for="" id="transport-fee"></label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="shippingOption" class="shippingOption" value="30000">
+                                    <input type="radio" name="shippingOption" class="shippingOption" value="30000" checked>
                                     <label for="" id="speed-ship"></label>
                                 </div>
                             </form>
@@ -400,7 +408,7 @@
                                 <span class="change-address" onclick="showSectionProv()">Đổi địa chỉ</span>
                                 <section class="sectionProvince">
                                     <p>
-                                        <select name="" id="provinceSelect" onchange="selectProv()" >
+                                        <select name="" id="provinceSelect" class="formProvinces" onchange="selectProv()" >
                                             <option value="selected" >Chọn tỉnh/thành phố</option>
                                         </select>
                                         <p>Địa chỉ chi tiết</p>
@@ -425,7 +433,101 @@
             </div>
         </div>
     </div>
-           
+    <div class="checkout-page">
+        <div class="checkout-header">
+            <div class="checkout-return">
+                <button onclick="closecheckout()"><i class="fa-regular fa-chevron-left"></i></button>
+            </div>
+            <h2 class="checkout-title">Thanh toán</h2>
+        </div>
+        <main class="checkout-section container">
+            <div class="checkout-col-left">
+                <div class="checkout-row">
+                    <div class="checkout-col-title">
+                        Thông tin người nhận
+                    </div>
+                    <div class="checkout-col-content">
+                        <div class="content-group">
+                            <form action="" class="info-nhan-hang">
+                                <div class="form-group">
+                                    <label for="">Họ và tên</label>
+                                    <input id="tennguoinhan" name="tennguoinhan" type="text"
+                                        placeholder="Tên người nhận" class="form-control">
+                                    <span class="form-message"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Số điện thoại</label>
+                                    <input id="sdtnhan" name="sdtnhan" type="text" placeholder="Số điện thoại nhận hàng"
+                                        class="form-control">
+                                    <span class="form-message"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Tỉnh/Thành Phố</label>
+                                    <select name="" id="selectProvinceBill" class="formProvinces">
+                                        <option value="">Chọn tỉnh/thành phố</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Địa chỉ chi tiết</label>
+                                    <input id="diachinhan" name="diachinhan" type="text" placeholder="Địa chỉ nhận hàng"
+                                        class="form-control chk-ship">
+                                    <span class="form-message"></span>
+                                </div>
+                                <div class="form-group">
+                                    <p class="checkout-content-label">Ghi chú đơn hàng</p>
+                                    <textarea type="text" class="note-order" placeholder="Nhập ghi chú"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+            <div class="checkout-col-right">
+                <div class="checkout-col-right-head">
+                    <p class="checkout-content-label">Đơn hàng</p>
+                    <p class="checkout-content-label">Tạm tính</p>
+                </div>
+                <div class="bill-total" id="list-order-checkout">
+                </div>
+                <div class="bill-payment">
+                    <div class="total-bill-order">
+                        <div class="priceFlx">
+                            <div class="text">
+                                 Tạm tính
+                            </div>
+                            <div class="price-detail">
+                                <span id="checkout-cart-total"></span>
+                            </div>
+                        </div>
+                        <div class="priceFlx chk-ship">
+                        <form class="list-ship" id="radioFormShip">
+                           <div>
+                              <input type="radio" name="shippingOps" class="shippingOps" value="20000" >
+                              <label for="" id="transport-fee-bill"></label>
+                          </div>
+                          <div>
+                              <input type="radio" name="shippingOps" class="shippingOps" value="30000" checked>
+                              <label for="" id="speed-ship-bill"></label>
+                          </div>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="policy-note">
+                        Bằng việc bấm vào nút “Đặt hàng”, tôi đồng ý với
+                        <a href="#" target="_blank">chính sách hoạt động</a>
+                        của chúng tôi.
+                    </div>
+                </div>
+                <div class="total-checkout">
+                    <div class="text">Tổng tiền</div>
+                    <div class="price-bill">
+                        <div class="price-final" id="checkout-cart-price-final">0</div>
+                    </div>
+                </div>
+                <button class="complete-checkout-btn">Đặt hàng</button>
+            </div>
+        </main>
+    </div>      
            
        
     <div class="footer">

@@ -4,6 +4,7 @@ function checkLogin() {
         document.querySelector("body").innerHTML = `<div class="access-denied-section">
             <img class="access-denied-img" src="./assets/cảnh báo 1.jpg" alt="">
         </div>`
+        alert("Bạn không phải admin!!!")
     } else {
         document.getElementById("name-acc").innerHTML = currentUser.fullname;
     }
@@ -1155,7 +1156,7 @@ function detailOrder(id) {
         <ul class="detail-order-group">
             <li class="detail-order-item">
                 <span class="detail-order-item-left"><i class="fa-thin fa-person"></i> Người nhận</span>
-               <span class="detail-order-item-right">${order.tenguoinhan}</span>
+               <span class="detail-order-item-right">${order.tennguoinhan}</span>
             </li>
 
             <li class="detail-order-item">
