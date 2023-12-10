@@ -1490,3 +1490,20 @@ function advertise({
   main.appendChild(advertise);
   }
 }
+
+$(document).ready(function() {
+  $('.footer-right span').click(function() {
+    var target = $(this).attr('data-target');
+    var isVisible = $('.footer-wrapper').is(':visible');
+
+    if (isVisible && !$(this).hasClass('active')) {
+      $('.footer-wrapper .about-us, .footer-wrapper .store-locations, .footer-wrapper .return-policy').hide();
+      $('.' + target).show();
+      $('.footer-right span').removeClass('active');
+      $(this).addClass('active');
+    } else {
+      $('.footer-wrapper, .' + target).toggle();
+      $(this).toggleClass('active');
+    }
+  });
+});

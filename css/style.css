@@ -1347,14 +1347,6 @@ button{
     padding: 10px;
 }
 
-.footer{
-    clear: both;
-    background-color: black;
-    height: 200px;
-}
-.footleft{
-    color: aliceblue;
-}
 .detail-order{
     background-color: rgba(0, 0, 0, 0.6);
     position: fixed;
@@ -3167,4 +3159,79 @@ button.thanh-toan.disabled {
 
 .header-middle-right-item.close{
     display: none;
+}
+
+.footer{
+    clear: both;
+    background-color: rgb(24, 26, 27);
+    height: 30px;
+    padding: 10px 15px;
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.footer div{
+    flex: 1;
+    justify-content: space-between;
+}
+
+.footer div:last-child{
+    text-align: end;
+}
+
+.footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+  
+.footer li, a{
+    margin-bottom: 10px;
+    display: inline;
+    padding-right: 20px;
+    color: #ffffff;
+    font-weight: bolder;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.footer-logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-logo img{
+    margin-left: 10%;
+    width: 70%;
+    height: 50px;
+}
+
+.footer-wrapper{
+    position: fixed;
+    top: 112px;
+    left: 0;
+    height: 79%;
+    width: 100%;
+    background: white;
+    overflow: auto;
+}
+
+
+.about-us, .store-locations, .return-policy{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0 15%;
+    width: 70%;
+    text-align: center;
+    display: none;
+}
+
+.return-policy{
+    text-align: left;
+    max-width: 50%;
+    padding-left: 10%;
 }
